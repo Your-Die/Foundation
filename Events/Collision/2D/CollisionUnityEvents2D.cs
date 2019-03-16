@@ -7,8 +7,8 @@ namespace Chinchillada.Utilities
     [RequireComponent(typeof(Collider2D))]
     public class CollisionUnityEvents2D : MonoBehaviour
     {
-        [SerializeField] private UnityEvent _collisionEntered;
-        [SerializeField] private UnityEvent _collisionExited;
+        [SerializeField] private UnityEvent _collisionEntered = new UnityEvent();
+        [SerializeField] private UnityEvent _collisionExited = new UnityEvent();
 
         public UnityEvent CollisionEntered => _collisionEntered;
         public UnityEvent CollisionExited => _collisionExited;

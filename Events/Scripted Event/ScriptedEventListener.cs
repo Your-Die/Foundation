@@ -1,24 +1,27 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class ScriptedEventListener : MonoBehaviour
+namespace Chinchillada.Utilities
 {
-    [SerializeField] private ScriptedEvent _event;
-
-    public UnityEvent Response;
-
-    private void OnEnable()
+    public class ScriptedEventListener : MonoBehaviour
     {
-        _event.Raised += OnEventRaised;
-    }
+        [SerializeField] private ScriptedEvent _event = null;
 
-    private void OnDisable()
-    {
-        _event.Raised -= OnEventRaised;
-    }
+        public UnityEvent Response;
 
-    public void OnEventRaised()
-    {
-        Response?.Invoke();
+        private void OnEnable()
+        {
+            _event.Raised += OnEventRaised;
+        }
+
+        private void OnDisable()
+        {
+            _event.Raised -= OnEventRaised;
+        }
+
+        public void OnEventRaised()
+        {
+            Response?.Invoke();
+        }
     }
 }

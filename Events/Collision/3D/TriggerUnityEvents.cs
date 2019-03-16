@@ -5,8 +5,8 @@ namespace Chinchillada.Utilities
 {
     public class TriggerUnityEvents : MonoBehaviour
     {
-        [SerializeField] private UnityEvent _triggerEntered;
-        [SerializeField] private UnityEvent _triggerExited;
+        [SerializeField] private UnityEvent _triggerEntered = new UnityEvent();
+        [SerializeField] private UnityEvent _triggerExited = new UnityEvent();
 
         public UnityEvent TriggerEntered => _triggerEntered;
         public UnityEvent TriggerExited => _triggerExited;
