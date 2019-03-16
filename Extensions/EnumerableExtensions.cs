@@ -106,5 +106,25 @@ namespace Chinchillada.Utilities
 
             return worstIndex;
         }
+
+        public static LinkedList<T> ToLinked<T>(this IEnumerable<T> enumerable)
+        {
+            var linkedList = new LinkedList<T>();
+            foreach (T element in enumerable)
+            {
+                linkedList.AddLast(element);
+            }
+
+            return linkedList;
+        }
+
+        public static IEnumerable<(TElement, TValue)> ToTuples<TElement, TValue>(this IDictionary<TElement, TValue> dictionary)
+        {
+            foreach (var key in dictionary.Keys)
+            {
+                var element = dictionary[key];
+                yield return (key, element);
+            }
+        }
     }
 }
