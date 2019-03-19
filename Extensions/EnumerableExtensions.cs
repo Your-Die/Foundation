@@ -126,5 +126,24 @@ namespace Chinchillada.Utilities
                 yield return (key, element);
             }
         }
+
+        public static (int, int) MinMax<T>(this IEnumerable<T> enumerable, Func<T, int> selector)
+        {
+            int min = int.MaxValue;
+            int max = int.MinValue;
+
+            foreach (T element in enumerable)
+            {
+                int value = selector(element);
+
+                if (value < min)
+                    min = value;
+
+                if (value > max)
+                    max = value;
+            }
+
+            return (min, max);
+        }
     }
 }
