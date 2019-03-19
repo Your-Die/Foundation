@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,7 +9,7 @@ namespace Chinchillada.Utilities
     /// Wrapper class for Queue which stays at a fixed capacity, and automatically dequeues values when the capacity is exceeded.
     /// </summary>
     /// <typeparam name="T">The type of the values in the queue.</typeparam>
-    public class FixedQueue<T>
+    public class FixedQueue<T> : IEnumerable<T>
     {
         /// <summary>
         /// The queue instance that this class wraps.
@@ -81,15 +82,6 @@ namespace Chinchillada.Utilities
         }
 
         /// <summary>
-        /// Converts the queue to a list.
-        /// </summary>
-        /// <returns></returns>
-        public List<T> ToList()
-        {
-            return _queue.ToList();
-        }
-
-        /// <summary>
         /// Clears the queue.
         /// </summary>
         public void Clear()
@@ -107,6 +99,16 @@ namespace Chinchillada.Utilities
                 T value = _queue.Dequeue();
                 ExcessDequeued?.Invoke(value);
             }
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return _queue.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
