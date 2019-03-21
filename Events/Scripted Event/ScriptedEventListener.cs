@@ -11,15 +11,15 @@ namespace Chinchillada.Utilities
 
         private void OnEnable()
         {
-            _event.Raised += OnEventRaised;
+            _event.Happened += OnEventHappened;
         }
 
         private void OnDisable()
         {
-            _event.Raised -= OnEventRaised;
+            _event.Happened -= OnEventHappened;
         }
 
-        public void OnEventRaised()
+        public void OnEventHappened()
         {
             Response?.Invoke();
         }
