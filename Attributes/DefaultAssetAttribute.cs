@@ -24,7 +24,7 @@ namespace Chinchillada.Utilities
 
         private object GetDefaultAsset(FieldInfo field)
         {
-            var guids = AssetDatabase.FindAssets(_searchFilter).ToArray();
+            var guids = AssetDatabase.FindAssets(_searchFilter);
             if (guids.IsEmpty())
                 return null;
 
