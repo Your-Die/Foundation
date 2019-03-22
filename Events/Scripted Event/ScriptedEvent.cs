@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace Chinchillada.Utilities
 {
-    [CreateAssetMenu(menuName = "Chinchillada/Scripted Event", fileName = "Event")]
+    [CreateAssetMenu(menuName = "Chinchillada/Event", fileName = "Event")]
     public class ScriptedEvent : ScriptableObject
     {
-        public event Action Raised;
+        public event Action Happened;
 
         public void Raise()
         {
-            Raised?.Invoke();
+            Happened?.Invoke();
         }
     }
 }
