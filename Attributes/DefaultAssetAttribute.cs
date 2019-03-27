@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
 namespace Chinchillada.Utilities
 {
     [AttributeUsage(AttributeTargets.Field)]
-    public class DefaultAssetAttribute : ChinchilladaAttribute
+    public class DefaultAssetAttribute : PropertyAttribute
     {
         private readonly string _searchFilter;
 
@@ -16,13 +15,7 @@ namespace Chinchillada.Utilities
             _searchFilter = searchFilter;
         }
 
-        public override void Apply(MonoBehaviour behaviour, FieldInfo field)
-        {
-            object asset = GetDefaultAsset(field);
-            field.SetValue(behaviour, asset);
-        }
-
-        private object GetDefaultAsset(FieldInfo field)
+        public object GetDefaultAsset(Type type)
         {
             var guids = AssetDatabase.FindAssets(_searchFilter);
             if (guids.IsEmpty())
@@ -30,8 +23,7 @@ namespace Chinchillada.Utilities
 
             string guid = guids.First();
             string path = AssetDatabase.GUIDToAssetPath(guid);
-            return AssetDatabase.LoadAssetAtPath(path, field.FieldType);
+            return AssetDatabase.LoadAssetAtPath(path, type);
         }
-
     }
 }
