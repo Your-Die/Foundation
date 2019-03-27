@@ -8,16 +8,17 @@ namespace Chinchillada.Utilities
     [AttributeUsage(AttributeTargets.Field)]
     public class DefaultAssetAttribute : PropertyAttribute
     {
-        private readonly string _searchFilter;
+        private readonly string _assetName;
 
-        public DefaultAssetAttribute(string searchFilter)
+        public DefaultAssetAttribute(string defaultAssetName)
         {
-            _searchFilter = searchFilter;
+            _assetName = defaultAssetName;
         }
 
         public object GetDefaultAsset(Type type)
         {
-            var guids = AssetDatabase.FindAssets(_searchFilter);
+            var searchFilter = $"{_assetName} t:{type.Name}";
+            var guids = AssetDatabase.FindAssets(searchFilter);
             if (guids.IsEmpty())
                 return null;
 
