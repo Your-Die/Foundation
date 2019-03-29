@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Chinchillada.Utilities
 {
@@ -17,6 +20,7 @@ namespace Chinchillada.Utilities
 
         public object GetDefaultAsset(Type type)
         {
+#if UNITY_EDITOR
             var searchFilter = $"{_assetName} t:{type.Name}";
             var guids = AssetDatabase.FindAssets(searchFilter);
             if (guids.IsEmpty())
@@ -25,6 +29,9 @@ namespace Chinchillada.Utilities
             string guid = guids.First();
             string path = AssetDatabase.GUIDToAssetPath(guid);
             return AssetDatabase.LoadAssetAtPath(path, type);
+#endif
+            Debug.LogError("Default Asset is requested outside of editor.");
+            return null;
         }
     }
 }
