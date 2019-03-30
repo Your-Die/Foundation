@@ -2,6 +2,9 @@
 
 namespace Chinchillada.Utilities
 {
+    /// <summary>
+    /// Helper class for simple enumerable constructors.
+    /// </summary>
     public static class Enumerables
     {
         public static IEnumerable<T> Single<T>(T element)

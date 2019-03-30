@@ -74,6 +74,11 @@ namespace Chinchillada.Utilities
             return ChooseRandomWeighted(weightedCollection, shuffle);
         }
 
+        /// <summary>
+        /// Chooses a random element from the <see cref="weightedCollection"/> using the weights as bias while making the choice.
+        /// </summary>
+        /// <param name="weightedCollection">The collection we're choosing from.</param>
+        /// <param name="shuffle">Whether to shuffle the collection beforehand.</param>
         public static T ChooseRandomWeighted<T>(IList<(T, float)> weightedCollection, bool shuffle = false)
         {
             if (shuffle)
@@ -264,6 +269,9 @@ namespace Chinchillada.Utilities
 
         #endregion
 
+        /// <summary>
+        /// Shuffle the <paramref name="list"/> in place.
+        /// </summary>
         public static void Shuffle<T>(this IList<T> list)
         {
             int unshuffled = list.Count;

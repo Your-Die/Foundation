@@ -51,6 +51,9 @@ namespace Chinchillada.Utilities
         {
         }
 
+        /// <summary>
+        /// Will cause the current value to be used as the new value outside of play-mode.
+        /// </summary>
         [Button]
         public void SaveCurrentValueAfterPlay()
         {
