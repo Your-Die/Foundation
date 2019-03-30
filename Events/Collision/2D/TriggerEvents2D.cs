@@ -1,13 +1,22 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Chinchillada.Utilities
 {
+    /// <summary>
+    /// Component that propagates 2D trigger events to C# events.
+    /// </summary>
     [RequireComponent(typeof(Collider2D))]
     public class TriggerEvents2D : MonoBehaviour
     {
+        /// <summary>
+        /// Event invoked when a trigger is entered.
+        /// </summary>
         public event Action<Collider2D> TriggerEntered;
+
+        /// <summary>
+        /// Event invoked when a trigger is exited.
+        /// </summary>
         public event Action<Collider2D> TriggerExited;
 
         private void OnTriggerEnter2D(Collider2D collision)

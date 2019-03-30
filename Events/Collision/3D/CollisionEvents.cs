@@ -3,10 +3,20 @@ using UnityEngine;
 
 namespace Chinchillada.Utilities
 {
+    /// <summary>
+    /// Component that propagates collision events to C# events.
+    /// </summary>
     [RequireComponent(typeof(Collider))]
     public class CollisionEvents : MonoBehaviour
     {
+        /// <summary>
+        /// Event invoked when a <see cref="Collision"/> is entered.
+        /// </summary>
         public event Action<Collision> CollisionEntered;
+
+        /// <summary>
+        /// Event invoked when a <see cref="Collision"/> is exited.
+        /// </summary>
         public event Action<Collision> CollisionExited;
 
         private void OnCollisionEnter(Collision collision)
