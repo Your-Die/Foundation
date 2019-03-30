@@ -35,6 +35,7 @@ namespace Chinchillada.Utilities
             if (_instance == null)
                 return;
 
+            // Destroy duplicates of singleton.
             Debug.Log($"Duplicate singleton of type ({nameof(T)}) awoken. Destroying {this.name}");
             Destroy(gameObject);
         }

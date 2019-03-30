@@ -35,7 +35,7 @@ namespace Chinchillada.Utilities
         /// </summary>
         public int Capacity
         {
-            get { return _capacity; }
+            get => _capacity;
             set
             {
                 //Do nothing if it's the same.
@@ -101,11 +101,13 @@ namespace Chinchillada.Utilities
             }
         }
 
+        /// <inheritdoc />
         public IEnumerator<T> GetEnumerator()
         {
             return _queue.GetEnumerator();
         }
 
+        /// <inheritdoc />
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
