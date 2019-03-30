@@ -25,6 +25,14 @@ namespace Chinchillada.Utilities
         }
 
         /// <summary>
+        /// Generates a random value between the <paramref name="range"/>.x as the lower bound and the <paramref name="range"/>.y as the upper bound.
+        /// </summary>
+        public static float RandomInRange(this Vector2 range)
+        {
+            return Random.Range(range.x, range.y);
+        }
+
+        /// <summary>
         /// Tries to find a <see cref="Component"/> of the given type in the first layer of children of the <paramref name="component"/>.
         /// </summary>
         public static IEnumerable<T> GetComponentsInDirectChildren<T>(this Component component)
