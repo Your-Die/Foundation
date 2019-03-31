@@ -33,6 +33,22 @@ namespace Chinchillada.Utilities
         }
 
         /// <summary>
+        /// Generates a random point within the <paramref name="bounds"/>.
+        /// </summary>
+        public static Vector3 RandomPoint(this Bounds bounds)
+        {
+            Vector3 min = bounds.center - bounds.size;
+            Vector3 max = bounds.center + bounds.size;
+
+            return new Vector3
+            {
+                x = Random.Range(min.x, max.x),
+                y = Random.Range(min.y, max.y),
+                z = Random.Range(min.z, max.z)
+            };
+        }
+
+        /// <summary>
         /// Tries to find a <see cref="Component"/> of the given type in the first layer of children of the <paramref name="component"/>.
         /// </summary>
         public static IEnumerable<T> GetComponentsInDirectChildren<T>(this Component component)
