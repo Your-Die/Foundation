@@ -9,30 +9,6 @@ namespace Chinchillada.Utilities
     public static class UnityExtensions
     {
         /// <summary>
-        /// Checks if the <paramref name="value"/> is between the <see cref="range"/>.x and the <see cref="range"/>.y.
-        /// </summary>
-        /// <param name="range">
-        /// <see cref="Vector2"/> that is interpreted as a range where the x is the inclusive lower bound and the y is the inclusive upper bounds.
-        /// </param>
-        /// <param name="value">The value we want io verify is within the <paramref name="range"/>.</param>
-        /// <returns>True if the <paramref name="value"/> is within the <paramref name="range"/>, false if not.</returns>
-        public static bool RangeContains(this Vector2 range, float value)
-        {
-            float minimum = range.x;
-            float maximum = range.y;
-
-            return value >= minimum && value <= maximum;
-        }
-
-        /// <summary>
-        /// Generates a random value between the <paramref name="range"/>.x as the lower bound and the <paramref name="range"/>.y as the upper bound.
-        /// </summary>
-        public static float RandomInRange(this Vector2 range)
-        {
-            return Random.Range(range.x, range.y);
-        }
-
-        /// <summary>
         /// Generates a random point within the <paramref name="bounds"/>.
         /// </summary>
         public static Vector3 RandomPoint(this Bounds bounds)
