@@ -15,7 +15,7 @@ namespace Chinchillada.Distributions
         }
 
         /// <summary>
-        /// The amount of individual <see cref="SCU"/> samples averaged to generate a <see cref="Bates"/> sample.
+        /// The amount of individual <see cref="SCU"/> samples averaged to generate a <see cref="IrwinHall"/> sample.
         /// </summary>
         public int SampleCount { get; }
 

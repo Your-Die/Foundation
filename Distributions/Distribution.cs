@@ -2,6 +2,9 @@
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Extension method container for <see cref="IDistribution{T}"/>.
+    /// </summary>
     public static class Distribution
     {
         /// <summary>
