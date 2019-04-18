@@ -1,0 +1,41 @@
+﻿using UnityEngine;
+
+namespace Chinchillada.Distributions
+{
+    using SCU = StandardContinuousUniform;
+
+    public class Normal : IDistribution<float>
+    {
+        private Normal(float mean, float standardDeviation)
+        {
+            this.Mean = mean;
+            this.StandardDeviation = standardDeviation;
+        }
+
+        public float Mean { get; }
+
+        public float StandardDeviation { get; }
+
+        public static readonly Normal Standard = Distribution(0, 1);
+
+        public static Normal Distribution(float mean, float standardDeviation) 
+            => new Normal(mean, standardDeviation);
+
+        public float Sample()
+        {
+            return this.Mean + this.StandardDeviation * StandardSample();
+        }
+
+        private static float StandardSample()
+        {
+            float sample1 = SCU.Distribution.Sample();
+            float sample2 = SCU.Distribution.Sample();
+
+            float log = Mathf.Log(sample1);
+            float squareRoot = Mathf.Sqrt(-2.0f * log);
+            float cos = Mathf.Cos(2.0f * Mathf.PI * sample2);
+
+            return squareRoot * cos;
+        }
+    }
+}
