@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Chinchillada.Distributions
+﻿namespace Chinchillada.Distributions
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using SCU = StandardContinuousUniform;
     using SDU = StandardDiscreteUniform;
 
