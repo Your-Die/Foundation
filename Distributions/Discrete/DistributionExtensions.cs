@@ -1,4 +1,6 @@
-﻿namespace Chinchillada.Distributions
+﻿using System.Linq;
+
+namespace Chinchillada.Distributions
 {
     using System;
     using System.Collections.Generic;
@@ -7,11 +9,21 @@
 
     public static class DistributionExtensions
     {
-        public static IDiscreteDistribution<R> Select<A, R>(
-            this IDiscreteDistribution<A> distribution,
-            Func<A, R> projection)
+        public static IDiscreteDistribution<TResult> Select<TSource, TResult>(
+            this IDiscreteDistribution<TSource> distribution,
+            Func<TSource, TResult> projection)
         {
-            return Projected<A, R>.Distribution(distribution, projection);
+            var dictionary = distribution.Support()
+                .GroupBy(projection, distribution.Weight)
+                .ToDictionary(group => group.Key, group => group.Sum());
+
+            var keys = dictionary.Keys.EnsureList();
+            var values = keys.Select(key => dictionary[key]);
+
+            var weighted = WeightedInteger.Distribution(values.ToArray());
+            return Projected<int, TResult>.Distribution(weighted, i => keys[i]);
+        }
+
         public static IDiscreteDistribution<T> Where<T>(this IDiscreteDistribution<T> distribution,
             Func<T, bool> predicate)
         {
