@@ -80,6 +80,21 @@ namespace Chinchillada.Utilities
         }
 
         /// <summary>
+        /// Returns true if only a single element in the <paramref name="enumerable"/> satisfies the <paramref name="predicate"/>.
+        /// If this is the case, will set output that through <paramref name="output"/>.
+        /// </summary>
+        public static bool GetIfSingle<T>(this IEnumerable<T> enumerable, Predicate<T> predicate, out T output)
+        {
+            var array = enumerable.EnsureArray();
+
+            bool success = array.GetIndexIfSingle(predicate, out int index);
+            output = success ? array[index] : default;
+
+            return success;
+        }
+
+
+        /// <summary>
         /// Finds the index of the element in the <paramref name="enumerable"/> that scores the best with the <paramref name="scoreFunction"/>.
         /// </summary> 
         public static int IndexOfBest<T>(this IEnumerable<T> enumerable, Func<T, float> scoreFunction)
@@ -146,6 +161,34 @@ namespace Chinchillada.Utilities
         }
 
         /// <summary>
+        /// Returns true if only a single element in the <paramref name="enumerable"/> satisfies the <paramref name="predicate"/>.
+        /// If this is the case, will output the index of that element through <paramref name="index"/>.
+        /// </summary>
+        public static bool GetIndexIfSingle<T>(this IEnumerable<T> enumerable, Predicate<T> predicate, out int index)
+        {
+            index = -1;
+            var array = enumerable.EnsureArray();
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                var item = array[i];
+
+                if (!predicate(item))
+                    continue;
+
+                if (index == -1)
+                {
+                    index = i;
+                }
+                else
+                {
+                    index = -1;
+                    return false;
+                }
+            }
+
+            return true;
+        }
         /// Creates a <see cref="LinkedList{T}"/> from the <paramref name="enumerable"/>.
         /// </summary>
         public static LinkedList<T> ToLinked<T>(this IEnumerable<T> enumerable)
