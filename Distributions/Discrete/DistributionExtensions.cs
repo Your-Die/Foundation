@@ -56,7 +56,6 @@ namespace Chinchillada.Distributions
             return distribution.SelectMany(likelihood, (a, b) => (a,b));
         }
         
-    
         public static IDiscreteDistribution<T> ToUniform<T>(this IEnumerable<T> items)
         {
             var list = items.EnsureList();
@@ -80,6 +79,14 @@ namespace Chinchillada.Distributions
         public static IDiscreteDistribution<int> IndexDistribution<T>(this IList<T> list)
         {
             return SDU.Distribution(0, list.Count - 1);
+        }
+
+        public static int TotalWeight<T>(this IDiscreteDistribution<T> distribution)
+        {
+            var support = distribution.Support();
+            var weights = support.Select(distribution.Weight);
+
+            return weights.Sum();
         }
     }
 }
