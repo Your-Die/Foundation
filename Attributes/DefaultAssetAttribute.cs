@@ -49,8 +49,10 @@ namespace Chinchillada.Utilities
             string path = AssetDatabase.GUIDToAssetPath(guid);
             return AssetDatabase.LoadAssetAtPath(path, type);
 #endif
+#pragma warning disable 162
             Debug.LogError("Default Asset is requested outside of editor.");
             return null;
+#pragma warning restore 162
         }
     }
 }
