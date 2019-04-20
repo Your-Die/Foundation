@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using NUnit.Framework.Internal;
 
 namespace Chinchillada.Distributions
 {
@@ -35,11 +34,25 @@ namespace Chinchillada.Distributions
         }
 
         public static IDiscreteDistribution<TProjection> SelectMany<TPrior, TSample, TProjection>(
-            this IDiscreteDistribution<TPrior> distribution,
+            this IDiscreteDistribution<TPrior> prior,
             Func<TPrior, IDiscreteDistribution<TSample>> likelihood,
             Func<TPrior, TSample, TProjection> projection)
         {
-            return Combined<TPrior, TSample, TProjection>.Distribution(distribution, likelihood, projection);
+            var priorWeights = prior.Support().Select(a => likelihood(a).TotalWeight());
+            int product = priorWeights.Product();
+
+            var weights =
+                from a in prior.Support()                   // Iterate over support
+                let weight = prior.Weight(a)                // get weight.
+                let probability = likelihood(a)             // Get inner distribution
+                let totalWeight = probability.TotalWeight() // Sum weight of inner distribution
+                from support in probability.Support()       // iterate inner distribution support
+                group weight * probability.Weight(support)  // "Combine Fractions" by multiplication
+                             * product / totalWeight
+                    by projection(a, support);
+
+            var dictionary = weights.ToDictionary(group => group.Key, group => group.Sum());
+            return dictionary.Keys.ToWeighted(dictionary.Values);
         }
 
         public static IDiscreteDistribution<TResult> SelectMany<TPrior, TResult>(
