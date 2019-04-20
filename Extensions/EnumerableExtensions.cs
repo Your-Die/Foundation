@@ -189,6 +189,7 @@ namespace Chinchillada.Utilities
 
             return true;
         }
+
         public static IEnumerable<T> Cumulative<T>(this IEnumerable<T> enumerable, Func<T, T, T> aggregator)
         {
             var enumerator = enumerable.GetEnumerator();
@@ -257,6 +258,24 @@ namespace Chinchillada.Utilities
             }
 
             return (min, max);
+        }
+
+        public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue = default)
+        {
+            return dictionary.TryGetValue(key, out TValue value) ? value : defaultValue;
+        }
+
+        public static IEnumerable<T> DropEndWhile<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
+        {
+            return enumerable.ApplyBackwards(sequence => sequence.SkipWhile(predicate));
+        }
+
+        public static IEnumerable<T> ApplyBackwards<T>(this IEnumerable<T> enumerable,
+            Func<IEnumerable<T>, IEnumerable<T>> projection)
+        {
+            var reverse = enumerable.Reverse();
+            var applied = projection(reverse);
+            return applied.Reverse();
         }
     }
 }
