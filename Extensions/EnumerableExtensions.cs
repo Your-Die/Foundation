@@ -189,6 +189,24 @@ namespace Chinchillada.Utilities
 
             return true;
         }
+        public static IEnumerable<T> Cumulative<T>(this IEnumerable<T> enumerable, Func<T, T, T> aggregator)
+        {
+            var enumerator = enumerable.GetEnumerator();
+
+            var aggregation = enumerator.Current;
+            yield return aggregation;
+
+            while (enumerator.MoveNext())
+            {
+                T item = enumerator.Current;
+                aggregation = aggregator(aggregation, item);
+
+                yield return aggregation;
+            }
+
+            enumerator.Dispose();
+        }
+
         /// Creates a <see cref="LinkedList{T}"/> from the <paramref name="enumerable"/>.
         /// </summary>
         public static LinkedList<T> ToLinked<T>(this IEnumerable<T> enumerable)
