@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using NUnit.Framework.Internal;
 
 namespace Chinchillada.Distributions
 {
@@ -33,6 +34,29 @@ namespace Chinchillada.Distributions
             return validSupport.ToWeighted(weights);
         }
 
+        public static IDiscreteDistribution<TProjection> SelectMany<TPrior, TSample, TProjection>(
+            this IDiscreteDistribution<TPrior> distribution,
+            Func<TPrior, IDiscreteDistribution<TSample>> likelihood,
+            Func<TPrior, TSample, TProjection> projection)
+        {
+            return Combined<TPrior, TSample, TProjection>.Distribution(distribution, likelihood, projection);
+        }
+
+        public static IDiscreteDistribution<TResult> SelectMany<TPrior, TResult>(
+            this IDiscreteDistribution<TPrior> distribution,
+            Func<TPrior, IDiscreteDistribution<TResult>> likelihood)
+        {
+            return distribution.SelectMany(likelihood, (a, b) => b);
+        }
+
+        public static IDiscreteDistribution<(TPrior, TResult)> Joint<TPrior, TResult>(
+            this IDiscreteDistribution<TPrior> distribution,
+            Func<TPrior, IDiscreteDistribution<TResult>> likelihood)
+        {
+            return distribution.SelectMany(likelihood, (a, b) => (a,b));
+        }
+        
+    
         public static IDiscreteDistribution<T> ToUniform<T>(this IEnumerable<T> items)
         {
             var list = items.EnsureList();
@@ -50,7 +74,7 @@ namespace Chinchillada.Distributions
 
         public static IDiscreteDistribution<T> ToWeighted<T>(this IEnumerable<T> items, params int[] weights)
         {
-            items.ToWeighted(weights.AsEnumerable());
+            return items.ToWeighted(weights.AsEnumerable());
         }
 
         public static IDiscreteDistribution<int> IndexDistribution<T>(this IList<T> list)
