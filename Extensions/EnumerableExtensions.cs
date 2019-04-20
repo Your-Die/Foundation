@@ -207,6 +207,15 @@ namespace Chinchillada.Utilities
             enumerator.Dispose();
         }
 
+        /// <summary>
+        /// Checks if the <paramref name="enumerable"/> range contains the <paramref name="index"/>.
+        /// </summary>
+        public static bool ContainsIndex<T>(this IEnumerable<T> enumerable, int index)
+        {
+            return 0 <= index && index < enumerable.Count();
+        }
+
+        /// <summary>
         /// Creates a <see cref="LinkedList{T}"/> from the <paramref name="enumerable"/>.
         /// </summary>
         public static LinkedList<T> ToLinked<T>(this IEnumerable<T> enumerable)
