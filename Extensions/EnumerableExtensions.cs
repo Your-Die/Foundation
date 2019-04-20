@@ -277,5 +277,10 @@ namespace Chinchillada.Utilities
             var applied = projection(reverse);
             return applied.Reverse();
         }
+
+        public static int Product(this IEnumerable<int> items)
+        {
+            return items.Aggregate(1, (x, y) => x * y);
+        }
     }
 }
