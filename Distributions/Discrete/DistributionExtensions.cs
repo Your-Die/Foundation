@@ -39,8 +39,10 @@ namespace Chinchillada.Distributions
             Func<TPrior, TSample, TProjection> projection)
         {
             var priorSupport = prior.Support().ToList();
-            var priorWeights = priorSupport.Select(a => likelihood(a).TotalWeight());
-            int lcm = priorWeights.LCM();
+            int lcm = priorSupport
+                .Select(a => likelihood(a).TotalWeight())
+                .Where(totalWeight => totalWeight != 0)
+                .LCM();
             
             var weights =
                 from a in priorSupport                   // Iterate over support
@@ -68,6 +70,25 @@ namespace Chinchillada.Distributions
             Func<TPrior, IDiscreteDistribution<TResult>> likelihood)
         {
             return distribution.SelectMany(likelihood, (a, b) => (a,b));
+        }
+
+        public static Func<B, IDiscreteDistribution<C>> Posterior<A, B, C>(
+            this IDiscreteDistribution<A> prior,
+            Func<A, IDiscreteDistribution<B>> likelihood,
+            Func<A, B, C> projection)
+        {
+            return b => 
+                from a in prior
+                from otherB in likelihood(a)
+                where object.Equals(b, otherB)
+                select projection(a, b);
+        }
+
+        public static Func<B, IDiscreteDistribution<A>> Posterior<A, B>(
+            this IDiscreteDistribution<A> prior,
+            Func<A, IDiscreteDistribution<B>> likelihood)
+        {
+            return prior.Posterior(likelihood, (a, b) => a);
         }
         
         public static IDiscreteDistribution<T> ToUniform<T>(this IEnumerable<T> items)

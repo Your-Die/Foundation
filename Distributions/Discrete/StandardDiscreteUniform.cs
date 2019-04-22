@@ -1,6 +1,5 @@
 ﻿namespace Chinchillada.Distributions
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using SCU = StandardContinuousUniform;
@@ -10,11 +9,6 @@
     {
         private StandardDiscreteUniform(int minimum, int maximum)
         {
-            if (minimum > maximum)
-            {
-                throw new ArgumentException();
-            }
-
             this.Minimum = minimum;
             this.Maximum = maximum;
         }
@@ -24,7 +18,16 @@
 
         public int Size => 1 + this.Maximum - this.Minimum;
 
-        public static SDU Distribution(int minimum, int maximum) => new SDU(minimum, maximum);
+        public static IDiscreteDistribution<int> Distribution(int minimum, int maximum)
+        {
+            if (minimum > maximum)
+                return Empty<int>.Distribution();
+
+            if (minimum == maximum)
+                return Singleton<int>.Distribution(minimum);
+
+            return new SDU(minimum, maximum);
+        }
 
         public int Sample()
         {

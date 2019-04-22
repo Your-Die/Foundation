@@ -16,13 +16,15 @@ namespace Chinchillada.Distributions
         public static IDiscreteDistribution<R> Distribution(IDiscreteDistribution<A> underlying, Func<A, R> projection)
         {
             var result = new Projected<A, R>(underlying, projection);
+
+            if (result._weights.Count == 0)
+                return Empty<R>.Distribution();
+
             var support = result.Support().ToList();
+            if (support.Count == 1)
+                return Singleton<R>.Distribution(support.First());
 
-            if (support.Count != 1)
-                return result;
-
-            R item = support.First();
-            return Singleton<R>.Distribution(item);
+            return result;
         }
 
         private Projected(IDiscreteDistribution<A> underlying, Func<A, R> projection)

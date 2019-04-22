@@ -21,9 +21,10 @@
 
         public static IDiscreteDistribution<int> Distribution(int zeroes, int ones)
         {
-            if (zeroes < 0 || ones < 0 || zeroes == 0 && ones == 0)
+            if (zeroes < 0 || ones < 0)
                 throw new ArgumentException();
-
+            if (zeroes == 0 && ones == 0)
+                return Empty<int>.Distribution();
             if (zeroes == 0)
                 return Singleton<int>.Distribution(1);
             if (ones == 0)

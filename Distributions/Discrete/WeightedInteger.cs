@@ -20,8 +20,12 @@
             var weights = MathHelper.ShrinkValues(weightCollection).ToList();
 
             // Ensure we have valid weights.
-            if (weights.Any(x => x < 0) || !weights.Any(x => x > 0))
+            if (weights.Any(x => x < 0))
                 throw new ArgumentException();
+
+            // If no weights above 0, empty distribution.
+            if (!weights.Any(x => x > 0))
+                return Empty<int>.Distribution();
 
             weights = weights.DropEndWhile(weight => weight == 0).ToList();
 
