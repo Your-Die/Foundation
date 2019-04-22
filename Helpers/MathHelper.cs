@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.OdinInspector.Editor.Drawers;
 
 namespace Chinchillada.Utilities
 {
@@ -74,6 +75,33 @@ namespace Chinchillada.Utilities
 
             for (var value = min; value < max; value += stepSize)
                 yield return value;
+        }
+
+        /// <summary>
+        /// Calculates the greatest common divider between <paramref name="x"/> and <paramref name="y"/>.
+        /// </summary>
+        public static int GCD(int x, int y)
+        {
+            while (true)
+            {
+                if (y == 0)
+                    return x;
+
+                var copyX = x;
+                x = y;
+                y = copyX % y;
+            }
+        }
+
+        /// <summary>
+        /// Calculates the lowest common multiple between <paramref name="x"/> and <paramref name="y"/>.
+        /// </summary>
+        public static int LCM(int x, int y)
+        {
+            var gcd = GCD(x, y);
+            var product = x * y;
+
+            return product / gcd;
         }
     }
 }

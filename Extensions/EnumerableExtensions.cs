@@ -282,5 +282,9 @@ namespace Chinchillada.Utilities
         {
             return items.Aggregate(1, (x, y) => x * y);
         }
+
+        public static int GCD(this IEnumerable<int> numbers) => numbers.Aggregate(MathHelper.GCD);
+
+        public static int LCM(this IEnumerable<int> numbers) => numbers.Aggregate(1, MathHelper.LCM);
     }
 }
