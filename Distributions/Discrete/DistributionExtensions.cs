@@ -38,17 +38,18 @@ namespace Chinchillada.Distributions
             Func<TPrior, IDiscreteDistribution<TSample>> likelihood,
             Func<TPrior, TSample, TProjection> projection)
         {
-            var priorWeights = prior.Support().Select(a => likelihood(a).TotalWeight());
-            int product = priorWeights.Product();
-
+            var priorSupport = prior.Support().ToList();
+            var priorWeights = priorSupport.Select(a => likelihood(a).TotalWeight());
+            int lcm = priorWeights.LCM();
+            
             var weights =
-                from a in prior.Support()                   // Iterate over support
+                from a in priorSupport                   // Iterate over support
                 let weight = prior.Weight(a)                // get weight.
                 let probability = likelihood(a)             // Get inner distribution
                 let totalWeight = probability.TotalWeight() // Sum weight of inner distribution
                 from support in probability.Support()       // iterate inner distribution support
                 group weight * probability.Weight(support)  // "Combine Fractions" by multiplication
-                             * product / totalWeight
+                             * lcm / totalWeight
                     by projection(a, support);
 
             var dictionary = weights.ToDictionary(group => group.Key, group => group.Sum());

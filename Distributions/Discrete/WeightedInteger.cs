@@ -4,41 +4,41 @@
     using System.Collections.Generic;
     using System.Linq;
     using Utilities;
-    using SDU = StandardDiscreteUniform;
 
     public class WeightedInteger : IDiscreteDistribution<int>
     {
         private readonly IList<int> _weights;
         private readonly IDiscreteDistribution<int>[] _distributions;
 
-        public static IDiscreteDistribution<int> Distribution(params int[] weights)
+        public static IDiscreteDistribution<int> discreteDistribution(params int[] weights)
         {
+            return Distribution(weights.AsEnumerable());
+        }
+
+        public static IDiscreteDistribution<int> Distribution(IEnumerable<int> weightCollection)
+        {
+            var weights = MathHelper.ShrinkValues(weightCollection).ToList();
+
             // Ensure we have valid weights.
             if (weights.Any(x => x < 0) || !weights.Any(x => x > 0))
-            {
                 throw new ArgumentException();
-            }
 
-            var trimmedWeights = weights.DropEndWhile(weight => weight == 0).ToArray();
-            
-            if (trimmedWeights.Length == 1)
-            {
+            weights = weights.DropEndWhile(weight => weight == 0).ToList();
+
+            if (weights.Count == 1)
                 return Singleton<int>.Distribution(0);
-            }
 
-            if (trimmedWeights.GetIndexIfSingle(i => i != 0, out int index))
-            {
+            if (weights.GetIndexIfSingle(i => i != 0, out int index))
                 return Singleton<int>.Distribution(index);
-            }
 
-            if (trimmedWeights.Length == 2)
+            if (weights.Count == 2)
             {
                 int zeroes = weights[0];
                 int ones = weights[1];
                 return Bernoulli.Distribution(zeroes, ones);
             }
 
-            return new WeightedInteger(trimmedWeights);
+            return new WeightedInteger(weights);
         }
 
         private WeightedInteger(IEnumerable<int> weights)
@@ -48,6 +48,7 @@
             int count = _weights.Count;
             _distributions = new IDiscreteDistribution<int>[count];
 
+            // Distribute the weights into 2 dictionaries: one for weights lower than the average, one for weights higher.
             var lows = new Dictionary<int, int>();
             var highs = new Dictionary<int, int>();
             for (int i = 0; i < count; i++)
@@ -61,18 +62,22 @@
                     highs.Add(i, weight);
             }
 
-            while (lows.Any())
+            // Redistribute the weights.
+            while (lows.Any()) // There should always be a high when there is a low.
             {
+                // Grab the front low and high.
                 var low = lows.First();
                 lows.Remove(low.Key);
                 var high = highs.First();
                 highs.Remove(high.Key);
 
+                // Fill up the distribution for the lower weight with values from the higher weight.
                 int lowNeeds = sum - low.Value;
                 _distributions[low.Key] =
                     Bernoulli.Distribution(low.Value, lowNeeds)
                              .Select(i => i == 0 ? low.Key : high.Key);
 
+                // Put the higher weight back with it's new count.
                 int newHigh = high.Value - lowNeeds;
                 if (newHigh == sum)
                     _distributions[high.Key] = Singleton<int>.Distribution(high.Key);
