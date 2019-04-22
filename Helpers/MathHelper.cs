@@ -103,5 +103,13 @@ namespace Chinchillada.Utilities
 
             return product / gcd;
         }
+
+        public static IEnumerable<int> ShrinkValues(IEnumerable<int> values)
+        {
+            var valueList = values.EnsureList();
+            int greatestCommonDivider = valueList.GCD();
+
+            return valueList.Select(value => value / greatestCommonDivider);
+        }
     }
 }
