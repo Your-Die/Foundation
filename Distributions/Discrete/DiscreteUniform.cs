@@ -7,7 +7,7 @@ namespace Chinchillada.Distributions
 
     public sealed class DiscreteUniform<T> : IDiscreteDistribution<T>
     {
-        private readonly SDU _standard;
+        private readonly IDiscreteDistribution<int> _standard;
 
         private readonly IList<T> _support;
 
