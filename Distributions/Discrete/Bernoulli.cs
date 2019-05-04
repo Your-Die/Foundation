@@ -17,7 +17,7 @@
         public int Zeroes { get; }
         public int Ones { get; }
 
-        public float ZeroChance => (float) Zeroes / (Zeroes + Ones);
+        public float ZeroChance => (float)Zeroes / (Zeroes + Ones);
 
         public static IDiscreteDistribution<int> Distribution(int zeroes, int ones)
         {
@@ -33,10 +33,7 @@
             return new Bernoulli(zeroes, ones);
         }
 
-        public int Sample()
-        {
-            return SCU.Distribution.Sample() <= this.ZeroChance ? 0 : 1;
-        }
+        public int Sample() => SCU.Distribution.Sample() <= this.ZeroChance ? 0 : 1;
 
         public IEnumerable<int> Support() => Enumerable.Range(0, 2);
 
@@ -52,5 +49,7 @@
                     return 0;
             }
         }
+
+        double IWeightedDistribution<int>.Weight(int item) => Weight(item);
     }
 }

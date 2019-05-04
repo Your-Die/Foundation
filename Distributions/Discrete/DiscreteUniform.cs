@@ -31,5 +31,10 @@ namespace Chinchillada.Distributions
         {
             return _support.Contains(variable).ToBinary();
         }
+
+        double IWeightedDistribution<T>.Weight(T item)
+        {
+            return Weight(item);
+        }
     }
 }

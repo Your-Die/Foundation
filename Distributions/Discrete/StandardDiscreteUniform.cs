@@ -44,6 +44,11 @@
                 : 0;
         }
 
+        double IWeightedDistribution<int>.Weight(int item)
+        {
+            return Weight(item);
+        }
+
         public override string ToString()
         {
             return $"Standard Discrete Uniform[{Minimum}, {Maximum}]";

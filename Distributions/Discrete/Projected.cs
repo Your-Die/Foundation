@@ -46,5 +46,9 @@ namespace Chinchillada.Distributions
         public IEnumerable<R> Support() => _weights.Keys;
 
         public int Weight(R variable) => _weights.GetValueOrDefault(variable);
+        double IWeightedDistribution<R>.Weight(R item)
+        {
+            return Weight(item);
+        }
     }
 }

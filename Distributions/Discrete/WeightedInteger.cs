@@ -108,5 +108,10 @@
         {
             return _weights.ElementAtOrDefault(variable);
         }
+
+        double IWeightedDistribution<int>.Weight(int item)
+        {
+            return Weight(item);
+        }
     }
 }

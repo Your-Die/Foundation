@@ -2,10 +2,10 @@
 
 namespace Chinchillada.Distributions
 {
-    public interface IDiscreteDistribution<T> : IDistribution<T>
+    public interface IDiscreteDistribution<T> : IWeightedDistribution<T>
     {
         IEnumerable<T> Support();
 
-        int Weight(T variable);
+        new int Weight(T variable);
     }
 }
