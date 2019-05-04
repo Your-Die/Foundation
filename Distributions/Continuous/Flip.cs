@@ -27,7 +27,7 @@
 
         public T Sample() => SCU.Distribution.Sample() <= _probability ? _head : _tail;
 
-        public double Weight(T item)
+        public float Weight(T item)
         {
             if (item.Equals(_head))
                 return _probability;
@@ -36,6 +36,14 @@
                 return 1 - _probability;
 
             return 0;
+        }
+    }
+
+    public static class Flip
+    {
+        public static IWeightedDistribution<bool> Boolean(float probability)
+        {
+            return Flip<bool>.Distribution(true, false, probability);
         }
     }
 }
