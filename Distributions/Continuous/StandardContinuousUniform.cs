@@ -16,6 +16,6 @@
             return Random.value;
         }
 
-        public double Weight(float variable) => 0f <= variable && variable < 1f ? 1f : 0f;
+        public float Weight(float variable) => 0f <= variable && variable < 1f ? 1f : 0f;
     }
 }

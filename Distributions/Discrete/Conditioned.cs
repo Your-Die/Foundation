@@ -54,7 +54,7 @@ namespace Chinchillada.Distributions
             return _predicate(variable) ? _underlying.Weight(variable) : 0;
         }
 
-        double IWeightedDistribution<T>.Weight(T item)
+        float IWeightedDistribution<T>.Weight(T item)
         {
             return Weight(item);
         }

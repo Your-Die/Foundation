@@ -44,7 +44,7 @@
                 : 0;
         }
 
-        double IWeightedDistribution<int>.Weight(int item)
+        float IWeightedDistribution<int>.Weight(int item)
         {
             return Weight(item);
         }

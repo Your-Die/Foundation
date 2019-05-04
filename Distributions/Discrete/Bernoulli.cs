@@ -50,6 +50,6 @@
             }
         }
 
-        double IWeightedDistribution<int>.Weight(int item) => Weight(item);
+        float IWeightedDistribution<int>.Weight(int item) => Weight(item);
     }
 }

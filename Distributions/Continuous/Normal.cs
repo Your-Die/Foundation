@@ -1,8 +1,7 @@
-﻿using System;
-using UnityEngine;
-
-namespace Chinchillada.Distributions
+﻿namespace Chinchillada.Distributions
 {
+    using UnityEngine;
+
     using SCU = StandardContinuousUniform;
 
     public class Normal : IWeightedDistribution<float>
@@ -39,7 +38,7 @@ namespace Chinchillada.Distributions
             return squareRoot * cos;
         }
 
-        public double Weight(float variable)
+        public float Weight(float variable)
         {
             float difference = variable - this.Mean;
             float exponent = Mathf.Exp(-difference * difference / (2 * StandardDeviation));
@@ -47,6 +46,6 @@ namespace Chinchillada.Distributions
             return exponent * PiRoot / StandardDeviation;
         }
 
-        private static readonly double PiRoot = 1 / Mathf.Sqrt(2 * Mathf.PI);
+        private static readonly float PiRoot = 1 / Mathf.Sqrt(2 * Mathf.PI);
     }
 }

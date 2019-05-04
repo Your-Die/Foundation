@@ -25,7 +25,7 @@ namespace Chinchillada.Distributions
             return EqualityComparer<T>.Default.Equals(this._value, variable) ? 1 : 0;
         }
 
-        double IWeightedDistribution<T>.Weight(T item)
+        float IWeightedDistribution<T>.Weight(T item)
         {
             return Weight(item);
         }

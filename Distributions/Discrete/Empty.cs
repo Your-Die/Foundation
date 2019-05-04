@@ -15,7 +15,7 @@ namespace Chinchillada.Distributions
         public IEnumerable<T> Support() => Enumerable.Empty<T>();
 
         public int Weight(T variable) => 0;
-        double IWeightedDistribution<T>.Weight(T item)
+        float IWeightedDistribution<T>.Weight(T item)
         {
             return Weight(item);
         }

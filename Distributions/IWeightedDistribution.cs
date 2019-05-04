@@ -4,6 +4,6 @@ namespace Chinchillada.Distributions
 {
     public interface IWeightedDistribution<T> : IDistribution<T>
     {
-        double Weight(T item);
+        float Weight(T item);
     }
 }
