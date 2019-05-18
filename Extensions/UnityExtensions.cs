@@ -13,6 +13,12 @@ namespace Chinchillada.Utilities
             return value >= minimum && value <= maximum;
         }
 
+        public static bool TryGetComponent<T>(this Component context, out T component)
+        {
+            component = context.GetComponent<T>();
+            return component != null;
+        }
+
         public static IEnumerable<T> GetComponentsInDirectChildren<T>(this Component component)
         {
             Transform transform = component.transform;
