@@ -7,7 +7,7 @@ namespace Chinchillada.Distributions
     using Utilities;
     using SDU = StandardDiscreteUniform;
 
-    public static class DistributionExtensions
+    public static class DiscreteDistributionExtensions
     {
         public static IDiscreteDistribution<TResult> Select<TSource, TResult>(
             this IDiscreteDistribution<TSource> distribution,
@@ -97,6 +97,23 @@ namespace Chinchillada.Distributions
 
             var indices = list.IndexDistribution();
             return indices.Select(i => list[i]);
+        }
+
+
+        public static IDiscreteDistribution<T> ToWeighted<T>(this Dictionary<T, int> weightDictionary)
+        {
+            var items = weightDictionary.Keys.ToList();
+
+            int GetWeight(T item) => weightDictionary[item];
+            return items.ToWeighted(GetWeight);
+        }
+
+        public static IDiscreteDistribution<T> ToWeighted<T>(this IEnumerable<T> items, Func<T, int> weightFunction)
+        {
+            var itemList = items.ToList();
+            var weights = itemList.Select(weightFunction);
+
+            return itemList.ToWeighted(weights);
         }
 
         public static IDiscreteDistribution<T> ToWeighted<T>(this IEnumerable<T> items, IEnumerable<int> weights)
