@@ -44,6 +44,9 @@ namespace Chinchillada.Timers
 
         #region Constructors
 
+        /// <summary>
+        /// Construct a new timer.
+        /// </summary>
         public Timer() { }
 
         /// <summary>

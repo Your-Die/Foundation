@@ -59,6 +59,13 @@ namespace Chinchillada.Utilities
                 yield return value;
         }
 
+        /// <summary>
+        /// Uses the <paramref name="stepSize"/> to step from <paramref name="min"/> until <paramref name="max"/> is reached or exceeded.
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <param name="stepSize"></param>
+        /// <returns></returns>
         public static IEnumerable<float> GetRange(float min, float max, float stepSize)
         {
             var rangeSize = max - min;

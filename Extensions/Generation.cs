@@ -4,8 +4,14 @@ using System.Linq;
 
 namespace Chinchillada.Utilities
 {
+    /// <summary>
+    /// Class containing extension methods used for generation.
+    /// </summary>
     public static class Generation
     {
+        /// <summary>
+        /// Returns an infinite <see cref="IEnumerable{T}"/> using the <paramref name="factoryMethod"/>.
+        /// </summary>
         public static IEnumerable<T> Generate<T>(this Func<T> factoryMethod)
         {
             while (true)
@@ -14,16 +20,25 @@ namespace Chinchillada.Utilities
             }
         }
 
+        /// <summary>
+        /// Generates <paramref name="amount"/> of items using the <paramref name="factoryMethod"/>.
+        /// </summary>
         public static IEnumerable<T> Generate<T>(this Func<T> factoryMethod, int amount)
         {
             return factoryMethod.Generate().Take(amount);
         }
 
+        /// <summary>
+        /// Attempts to generate elements that satisfy the <paramref name="validator"/> using the <paramref name="factoryMethod"/>.
+        /// </summary>
         public static IEnumerable<T> GenerateValid<T>(this Func<T> factoryMethod, Predicate<T> validator)
         {
             return factoryMethod.Generate().Where(value => validator(value));
         }
 
+        /// <summary>
+        /// Attempts to generate <paramref name="amount"/> of items with the <paramref name="factoryMethod"/> that satisfy the <paramref name="validator"/>.
+        /// </summary>
         public static IEnumerable<T> GenerateValid<T>(this Func<T> factoryMethod, Predicate<T> validator, int amount)
         {
             return factoryMethod.GenerateValid(validator).Take(amount);

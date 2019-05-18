@@ -4,6 +4,9 @@ using System.Reflection;
 
 namespace Chinchillada.Utilities
 {
+    /// <summary>
+    /// Enum containing possible search strategies.
+    /// </summary>
     public enum SearchStrategy
     {
         FindComponent,
@@ -11,18 +14,28 @@ namespace Chinchillada.Utilities
         InChildren,
     }
 
+    /// <summary>
+    /// Attribute meant for removing the boilerplate code that is often found in Unity Monobehaviour classes.
+    /// This attribute is meant to automate the setting up of references to other components, instead of having to manually write the <see cref="GetComponent"/>
+    /// for each component reference that is necessary.
+    /// </summary>
     public class FindComponentAttribute : ChinchilladaAttribute
     {
+        /// <summary>
+        /// The search <see cref="SearchStrategy"/> that we want to use when looking for matching components.
+        /// </summary>
         private readonly SearchStrategy _strategy;
 
-        public bool Multiple { get; }
-
-        public FindComponentAttribute(SearchStrategy strategy = SearchStrategy.FindComponent, bool multiple = false)
+        /// <summary>
+        /// Constructs a new <see cref="FindComponentAttribute"/>.
+        /// </summary>
+        /// <param name="strategy">The search <see cref="SearchStrategy"/> that we want to use when looking for matching components.</param>
+        public FindComponentAttribute(SearchStrategy strategy = SearchStrategy.FindComponent)
         {
             _strategy = strategy;
-            Multiple = multiple;
         }
 
+        /// <inheritdoc />
         public override void Apply(MonoBehaviour behaviour, FieldInfo field)
         {
             Type type = field.FieldType;
@@ -31,6 +44,12 @@ namespace Chinchillada.Utilities
             field.SetValue(behaviour, component);
         }
 
+        /// <summary>
+        /// Tries to find a matching <see cref="Component"/> with the current <see cref="SearchStrategy"/>.
+        /// </summary>
+        /// <param name="behaviour">The behaviour we want to find a component of.</param>
+        /// <param name="type">The type of component we are looking for.</param>
+        /// <returns>The found component, or null.</returns>
         private Component FindComponent(MonoBehaviour behaviour, Type type)
         {
             switch (_strategy)

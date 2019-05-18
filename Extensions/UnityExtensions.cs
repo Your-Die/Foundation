@@ -3,14 +3,25 @@ using UnityEngine;
 
 namespace Chinchillada.Utilities
 {
+    /// <summary>
+    /// Static class containing extension methods for Unity types.
+    /// </summary>
     public static class UnityExtensions
     {
-        public static bool RangeContains(this Vector2 range, float value)
+        /// <summary>
+        /// Generates a random point within the <paramref name="bounds"/>.
+        /// </summary>
+        public static Vector3 RandomPoint(this Bounds bounds)
         {
-            float minimum = range.x;
-            float maximum = range.y;
+            Vector3 min = bounds.center - bounds.size;
+            Vector3 max = bounds.center + bounds.size;
 
-            return value >= minimum && value <= maximum;
+            return new Vector3
+            {
+                x = Random.Range(min.x, max.x),
+                y = Random.Range(min.y, max.y),
+                z = Random.Range(min.z, max.z)
+            };
         }
 
         public static bool TryGetComponent<T>(this Component context, out T component)
@@ -25,12 +36,18 @@ namespace Chinchillada.Utilities
             return transform.GetComponentsInDirectChildren<T>();
         }
 
+        /// <summary>
+        /// Tries to find a <see cref="Component"/> of the given type in the first layer of children of the <paramref name="gameObject"/>.
+        /// </summary>
         public static IEnumerable<T> GetComponentsInDirectChildren<T>(this GameObject gameObject)
         {
             Transform transform = gameObject.transform;
             return transform.GetComponentsInDirectChildren<T>();
         }
 
+        /// <summary>
+        /// Tries to find a <see cref="Component"/> of the given type in the first layer of children of the <paramref name="transform"/>.
+        /// </summary>
         public static IEnumerable<T> GetComponentsInDirectChildren<T>(this Transform transform)
         {
             int childCount = transform.childCount;

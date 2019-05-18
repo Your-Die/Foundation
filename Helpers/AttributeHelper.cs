@@ -7,6 +7,9 @@ using Object = UnityEngine.Object;
 
 namespace Chinchillada.Utilities
 {
+    /// <summary>
+    /// Static class containing helper functions for use with attributes.
+    /// </summary>
     public static class AttributeHelper
     {
         public static void ApplyAttribute<TAttribute>(MonoBehaviour behaviour) where TAttribute : ChinchilladaAttribute

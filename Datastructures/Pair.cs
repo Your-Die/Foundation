@@ -18,6 +18,10 @@ namespace Chinchillada.Utilities
         /// </summary>
         public T Item2 { get; set; }
 
+        public T Left => Item1;
+
+        public T Right => Item2;
+
         /// <summary>
         /// Constructs a new pair.
         /// </summary>
