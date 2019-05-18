@@ -1,7 +1,7 @@
 ﻿using Chinchillada.Utilities;
 using Sirenix.OdinInspector;
 
-namespace Mutiny.RitualPractice
+namespace Chinchillada.Utilities
 {
     public class ChinchilladaBehaviour : SerializedMonoBehaviour
     {
