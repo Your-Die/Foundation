@@ -14,12 +14,12 @@ namespace Chinchillada.Utilities
         /// <summary>
         /// The queue instance that this class wraps.
         /// </summary>
-        private readonly Queue<T> _queue;
+        private readonly LinkedList<T> _queue;
         /// <summary>
         /// The fixed size for this queue.
         /// </summary>
         private int _capacity;
-       
+
         /// <summary>
         /// Event that is called when an excess element is dequeued.
         /// </summary>
@@ -43,7 +43,7 @@ namespace Chinchillada.Utilities
                     return;
 
                 //Look if elements need to be dequeued.
-                _capacity = value; 
+                _capacity = value;
                 DequeueExcessValues();
             }
         }
@@ -56,7 +56,7 @@ namespace Chinchillada.Utilities
         public FixedQueue(int capacity)
         {
             _capacity = capacity;
-            _queue = new Queue<T>(capacity + 1);
+            _queue = new LinkedList<T>();
         }
 
         /// <summary>
@@ -65,10 +65,15 @@ namespace Chinchillada.Utilities
         /// <param name="value">The value to enqueue.</param>
         public void Enqueue(T value)
         {
-            _queue.Enqueue(value);
+            _queue.AddLast(value);
             ValueEnqueued?.Invoke(value);
 
             DequeueExcessValues();
+        }
+
+        public void Remove(T value)
+        {
+            _queue.Remove(value);
         }
 
         /// <summary>
@@ -88,6 +93,9 @@ namespace Chinchillada.Utilities
         {
             _queue.Clear();
         }
+        public IEnumerable<T> RemoveAll(Func<T, bool> predicate) => _queue.RemoveAll(predicate);
+
+        public bool Contains(T value) => _queue.Contains(value);
 
         /// <summary>
         /// Dequeues until the queue doesn't exceed capacity anymore.
@@ -96,7 +104,9 @@ namespace Chinchillada.Utilities
         {
             while (_queue.Count > Capacity)
             {
-                T value = _queue.Dequeue();
+                T value = _queue.First.Value;
+                _queue.RemoveFirst();
+
                 ExcessDequeued?.Invoke(value);
             }
         }
