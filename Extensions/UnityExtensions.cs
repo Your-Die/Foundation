@@ -60,5 +60,11 @@ namespace Chinchillada.Utilities
                     yield return component;
             }
         }
+
+        public static float DistanceTo(this Transform transform, Transform other) => transform.DistanceTo(other.position);
+
+        private static float DistanceTo(this Transform transform, Vector3 other) => transform.position.DistanceTo(other);
+
+        public static float DistanceTo(this Vector3 position, Vector3 other) => Vector3.Distance(position, other);
     }
 }
