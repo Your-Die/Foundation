@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Chinchillada.Utilities
+namespace Chinchillada.Events
 {
     /// <summary>
     /// Generic version of <see cref="ScriptedEvent"/> that allows a parameter of {T} to be passed along.

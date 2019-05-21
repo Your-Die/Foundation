@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Chinchillada.Utilities
+namespace Chinchillada.Events
 {
     /// <summary>
     /// Scriptable object that contains an event that can be raised.
@@ -18,9 +18,6 @@ namespace Chinchillada.Utilities
         /// <summary>
         /// Raises the <see cref="Happened"/>.
         /// </summary>
-        public void Raise()
-        {
-            Happened?.Invoke();
-        }
+        public void Raise() => Happened?.Invoke();
     }
 }
