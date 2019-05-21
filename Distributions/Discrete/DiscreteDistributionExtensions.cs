@@ -140,5 +140,38 @@ namespace Chinchillada.Distributions
 
             return weights.Sum();
         }
+
+        public static float ExpectedValue(this IDiscreteDistribution<int> distribution)
+        {
+            var support = distribution.Support();
+            var weightedValues = support.Select(GetWeightedValue);
+            float sum = weightedValues.Sum();
+            int totalWeight = distribution.TotalWeight();
+
+            return sum / totalWeight;
+
+            float GetWeightedValue(int value)
+            {
+                int weight = distribution.Weight(value);
+                return value * weight;
+            }
+        }
+
+        public static float ExpectedValue(this IDiscreteDistribution<float> distribution)
+        {
+
+            var support = distribution.Support();
+            var weightedValues = support.Select(GetWeightedValue);
+            float sum = weightedValues.Sum();
+            int totalWeight = distribution.TotalWeight();
+
+            return sum / totalWeight;
+
+            float GetWeightedValue(float value)
+            {
+                int weight = distribution.Weight(value);
+                return value * weight;
+            }
+        }
     }
 }
