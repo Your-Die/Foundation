@@ -284,5 +284,19 @@ namespace Chinchillada.Utilities
                 list[unshuffled] = value;
             }
         }
+
+        public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> enumerable)
+        {
+            var buffer = enumerable.ToList();
+
+            int count = buffer.Count;
+            for (int index = 0; index < count; index++)
+            {
+                int randomIndex = Random.Range(index, count);
+                yield return buffer[randomIndex];
+
+                buffer[randomIndex] = buffer[index];
+            }
+        }
     }
 }
