@@ -8,10 +8,10 @@ namespace Chinchillada.Distributions
     {
         private readonly Dictionary<T, int> _weights = new Dictionary<T, int>();
 
-        public void Add(T item)
+        public void Add(T item, int amount = 1)
         {
             int weight = _weights.GetValueOrDefault(item);
-            _weights[item] = weight + 1;
+            _weights[item] = weight + amount;
         }
 
         public IDistribution<T> ToDistribution()
