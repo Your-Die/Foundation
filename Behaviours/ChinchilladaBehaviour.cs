@@ -1,7 +1,7 @@
 ﻿using Chinchillada.Utilities;
 using Sirenix.OdinInspector;
 
-namespace Mutiny.RitualPractice
+namespace Chinchillada.Utilities
 {
     /// <summary>
     /// Base class for Monobehaviours. Inherits from <see cref="Sirenix.OdinInspector.SerializedMonoBehaviour"/>.

@@ -24,9 +24,12 @@ namespace Chinchillada.Utilities
             };
         }
 
-        /// <summary>
-        /// Tries to find a <see cref="Component"/> of the given type in the first layer of children of the <paramref name="component"/>.
-        /// </summary>
+        public static bool TryGetComponent<T>(this Component context, out T component)
+        {
+            component = context.GetComponent<T>();
+            return component != null;
+        }
+
         public static IEnumerable<T> GetComponentsInDirectChildren<T>(this Component component)
         {
             Transform transform = component.transform;
@@ -57,5 +60,11 @@ namespace Chinchillada.Utilities
                     yield return component;
             }
         }
+
+        public static float DistanceTo(this Transform transform, Transform other) => transform.DistanceTo(other.position);
+
+        private static float DistanceTo(this Transform transform, Vector3 other) => transform.position.DistanceTo(other);
+
+        public static float DistanceTo(this Vector3 position, Vector3 other) => Vector3.Distance(position, other);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Chinchillada.Utilities
 {
@@ -33,6 +34,19 @@ namespace Chinchillada.Utilities
         {
             LinkedListNode<T> node = list.FindNode(predicate) ?? list.Last;
             list.AddBefore(node, value);
+        }
+
+        public static void RemoveWhere<T>(this LinkedList<T> list, Predicate<T> predicate)
+        {
+            for (var node = list.First; node != null;)
+            {
+                var next = node.Next;
+
+                if (predicate(node.Value))
+                    list.Remove(node);
+
+                node = next;
+            }
         }
 
         /// <summary>
