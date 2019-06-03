@@ -7,7 +7,7 @@ namespace Chinchillada.Utilities
     /// <summary>
     /// Class containing extension methods used for generation.
     /// </summary>
-    public static class Generation
+    public static class FuncExtensions
     {
         /// <summary>
         /// Returns an infinite <see cref="IEnumerable{T}"/> using the <paramref name="factoryMethod"/>.
@@ -43,5 +43,14 @@ namespace Chinchillada.Utilities
         {
             return factoryMethod.GenerateValid(validator).Take(amount);
         }
+
+        public static float Area(
+            this Func<float, float> function, float start = 0f, float end = 1, int buckets = 1000) 
+            => Enumerable.Range(0, buckets)
+                .Select(i =>
+                {
+                    var value = start + (end - start) * i / buckets;
+                    return function(value) / buckets;
+                }).Sum();
     }
 }
