@@ -51,5 +51,28 @@ namespace Chinchillada.Utilities
                 node = next;
             }
         }
+
+        /// <summary>
+        /// Removes all elements in the <paramref name="list"/> that satisfy the <paramref name="predicate"/> and yields them.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the <paramref name="list"/>.</typeparam>
+        /// <param name="list">The <see cref="LinkedList{T}"/> we want to remove elements from.</param>
+        /// <param name="predicate">The predicate that is applied to remove elements from <paramref name="list"/>.</param>
+        /// <returns>The removed elements.</returns>
+        public static IEnumerable<T> RemoveAll<T>(this LinkedList<T> list, Func<T, bool> predicate)
+        {
+            for (var node = list.First; node != null;)
+            {
+                var next = node.Next;
+
+                if (predicate(node.Value))
+                {
+                    list.Remove(node);
+                    yield return node.Value;
+                }
+
+                node = next;
+            }
+        }
     }
 }

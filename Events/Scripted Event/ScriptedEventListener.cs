@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace Chinchillada.Utilities
+namespace Chinchillada.Events
 {
     /// <summary>
     /// Component that propagates <see cref="ScriptedEvent"/> to <see cref="UnityEvent"/>.
@@ -30,26 +30,17 @@ namespace Chinchillada.Utilities
         /// <summary>
         /// Subscribes to the <see cref="Event"/>.
         /// </summary>
-        private void OnEnable()
-        {
-            Event.Happened += OnEventHappened;
-        }
+        private void OnEnable() => Event.Happened += OnEventHappened;
 
         /// <summary>
         /// Unsubscribes from the <see cref="Event"/>.
         /// </summary>
-        private void OnDisable()
-        {
-            Event.Happened -= OnEventHappened;
-        }
+        private void OnDisable() => Event.Happened -= OnEventHappened;
 
         /// <summary>
         /// Called when the <see cref="Event"/> happened.
         /// Invokes the <see cref="Response"/>.
         /// </summary>
-        public void OnEventHappened()
-        {
-            Response?.Invoke();
-        }
+        public void OnEventHappened() => Response?.Invoke();
     }
 }

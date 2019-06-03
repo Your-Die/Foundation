@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Chinchillada.Utilities
+namespace Chinchillada.Events
 {
     /// <summary>
     /// <see cref="ScriptedEvent{T}"/> that passes along a <see cref="Transform"/>.
