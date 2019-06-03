@@ -36,14 +36,17 @@ namespace Chinchillada.Utilities
             list.AddBefore(node, value);
         }
 
-        public static void RemoveWhere<T>(this LinkedList<T> list, Predicate<T> predicate)
+        public static IEnumerable<T> RemoveWhere<T>(this LinkedList<T> list, Predicate<T> predicate)
         {
             for (var node = list.First; node != null;)
             {
                 var next = node.Next;
 
                 if (predicate(node.Value))
+                {
                     list.Remove(node);
+                    yield return node.Value;
+                }
 
                 node = next;
             }
