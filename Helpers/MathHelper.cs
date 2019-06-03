@@ -8,7 +8,7 @@ namespace Chinchillada.Utilities
     /// <summary>
     /// Static class of math functions.
     /// </summary>
-    internal static class MathHelper
+    public static class MathHelper
     {
         /// <summary>
         /// Returns the percentage of the point between the min and max.
