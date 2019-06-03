@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Chinchillada.Interactables
+namespace Chinchillada.Utilities
 {
     public interface ISelector<T>
     {
