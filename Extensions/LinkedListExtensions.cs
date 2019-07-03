@@ -74,5 +74,24 @@ namespace Chinchillada.Utilities
                 node = next;
             }
         }
+
+        public IEnumerable<T> FilterIterate(this LinkedList<T> list)
+        {
+            for (var node = list.First; node != null;)
+            {
+                var next = node.Next;
+
+                if (node.Value == null)
+                {
+                    list.Remove(node);
+                }
+                else
+                {
+                    yield return node.Value;
+                }
+
+                node = next;
+            }
+        }
     }
 }
