@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Chinchillada.Utilities
 {
@@ -75,7 +74,7 @@ namespace Chinchillada.Utilities
             }
         }
 
-        public IEnumerable<T> FilterIterate(this LinkedList<T> list)
+        public static IEnumerable<T> FilterIterate<T>(this LinkedList<T> list)
         {
             for (var node = list.First; node != null;)
             {
