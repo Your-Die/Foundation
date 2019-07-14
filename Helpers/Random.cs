@@ -1,4 +1,7 @@
-﻿using RNG = UnityEngine.Random;
+﻿using System;
+using System.Text;
+using UnityEngine;
+using RNG = UnityEngine.Random;
 
 namespace Chinchillada.Utilities
 {
@@ -47,6 +50,29 @@ namespace Chinchillada.Utilities
         public static float Range(float min, float max)
         {
             return RNG.Range(min, max);
+        }
+
+        public static float Float() => Value;
+
+        public static string String(int length)
+        {
+            var builder = new StringBuilder();
+            for (int i = 0; i < length; i++)
+            {
+                var character = Char();
+                builder.Append(character);
+            }
+
+            return builder.ToString();
+        }
+
+        public static char Char()
+        {
+            var randomFloat = Float();
+            var floatingPoint = 26 * randomFloat * 65;
+            var floored = Mathf.Floor(floatingPoint);
+            var integer = Convert.ToInt32(floored);
+            return Convert.ToChar(integer);
         }
     }
 }
