@@ -257,11 +257,6 @@ namespace Chinchillada.Utilities
         }
 
         /// <summary>
-        /// Creates a list collection of <see cref="ValueTuple"/> from the <paramref name="dictionary"/>.
-        /// </summary>
-        public static IEnumerable<(TElement, TValue)> ToTuples<TElement, TValue>(this IDictionary<TElement, TValue> dictionary) => dictionary.Keys.Select(key => (key, dictionary[key]));
-
-        /// <summary>
         /// Finds the minimum and the maximum result from applying the <paramref name="selector"/> to the <paramref name="enumerable"/>.
         /// </summary>
         public static (int, int) MinMax<T>(this IEnumerable<T> enumerable, Func<T, int> selector)
@@ -282,8 +277,6 @@ namespace Chinchillada.Utilities
 
             return (min, max);
         }
-
-        public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue = default) => dictionary.TryGetValue(key, out TValue value) ? value : defaultValue;
 
         public static IEnumerable<T> DropEndWhile<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate) => enumerable.ApplyBackwards(sequence => sequence.SkipWhile(predicate));
 
