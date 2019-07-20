@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Linq;
 using System.Reflection;
 
 namespace Chinchillada.Utilities
@@ -12,6 +13,7 @@ namespace Chinchillada.Utilities
         FindComponent,
         InParent,
         InChildren,
+        OnlyChildren
     }
 
     /// <summary>
@@ -60,6 +62,9 @@ namespace Chinchillada.Utilities
                     return behaviour.GetComponentInParent(type);
                 case SearchStrategy.InChildren:
                     return behaviour.GetComponentInChildren(type);
+                case SearchStrategy.OnlyChildren:
+                    return behaviour.GetComponentsInDirectChildren(type).First();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
