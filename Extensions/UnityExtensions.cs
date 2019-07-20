@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Chinchillada.Utilities
 {
@@ -22,43 +21,6 @@ namespace Chinchillada.Utilities
                 y = Random.Range(min.y, max.y),
                 z = Random.Range(min.z, max.z)
             };
-        }
-
-        public static bool TryGetComponent<T>(this Component context, out T component)
-        {
-            component = context.GetComponent<T>();
-            return component != null;
-        }
-
-        public static IEnumerable<T> GetComponentsInDirectChildren<T>(this Component component)
-        {
-            Transform transform = component.transform;
-            return transform.GetComponentsInDirectChildren<T>();
-        }
-
-        /// <summary>
-        /// Tries to find a <see cref="Component"/> of the given type in the first layer of children of the <paramref name="gameObject"/>.
-        /// </summary>
-        public static IEnumerable<T> GetComponentsInDirectChildren<T>(this GameObject gameObject)
-        {
-            Transform transform = gameObject.transform;
-            return transform.GetComponentsInDirectChildren<T>();
-        }
-
-        /// <summary>
-        /// Tries to find a <see cref="Component"/> of the given type in the first layer of children of the <paramref name="transform"/>.
-        /// </summary>
-        public static IEnumerable<T> GetComponentsInDirectChildren<T>(this Transform transform)
-        {
-            int childCount = transform.childCount;
-            for (int index = 0; index < childCount; index++)
-            {
-                Transform childTransform = transform.GetChild(index);
-                T component = childTransform.GetComponent<T>();
-
-                if (component != null)
-                    yield return component;
-            }
         }
 
         public static float DistanceTo(this Transform transform, Transform other) => transform.DistanceTo(other.position);
