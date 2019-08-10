@@ -293,5 +293,11 @@ namespace Chinchillada.Utilities
         public static int GCD(this IEnumerable<int> numbers) => numbers.Aggregate(MathHelper.GCD);
 
         public static int LCM(this IEnumerable<int> numbers) => numbers.Aggregate(1, MathHelper.LCM);
+
+        public static IEnumerable<T> AsEnumerable<T>(this (T x, T y) tuple)
+        {
+            yield return tuple.x;
+            yield return tuple.y;
+        }
     }
 }
