@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.UIElements;
 
 namespace Chinchillada.Utilities
 {
@@ -27,6 +28,19 @@ namespace Chinchillada.Utilities
         public static T Best<T>(this IDictionary<T, float> dictionary)
         {
             return dictionary.Keys.Best(key => dictionary[key]);
+        }
+
+        public static IDictionary<TValue, TKey> Invert<TKey, TValue>(this IDictionary<TKey, TValue> dictionary)
+        {
+            var inverted = new Dictionary<TValue, TKey>();
+
+            foreach (var key in dictionary.Keys)
+            {
+                var value = dictionary[key];
+                inverted[value] = key;
+            }
+
+            return inverted;
         }
     }
 }
