@@ -20,5 +20,7 @@ namespace Chinchillada.Utilities
 
             return generation;
         }
+
+        public static int AsBinary(this bool value) => value ? 1 : 0;
     }
 }
