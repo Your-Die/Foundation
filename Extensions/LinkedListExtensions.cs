@@ -95,10 +95,10 @@ namespace Chinchillada.Utilities
 
         public static T GrabFirst<T>(this LinkedList<T> list)
         {
-            var first = list.First();
+            var first = list.First;
             list.RemoveFirst();
 
-            return first;
+            return first.Value;
         }
     }
 }

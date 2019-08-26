@@ -64,7 +64,6 @@ namespace Chinchillada.Utilities
                     return behaviour.GetComponentInChildren(type);
                 case SearchStrategy.OnlyChildren:
                     return behaviour.GetComponentsInDirectChildren(type).First();
-                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
