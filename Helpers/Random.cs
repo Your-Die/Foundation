@@ -20,6 +20,8 @@ namespace Chinchillada.Utilities
         /// </summary>
         public static float value => RNG.value;
 
+        public static void SetSeed(int seed) => RNG.InitState(seed);
+        
         /// <summary>
         /// Generate a random <see cref="int"/>  between 0 and <paramref name="max"/>.
         /// </summary>
