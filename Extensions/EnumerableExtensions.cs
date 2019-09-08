@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Rewired.Utils.Attributes;
 
 namespace Chinchillada.Utilities
 {
@@ -242,6 +243,16 @@ namespace Chinchillada.Utilities
         /// </summary>
         public static bool ContainsIndex<T>(this IEnumerable<T> enumerable, int index) => 0 <= index && index < enumerable.Count();
 
+        public static IEnumerable<int> IndicesWhere<T>(this IList<T> list, Func<T, bool> predicate)
+        {
+            for (var index = 0; index < list.Count; index++)
+            {
+                var item = list[index];
+                if (predicate(item))
+                    yield return index;
+            }
+        }
+        
         /// <summary>
         /// Creates a <see cref="LinkedList{T}"/> from the <paramref name="enumerable"/>.
         /// </summary>
