@@ -30,5 +30,9 @@ namespace Chinchillada.Utilities
         public static float DistanceTo(this Vector3 position, Vector3 other) => Vector3.Distance(position, other);
 
         public static (int x, int y, int z) ToTuple(this Vector3Int vector) => (vector.x, vector.y, vector.z);
+        public static Vector3 ToVector3(this Vector2Int vector)
+        {
+            return new Vector3(vector.x, vector.y);
+        }
     }
 }

@@ -8,18 +8,12 @@ namespace Chinchillada.Utilities
     {
         int Count { get; }
         
-        TItem First { get; }
+        TItem Peek { get; }
         
         void Enqueue(TItem item, TPriority priority);
 
         TItem Dequeue();
 
         void Clear();
-
-        bool Remove(TItem item);
-
-        bool Contains(TItem item);
-
-        void UpdatePriority(TItem item, TPriority priority);
     }
 }
