@@ -21,13 +21,16 @@ namespace Chinchillada.Utilities
         /// </summary>
         private readonly string _assetName;
 
+        private readonly string _typeFilter;
+
         /// <summary>
         /// Constructs a new <see cref="DefaultAssetAttribute"/>.
         /// </summary>
         /// <param name="defaultAssetName">The name of the asset we want to use as a default.</param>
-        public DefaultAssetAttribute(string defaultAssetName)
+        public DefaultAssetAttribute(string defaultAssetName, string typeFilter = null)
         {
             _assetName = defaultAssetName;
+            _typeFilter = typeFilter;
         }
 
         /// <summary>
@@ -38,8 +41,12 @@ namespace Chinchillada.Utilities
         public object GetDefaultAsset(Type type)
         {
 #if UNITY_EDITOR
+            var typeName = string.IsNullOrEmpty(this._typeFilter)
+                ? type.Name
+                : this._typeFilter;
+            
             // Try to find matching assets in the asset database.
-            var searchFilter = $"{_assetName} t:{type.Name}";
+            var searchFilter = $"{_assetName} t:{typeName}";
             var guids = AssetDatabase.FindAssets(searchFilter);
             if (guids.IsEmpty())
                 return null;
