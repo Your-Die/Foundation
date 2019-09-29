@@ -1,5 +1,5 @@
 ﻿using System;
-using MEC;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -18,7 +18,7 @@ namespace Chinchillada.Timers
         /// <summary>
         /// Handle to the routine.
         /// </summary>
-        private CoroutineHandle _timerHandle;
+        private IEnumerator timerRoutine;
 
         /// <summary>
         /// Time the current timer run was started.
@@ -28,14 +28,14 @@ namespace Chinchillada.Timers
         /// <summary>
         /// The amount of time that this timer has spent running since the last <see cref="Stop"/>, <see cref="Finish"/> or <see cref="Restart"/>.
         /// </summary>
-        private float _elapsedTime;
+        private float elapsedTime;
 
         /// <summary>
         /// Duration of the timer.
         /// </summary>
-        public float Duration => _duration;
+        public float Duration => this._duration;
 
-        public UnityEvent Finished => _finished;
+        public UnityEvent Finished => this._finished;
 
         /// <summary>
         /// Whether the timer is currently running.
@@ -55,7 +55,7 @@ namespace Chinchillada.Timers
         /// <param name="duration">The amount of time the timer should run.</param>
         public Timer(float duration)
         {
-            _duration = duration;
+            this._duration = duration;
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Chinchillada.Timers
         /// <param name="onFinished">Action invoked when the timer is finished.</param>
         public Timer(float duration, UnityAction onFinished) : this(duration)
         {
-            Finished.AddListener(onFinished);
+            this.Finished.AddListener(onFinished);
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Chinchillada.Timers
         /// <returns></returns>
         public static Timer StartTimer(float duration, UnityAction onFinished = null)
         {
-            Timer timer = new Timer(duration);
+            var timer = new Timer(duration);
 
             if (onFinished != null)
                 timer.Finished.AddListener(onFinished);
@@ -92,18 +92,18 @@ namespace Chinchillada.Timers
         /// </summary>
         public void Start()
         {
-            if (IsRunning)
+            if (this.IsRunning)
                 return;
 
-            _startTime = Time.time;
-            IsRunning = true;
+            this._startTime = Time.time;
+            this.IsRunning = true;
 
-            float remaining = Duration - _elapsedTime;
+            var remaining = this.Duration - this.elapsedTime;
 
             if (remaining > 0)
-                _timerHandle = Timing.CallDelayed(remaining, Finish);
+                this.timerRoutine = Timing.InvokeDelayed(this.Finish, remaining);
             else
-                Finish();
+                this.Finish();
         }
 
         /// <summary>
@@ -111,16 +111,16 @@ namespace Chinchillada.Timers
         /// </summary>
         public void Pause()
         {
-            if (!IsRunning)
+            if (!this.IsRunning)
                 return;
 
-            Timing.KillCoroutines(_timerHandle);
-            IsRunning = false;
+            Timing.CancelInvocation(this.timerRoutine);
+            this.IsRunning = false;
 
-            float time = Time.time;
-            float elapsed = time - _startTime;
+            var time = Time.time;
+            var elapsed = time - this._startTime;
 
-            _elapsedTime += elapsed;
+            this.elapsedTime += elapsed;
         }
 
         /// <summary>
@@ -128,8 +128,8 @@ namespace Chinchillada.Timers
         /// </summary>
         public void Restart()
         {
-            Stop();
-            Start();
+            this.Stop();
+            this.Start();
         }
 
         /// <summary>
@@ -137,8 +137,8 @@ namespace Chinchillada.Timers
         /// </summary>
         public void Finish()
         {
-            Stop();
-            Finished?.Invoke();
+            this.Stop();
+            this.Finished?.Invoke();
         }
 
         /// <summary>
@@ -146,9 +146,9 @@ namespace Chinchillada.Timers
         /// </summary>
         public void Stop()
         {
-            Timing.KillCoroutines(_timerHandle);
-            IsRunning = false;
-            _elapsedTime = 0;
+            Timing.CancelInvocation(this.timerRoutine);
+            this.IsRunning = false;
+            this.elapsedTime = 0;
         }
     }
 }
