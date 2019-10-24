@@ -11,33 +11,33 @@ namespace Chinchillada.Utilities
         /// <summary>
         /// The singleton instance.
         /// </summary>
-        private T _instance;
+        private static T instance;
 
         /// <summary>
         /// The singleton instance.
         /// </summary>
-        public T Instance
+        public static T Instance
         {
             get
             {
                 // Try to get existing instance.
-                if (_instance != null)
-                    return _instance;
+                if (instance != null)
+                    return instance;
 
                 // Ensure existence.
-                _instance = UnityHelper.FindOrCreate<T>();
-                return _instance;
+                instance = UnityHelper.FindOrCreate<T>();
+                return instance;
             }
         }
 
         protected virtual void Awake()
         {
-            if (_instance == null)
+            if (instance == null)
                 return;
 
             // Destroy duplicates of singleton.
             Debug.Log($"Duplicate singleton of type ({nameof(T)}) awoken. Destroying {this.name}");
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using Object = UnityEngine.Object;
 
 namespace Chinchillada.Utilities
 {
@@ -13,7 +14,8 @@ namespace Chinchillada.Utilities
         FindComponent,
         InParent,
         InChildren,
-        OnlyChildren
+        OnlyChildren,
+        Anywhere
     }
 
     /// <summary>
@@ -64,6 +66,8 @@ namespace Chinchillada.Utilities
                     return behaviour.GetComponentInChildren(type);
                 case SearchStrategy.OnlyChildren:
                     return behaviour.GetComponentsInDirectChildren(type).First();
+                case SearchStrategy.Anywhere:
+                    return (Component) Object.FindObjectOfType(type);
                 default:
                     throw new ArgumentOutOfRangeException();
             }
