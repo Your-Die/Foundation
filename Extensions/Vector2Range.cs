@@ -33,10 +33,10 @@ namespace Chinchillada.Utilities
         /// </summary>
         public static float RangeLerp(this Vector2 range, float value)
         {
-            if (value <= range.x)
+            if (value <= 0)
                 return range.x;
 
-            if (value >= range.y)
+            if (value >= 1)
                 return range.y;
 
             return Mathf.Lerp(range.x, range.y, value);
