@@ -56,6 +56,17 @@ namespace Chinchillada.Utilities
 
         public static float Float() => Value;
 
+        public static bool Bool(float probability = 0.5f) => Value <= probability;
+
+        public static T Choose<T>(T left, T right, float probability = 0.5f)
+        {
+            return Bool(probability)
+                ? left
+                : right;
+        }
+        
+        public static T Choose<T>(params T[] items) => items.ChooseRandom();
+
         public static string String(int length)
         {
             var builder = new StringBuilder();
