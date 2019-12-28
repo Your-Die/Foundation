@@ -111,5 +111,11 @@ namespace Chinchillada.Utilities
 
             return valueList.Select(value => value / greatestCommonDivider);
         }
+
+        public static int ClosestSmallerMultiple(this int value, int multiple)
+        {
+            var division = value / multiple; // Floors implicitly.
+            return division * multiple;
+        }
     }
 }
