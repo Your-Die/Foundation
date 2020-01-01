@@ -30,6 +30,11 @@ namespace Chinchillada.Utilities
         {
             this.defaultConstructor = defaultConstructor;
         }
+
+        public DefaultDictionary(TValue defaultValue)
+        {
+            this.defaultConstructor = () => defaultValue;
+        }
         
         void ICollection<KeyValuePair<TKey, TValue>>.CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
