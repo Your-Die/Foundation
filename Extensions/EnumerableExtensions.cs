@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Rewired.Utils.Attributes;
 
 namespace Chinchillada.Utilities
 {
@@ -309,6 +308,11 @@ namespace Chinchillada.Utilities
         {
             yield return tuple.x;
             yield return tuple.y;
+        }
+
+        public static void EnumerateFully<T>(this IEnumerable<T> enumerable)
+        {
+            var _ = enumerable.ToList();
         }
     }
 }
