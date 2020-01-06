@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Runtime.CompilerServices;
+using UnityEngine;
 
 namespace Chinchillada.Utilities
 {
@@ -33,6 +34,19 @@ namespace Chinchillada.Utilities
         public static Vector3 ToVector3(this Vector2Int vector)
         {
             return new Vector3(vector.x, vector.y);
+        }
+
+        public static Vector2Int ToVector2(this Vector3Int vector) => new Vector2Int(vector.x, vector.y);
+
+        public static Vector3Int GetCenterInt(this BoundsInt bounds)
+        {
+            return bounds.position + bounds.size / 2;
+        }
+
+        public static bool Contains2D(this BoundsInt bounds, Vector2Int vector)
+        {
+            return vector.x >= bounds.xMin && vector.x < bounds.xMax &&
+                   vector.y >= bounds.yMin && vector.y < bounds.yMax;
         }
     }
 }
