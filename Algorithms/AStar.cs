@@ -6,7 +6,7 @@ namespace Utilities.Algorithms
 {
     public static class AStar
     {
-        public static IEnumerable<T> Search<T>(ISearchProblem<T> problem) where T : IComparable
+        public static IEnumerable<T> Search<T>(ISearchProblem<T> problem)
         {
             var frontier = new PriorityQueue<SearchNode<T>>();
             var openList = new HashSet<T>();
@@ -46,7 +46,7 @@ namespace Utilities.Algorithms
             return null;
         }
 
-        private static IEnumerable<T> BuildPath<T>(SearchNode<T> node, Dictionary<T,SearchNode<T>> explored) where T : IComparable
+        private static IEnumerable<T> BuildPath<T>(SearchNode<T> node, Dictionary<T,SearchNode<T>> explored)
         {
             var path = new LinkedList<T>();
             path.AddFirst(node.State);

@@ -18,7 +18,7 @@ namespace Utilities.Algorithms
         
         public float Cost { get; }
 
-        public SearchAction(T state, float cost)
+        public SearchAction(T state, float cost = 1f)
         {
             this.State = state;
             this.Cost = cost;
