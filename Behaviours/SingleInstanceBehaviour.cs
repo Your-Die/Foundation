@@ -11,7 +11,7 @@ namespace Utilities.Behaviours
 
         protected abstract T GetInstance();
 
-        protected void Awake()
+        protected override void Awake()
         {
             if (HasInstance)
             {
@@ -19,7 +19,10 @@ namespace Utilities.Behaviours
                 Destroy(this.gameObject);
             }
             else
+            {
                 Instance = this.GetInstance();
+                base.Awake();
+            }
         }
     }
 }
