@@ -4,6 +4,7 @@ using Chinchillada.Utilities;
 
 namespace Utilities.Algorithms
 {
+    // todo: this isn't actually Astar, need to rewrite.
     public static class AStar
     {
         public static IEnumerable<T> Search<T>(ISearchProblem<T> problem)
