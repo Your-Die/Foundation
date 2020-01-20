@@ -41,5 +41,16 @@ namespace Chinchillada.Utilities
 
             return Mathf.Lerp(range.x, range.y, value);
         }
+
+        public static float RangeClamp(this Vector2 range, float value)
+        {
+            if (value < range.x)
+                return range.x;
+
+            if (value > range.y)
+                return range.y;
+
+            return value;
+        }
     }
 }
