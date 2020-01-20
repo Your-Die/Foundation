@@ -89,5 +89,7 @@ namespace Chinchillada.Utilities
         }
 
         public void Clear() => this.list.Clear();
+
+        public bool Contains(T item) => this.list.Contains(item);
     }
 }
