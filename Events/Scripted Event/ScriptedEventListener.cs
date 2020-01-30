@@ -16,7 +16,7 @@ namespace Chinchillada.Events
         /// <summary>
         /// The event invoked when the <see cref="Event"/> is raised.
         /// </summary>
-        public UnityEvent Response;
+        public UnityEvent response;
 
         /// <summary>
         /// The <see cref="ScriptedEvent"/> we listen to.
@@ -39,8 +39,8 @@ namespace Chinchillada.Events
 
         /// <summary>
         /// Called when the <see cref="Event"/> happened.
-        /// Invokes the <see cref="Response"/>.
+        /// Invokes the <see cref="response"/>.
         /// </summary>
-        public void OnEventHappened() => Response?.Invoke();
+        public void OnEventHappened() => this.response?.Invoke();
     }
 }

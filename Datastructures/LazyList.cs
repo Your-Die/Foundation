@@ -14,17 +14,17 @@ namespace Chinchillada.Utilities
         /// <summary>
         /// The queue of <see cref="IEnumerable{T}"/> that are to be enumerated.
         /// </summary>
-        private readonly Queue<IEnumerable<T>> _enumerables = new Queue<IEnumerable<T>>();
+        private readonly Queue<IEnumerable<T>> enumerables = new Queue<IEnumerable<T>>();
 
         /// <summary>
-        /// The list that we enumerate the results of the <see cref="_enumerables"/> into.
+        /// The list that we enumerate the results of the <see cref="enumerables"/> into.
         /// </summary>
-        private readonly List<T> _list = new List<T>();
+        private readonly List<T> list = new List<T>();
 
         /// <summary>
         /// The enumerable that we are currently enumerating.
         /// </summary>
-        private IEnumerator<T> _enumerator;
+        private IEnumerator<T> enumerator;
 
         /// <inheritdoc />
         public bool IsReadOnly => false;
@@ -37,8 +37,8 @@ namespace Chinchillada.Utilities
         {
             get
             {
-                EnumerateFull();
-                return _list.Count;
+                this.EnumerateFull();
+                return this.list.Count;
             }
         }
 
@@ -46,23 +46,23 @@ namespace Chinchillada.Utilities
         /// Construct a new <see cref="LazyList{T}"/> around the <paramref name="enumerable"/>.
         /// </summary>
         /// <param name="enumerable">The enumerable we want to wrap in <see cref="LazyList{T}"/>.</param>
-        public LazyList(IEnumerable<T> enumerable) => _enumerables.Enqueue(enumerable);
+        public LazyList(IEnumerable<T> enumerable) => this.enumerables.Enqueue(enumerable);
 
         /// <inheritdoc />
         public IEnumerator<T> GetEnumerator()
         {
-            foreach (T p in EnumerateList())
+            foreach (var p in this.EnumerateList())
                 yield return p;
 
-            foreach (T p1 in EnumerateCurrent())
+            foreach (var p1 in this.EnumerateCurrent())
                 yield return p1;
 
-            foreach (T p2 in EnumerateQueue())
+            foreach (var p2 in this.EnumerateQueue())
                 yield return p2;
         }
 
         /// <inheritdoc />
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 
         /// <summary>
         /// Add the <paramref name="item"/> to the end of the list.
@@ -71,15 +71,15 @@ namespace Chinchillada.Utilities
         public void Add(T item)
         {
             // If we have no enumerables in queue, we can add it directly to the list.
-            if (_enumerator == null && _enumerables.IsEmpty())
+            if (this.enumerator == null && this.enumerables.IsEmpty())
             {
-                _list.Add(item);
+                this.list.Add(item);
             }
             else
             {
                 // Wrap it in an enumerable so we can add it to the queue.
                 var enumerable = Enumerables.Single(item);
-                _enumerables.Enqueue(enumerable);
+                this.enumerables.Enqueue(enumerable);
             }
         }
 
@@ -87,16 +87,16 @@ namespace Chinchillada.Utilities
         /// Adds the <paramref name="range"/> to the end of the list.
         /// </summary>
         /// <param name="range">The range to add.</param>
-        public void AddRange(IEnumerable<T> range) => _enumerables.Enqueue(range);
+        public void AddRange(IEnumerable<T> range) => this.enumerables.Enqueue(range);
 
         /// <summary>
         /// Clears the lazy list.
         /// </summary>
         public void Clear()
         {
-            _list.Clear();
-            _enumerator = null;
-            _enumerables.Clear();
+            this.list.Clear();
+            this.enumerator = null;
+            this.enumerables.Clear();
         }
 
         /// <summary>
@@ -173,8 +173,8 @@ namespace Chinchillada.Utilities
         /// <param name="item">The item we want to insert.</param>
         public void Insert(int index, T item)
         {
-            EnumerateUntil(index);
-            _list.Insert(index, item);
+            this.EnumerateUntil(index);
+            this.list.Insert(index, item);
         }
 
         /// <summary>
@@ -183,8 +183,8 @@ namespace Chinchillada.Utilities
         /// <param name="index">The index of the item we want to remove.</param>
         public void RemoveAt(int index)
         {
-            EnumerateUntil(index);
-            _list.RemoveAt(index);
+            this.EnumerateUntil(index);
+            this.list.RemoveAt(index);
         }
 
         /// <summary>
@@ -196,13 +196,13 @@ namespace Chinchillada.Utilities
         {
             get
             {
-                EnumerateUntil(index);
-                return _list[index];
+                this.EnumerateUntil(index);
+                return this.list[index];
             }
             set
             {
-                EnumerateUntil(index);
-                _list[index] = value;
+                this.EnumerateUntil(index);
+                this.list[index] = value;
             }
         }
 
@@ -212,68 +212,68 @@ namespace Chinchillada.Utilities
         /// </summary>
         public void EnumerateFull()
         {
-            EnumerateUntil(int.MaxValue);
+            this.EnumerateUntil(int.MaxValue);
         }
         
         /// <summary>
-        /// Enumerates all <see cref="IEnumerable{T}"/> in the <see cref="_enumerables"/> queue.
+        /// Enumerates all <see cref="IEnumerable{T}"/> in the <see cref="enumerables"/> queue.
         /// </summary>
         /// <returns>The enumeration of the queue.</returns>
         private IEnumerable<T> EnumerateQueue()
         {
             // Go to the queued enumerables.
-            while (_enumerables.Any())
+            while (this.enumerables.Any())
             {
                 // Get the next enumerable.
-                var enumerable = _enumerables.Dequeue();
-                _enumerator = enumerable.GetEnumerator();
+                var enumerable = this.enumerables.Dequeue();
+                this.enumerator = enumerable.GetEnumerator();
 
                 // Enumerate.
                 do
                 {
-                    yield return _enumerator.Current;
-                } while (_enumerator.MoveNext());
+                    yield return this.enumerator.Current;
+                } while (this.enumerator.MoveNext());
             }
 
-            _enumerator = null;
+            this.enumerator = null;
         }
 
         /// <summary>
-        /// Enumerate the current <see cref="_enumerator"/>.
+        /// Enumerate the current <see cref="enumerator"/>.
         /// If we exited enumeration previously without fully enumerating the enumerable,
-        /// we keep reference of the enumerator in <see cref="_enumerator"/>.
+        /// we keep reference of the enumerator in <see cref="enumerator"/>.
         /// this method completes the enumeration on it.
         /// </summary>
         /// <returns>The enumeration.</returns>
         private IEnumerable<T> EnumerateCurrent()
         {
-            if (_enumerator == null)
+            if (this.enumerator == null)
                 yield break;
 
             // go through the current enumerator. 
             // We start with a MoveNext() here because if _enumerator is assigned,
             // It previously exited enumeration after an evaluation of the Current without 
             // calling move next.
-            while (_enumerator.MoveNext())
+            while (this.enumerator.MoveNext())
             {
                 // Get element and add it to list.
-                T element = _enumerator.Current;
-                _list.Add(element);
+                T element = this.enumerator.Current;
+                this.list.Add(element);
 
                 yield return element;
             }
 
-            _enumerator = null;
+            this.enumerator = null;
         }
 
         /// <summary>
-        /// Enumerates through the <see cref="_list"/>.
+        /// Enumerates through the <see cref="list"/>.
         /// </summary>
-        /// <returns>The enumeration of the <see cref="_list"/>.</returns>
+        /// <returns>The enumeration of the <see cref="list"/>.</returns>
         private IEnumerable<T> EnumerateList()
         {
             // First loop through the elements we already enumerated.
-            foreach (T element in _list)
+            foreach (T element in this.list)
                 yield return element;
         }
 
@@ -288,12 +288,12 @@ namespace Chinchillada.Utilities
         private void EnumerateUntil(int index)
         {
             // Account of elements in the list.
-            index -= _list.Count;
+            index -= this.list.Count;
             if (index <= 0)
                 return;
 
             // Enumerate over current.
-            foreach (T unused in EnumerateCurrent())
+            foreach (T unused in this.EnumerateCurrent())
             {
                 index--;
                 if (index <= 0)
@@ -301,7 +301,7 @@ namespace Chinchillada.Utilities
             }
 
             // Enumerate over the enumerables in the queue.
-            foreach (T unused in EnumerateQueue())
+            foreach (T unused in this.EnumerateQueue())
             {
                 index--;
                 if (index <= 0)

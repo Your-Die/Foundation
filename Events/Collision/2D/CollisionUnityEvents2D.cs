@@ -13,31 +13,31 @@ namespace Chinchillada.Utilities
         /// <summary>
         /// Event invoked when a <see cref="Collision2D"/> is entered.
         /// </summary>
-        [SerializeField] private UnityEvent _collisionEntered = new UnityEvent();
+        [SerializeField] private UnityEvent collisionEntered = new UnityEvent();
 
         /// <summary>
         /// Event invoked when a <see cref="Collision2D"/> is exited.
         /// </summary>
-        [SerializeField] private UnityEvent _collisionExited = new UnityEvent();
+        [SerializeField] private UnityEvent collisionExited = new UnityEvent();
 
         /// <summary>
         /// Event invoked when a <see cref="Collision2D"/> is entered.
         /// </summary>
-        public UnityEvent CollisionEntered => _collisionEntered;
+        public UnityEvent CollisionEntered => this.collisionEntered;
 
         /// <summary>
         /// Event invoked when a <see cref="Collision2D"/> is exited.
         /// </summary>
-        public UnityEvent CollisionExited => _collisionExited;
+        public UnityEvent CollisionExited => this.collisionExited;
 
         private void OnCollisionExit2D(Collision2D collision)
         {
-            _collisionEntered.Invoke();
+            this.collisionEntered.Invoke();
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            _collisionExited.Invoke();
+            this.collisionExited.Invoke();
         }
     }
 }

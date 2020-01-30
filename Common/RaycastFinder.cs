@@ -9,21 +9,26 @@ namespace Utilities.Common
     public class RaycastFinder<T> : ChinchilladaBehaviour, IProvider<T>
         where T : Component
     {
-        [SerializeField, FindComponent] private Transform _origin;
+        [SerializeField, FindComponent] private Transform origin;
 
-        [SerializeField] private float _maxDistance = 100f;
-        [SerializeField] private LayerMask _layerMask;
-        [SerializeField] private QueryTriggerInteraction _triggerInteraction;
-        [SerializeField] private int _hitCacheSize = 10;
+        [SerializeField] private float maxDistance = 100f;
+        [SerializeField] private LayerMask layerMask;
+        [SerializeField] private QueryTriggerInteraction triggerInteraction;
+        [SerializeField] private int hitCacheSize = 10;
 
-        private RaycastHit[] _hitCache;
+        private RaycastHit[] hitCache;
 
         public IEnumerable<T> Provide()
         {
-            var size = Physics.RaycastNonAlloc(_origin.position, _origin.forward, _hitCache, _maxDistance, _layerMask,
-                _triggerInteraction);
+            var size = Physics.RaycastNonAlloc(
+                this.origin.position,
+                this.origin.forward,
+                this.hitCache, this.maxDistance,
+                this.layerMask,
+                this.triggerInteraction
+            );
 
-            return _hitCache
+            return this.hitCache
                 .Take(size)
                 .Select(c => c.collider.GetComponent<T>())
                 .Where(Equality.NotNull);
@@ -33,7 +38,7 @@ namespace Utilities.Common
         {
             base.Awake();
 
-            _hitCache = new RaycastHit[_hitCacheSize];
+            this.hitCache = new RaycastHit[this.hitCacheSize];
         }
     }
 }

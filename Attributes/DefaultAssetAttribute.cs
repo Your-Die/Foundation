@@ -19,18 +19,19 @@ namespace Chinchillada.Utilities
         /// <summary>
         /// The name of the asset we want to use as a default.
         /// </summary>
-        private readonly string _assetName;
+        private readonly string assetName;
 
-        private readonly string _typeFilter;
+        private readonly string typeFilter;
 
         /// <summary>
         /// Constructs a new <see cref="DefaultAssetAttribute"/>.
         /// </summary>
         /// <param name="defaultAssetName">The name of the asset we want to use as a default.</param>
+        /// <param name="typeFilter">Filter for types to match for.</param>
         public DefaultAssetAttribute(string defaultAssetName, string typeFilter = null)
         {
-            _assetName = defaultAssetName;
-            _typeFilter = typeFilter;
+            this.assetName = defaultAssetName;
+            this.typeFilter = typeFilter;
         }
 
         /// <summary>
@@ -41,19 +42,19 @@ namespace Chinchillada.Utilities
         public object GetDefaultAsset(Type type)
         {
 #if UNITY_EDITOR
-            var typeName = string.IsNullOrEmpty(this._typeFilter)
+            var typeName = string.IsNullOrEmpty(this.typeFilter)
                 ? type.Name
-                : this._typeFilter;
+                : this.typeFilter;
             
             // Try to find matching assets in the asset database.
-            var searchFilter = $"{_assetName} t:{typeName}";
+            var searchFilter = $"{this.assetName} t:{typeName}";
             var guids = AssetDatabase.FindAssets(searchFilter);
             if (guids.IsEmpty())
                 return null;
 
             // Load the matched asset.
-            string guid = guids.First();
-            string path = AssetDatabase.GUIDToAssetPath(guid);
+            var guid = guids.First();
+            var path = AssetDatabase.GUIDToAssetPath(guid);
             return AssetDatabase.LoadAssetAtPath(path, type);
 #endif
 #pragma warning disable 162

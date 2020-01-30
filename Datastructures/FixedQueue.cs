@@ -14,11 +14,11 @@ namespace Chinchillada.Utilities
         /// <summary>
         /// The queue instance that this class wraps.
         /// </summary>
-        private readonly LinkedList<T> _queue;
+        private readonly LinkedList<T> queue;
         /// <summary>
         /// The fixed size for this queue.
         /// </summary>
-        private int _capacity;
+        private int capacity;
 
         /// <summary>
         /// Event that is called when an excess element is dequeued.
@@ -35,28 +35,28 @@ namespace Chinchillada.Utilities
         /// </summary>
         public int Capacity
         {
-            get => _capacity;
+            get => this.capacity;
             set
             {
                 //Do nothing if it's the same.
-                if (value == _capacity)
+                if (value == this.capacity)
                     return;
 
                 //Look if elements need to be dequeued.
-                _capacity = value;
-                DequeueExcessValues();
+                this.capacity = value;
+                this.DequeueExcessValues();
             }
         }
 
         /// <summary>
         /// Amount of values in this queue.
         /// </summary>
-        public int Count => _queue.Count;
+        public int Count => this.queue.Count;
 
         public FixedQueue(int capacity)
         {
-            _capacity = capacity;
-            _queue = new LinkedList<T>();
+            this.capacity = capacity;
+            this.queue = new LinkedList<T>();
         }
 
         /// <summary>
@@ -65,15 +65,15 @@ namespace Chinchillada.Utilities
         /// <param name="value">The value to enqueue.</param>
         public void Enqueue(T value)
         {
-            _queue.AddLast(value);
-            ValueEnqueued?.Invoke(value);
+            this.queue.AddLast(value);
+            this.ValueEnqueued?.Invoke(value);
 
-            DequeueExcessValues();
+            this.DequeueExcessValues();
         }
 
         public void Remove(T value)
         {
-            _queue.Remove(value);
+            this.queue.Remove(value);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Chinchillada.Utilities
         /// <returns>The value at <paramref name="index"/>.</returns>
         public T AtIndex(int index)
         {
-            return _queue.ElementAt(index);
+            return this.queue.ElementAt(index);
         }
 
         /// <summary>
@@ -91,36 +91,36 @@ namespace Chinchillada.Utilities
         /// </summary>
         public void Clear()
         {
-            _queue.Clear();
+            this.queue.Clear();
         }
-        public IEnumerable<T> RemoveAll(Func<T, bool> predicate) => _queue.RemoveAll(predicate);
+        public IEnumerable<T> RemoveAll(Func<T, bool> predicate) => this.queue.RemoveAll(predicate);
 
-        public bool Contains(T value) => _queue.Contains(value);
+        public bool Contains(T value) => this.queue.Contains(value);
 
         /// <summary>
         /// Dequeues until the queue doesn't exceed capacity anymore.
         /// </summary>
         private void DequeueExcessValues()
         {
-            while (_queue.Count > Capacity)
+            while (this.queue.Count > this.Capacity)
             {
-                T value = _queue.First.Value;
-                _queue.RemoveFirst();
+                T value = this.queue.First.Value;
+                this.queue.RemoveFirst();
 
-                ExcessDequeued?.Invoke(value);
+                this.ExcessDequeued?.Invoke(value);
             }
         }
 
         /// <inheritdoc />
         public IEnumerator<T> GetEnumerator()
         {
-            return _queue.GetEnumerator();
+            return this.queue.GetEnumerator();
         }
 
         /// <inheritdoc />
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return GetEnumerator();
+            return this.GetEnumerator();
         }
     }
 }

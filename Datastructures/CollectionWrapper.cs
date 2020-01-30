@@ -3,7 +3,10 @@ namespace Chinchillada.Utilities
     using System.Collections;
     using System.Collections.Generic;
 
-    public class CollectionWrapper<T> : ICollection<T>
+    /// <summary>
+    /// Base class for wrappers of <see cref="ICollection{T}"/>. Makes it easy to only override what a wrapper needs.
+    /// </summary>
+    public abstract class CollectionWrapper<T> : ICollection<T>
     {
         public virtual int Count => this.Collection.Count;
         public virtual bool IsReadOnly => this.Collection.IsReadOnly;

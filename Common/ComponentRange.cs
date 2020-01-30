@@ -7,23 +7,23 @@ using UnityEngine;
 public class ComponentRange<T> : ChinchilladaBehaviour, IProvider<T>
     where T : Component
 {
-    private readonly LinkedList<T> _components = new LinkedList<T>();
+    private readonly LinkedList<T> components = new LinkedList<T>();
 
     public IEnumerable<T> Provide()
     {
-        _components.RemoveWhere(Equality.Null);
-        return _components;
+        this.components.RemoveWhere(Equality.Null).Enumerate();
+        return this.components;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<T>(out var component)) 
-            _components.AddLast(component);
+            this.components.AddLast(component);
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.TryGetComponent<T>(out var component)) 
-            _components.Remove(component);
+            this.components.Remove(component);
     }
 }

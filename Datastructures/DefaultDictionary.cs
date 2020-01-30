@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace Chinchillada.Utilities
 {
+    /// <summary>
+    /// <see cref="IDictionary{TKey,TValue}"/> that initializes default values when a new key is introduced.
+    /// </summary>
     public class DefaultDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
         private readonly Func<TValue> defaultConstructor;

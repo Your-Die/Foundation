@@ -18,6 +18,6 @@ namespace Chinchillada.Events
         /// <summary>
         /// Raises the <see cref="Happened"/>.
         /// </summary>
-        public void Raise() => Happened?.Invoke();
+        public void Raise() => this.Happened?.Invoke();
     }
 }

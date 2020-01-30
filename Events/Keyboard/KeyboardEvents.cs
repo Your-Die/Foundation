@@ -13,14 +13,14 @@ namespace Chinchillada.Utilities
         /// <summary>
         /// The events.
         /// </summary>
-        [SerializeField] private List<KeyboardEvent> _keyboardEvents = new List<KeyboardEvent>();
+        [SerializeField] private List<KeyboardEvent> events = new List<KeyboardEvent>();
 
         /// <summary>
-        /// Add the <paramref name="keyboardEvent"/> to this collection.
+        /// Add the <paramref name="event"/> to this collection.
         /// </summary>
-        public void Add(KeyboardEvent keyboardEvent)
+        public void Add(KeyboardEvent @event)
         {
-            _keyboardEvents.Add(keyboardEvent);
+            this.events.Add(@event);
         }
 
         /// <summary>
@@ -30,16 +30,16 @@ namespace Chinchillada.Utilities
         /// <returns></returns>
         public KeyboardEvent Add(KeyCode key, UnityAction onKeyUp = null, UnityAction onKeyDown = null)
         {
-            KeyboardEvent keyboardEvent = new KeyboardEvent(key, onKeyUp, onKeyDown);
-            Add(keyboardEvent);
+            var @event = new KeyboardEvent(key, onKeyUp, onKeyDown);
+            this.Add(@event);
 
-            return keyboardEvent;
+            return @event;
         }
 
         private void Update()
         {
             // Update the events.
-            foreach (KeyboardEvent keyboardEvent in _keyboardEvents)
+            foreach (var keyboardEvent in this.events)
                 keyboardEvent.Update();
         }
     }

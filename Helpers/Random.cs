@@ -56,6 +56,8 @@ namespace Chinchillada.Utilities
 
         public static float Float() => Value;
 
+        public static float Float(float min, float max) => Range(min, max);
+
         public static bool Bool(float probability = 0.5f) => Value <= probability;
 
         public static T Choose<T>(T left, T right, float probability = 0.5f)

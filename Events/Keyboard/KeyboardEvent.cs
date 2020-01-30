@@ -13,36 +13,28 @@ namespace Chinchillada.Utilities
         /// <summary>
         /// The key we invoke events on.
         /// </summary>
-        [SerializeField] private KeyCode _key = KeyCode.Escape;
+        [SerializeField] private KeyCode key = KeyCode.Escape;
 
-        /// <summary>
-        /// Event invoked when the <see cref="_key"/> is pressed.
-        /// </summary>
-        [SerializeField] private UnityEvent _keyDown = new UnityEvent();
-
-        /// <summary>
-        /// Event invoked when the <see cref="_key"/> is released.
-        /// </summary>
-        [SerializeField] private UnityEvent _keyUp = new UnityEvent();
-
+        [SerializeField] private Events events = new Events();
+        
         /// <summary>
         /// The key we invoke events on.
         /// </summary>
         public KeyCode Key
         {
-            get => _key;
-            set => _key = value;
+            get => this.key;
+            set => this.key = value;
         }
 
         /// <summary>
         /// Event invoked when the <see cref="Key"/> is pressed.
         /// </summary>
-        public UnityEvent KeyDown => _keyDown;
+        public UnityEvent KeyDown => this.events.keyDown;
 
         /// <summary>
         /// Event invoked when the <see cref="Key"/> is released.
         /// </summary>
-        public UnityEvent KeyUp => _keyUp;
+        public UnityEvent KeyUp => this.events.keyUp;
 
         /// <summary>
         /// Constructs a new <see cref="KeyboardEvent"/>.
@@ -52,13 +44,13 @@ namespace Chinchillada.Utilities
         /// <param name="onKeyDown">Optional callback to add to the <see cref="KeyDown"/> event.</param>
         public KeyboardEvent(KeyCode key = KeyCode.Escape, UnityAction onKeyUp = null, UnityAction onKeyDown = null)
         {
-            _key = key;
+            this.key = key;
 
             if (onKeyUp != null)
-                _keyUp.AddListener(onKeyUp);
+                this.events.keyUp.AddListener(onKeyUp);
 
             if (onKeyDown != null)
-                _keyDown.AddListener(onKeyDown);
+                this.events.keyDown.AddListener(onKeyDown);
         }
 
         /// <summary>
@@ -66,11 +58,25 @@ namespace Chinchillada.Utilities
         /// </summary>
         public void Update()
         {
-            if (Input.GetKeyDown(_key))
-                KeyDown.Invoke();
+            if (Input.GetKeyDown(this.key))
+                this.KeyDown.Invoke();
 
-            else if (Input.GetKeyUp(_key))
-                KeyUp.Invoke();
+            else if (Input.GetKeyUp(this.key)) 
+                this.KeyUp.Invoke();
+        }
+
+        [Serializable]
+        private class Events
+        {
+            /// <summary>
+            /// Event invoked when the <see cref="key"/> is pressed.
+            /// </summary>
+            public UnityEvent keyDown = new UnityEvent();
+
+            /// <summary>
+            /// Event invoked when the <see cref="key"/> is released.
+            /// </summary>
+            public UnityEvent keyUp = new UnityEvent();
         }
     }
 }

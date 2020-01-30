@@ -28,7 +28,7 @@ namespace Chinchillada.Utilities
         /// <summary>
         /// The search <see cref="SearchStrategy"/> that we want to use when looking for matching components.
         /// </summary>
-        private readonly SearchStrategy _strategy;
+        private readonly SearchStrategy strategy;
 
         /// <summary>
         /// Constructs a new <see cref="FindComponentAttribute"/>.
@@ -36,14 +36,14 @@ namespace Chinchillada.Utilities
         /// <param name="strategy">The search <see cref="SearchStrategy"/> that we want to use when looking for matching components.</param>
         public FindComponentAttribute(SearchStrategy strategy = SearchStrategy.FindComponent)
         {
-            _strategy = strategy;
+            this.strategy = strategy;
         }
 
         /// <inheritdoc />
         public override void Apply(MonoBehaviour behaviour, FieldInfo field)
         {
             Type type = field.FieldType;
-            Component component = FindComponent(behaviour, type);
+            Component component = this.FindComponent(behaviour, type);
 
             field.SetValue(behaviour, component);
         }
@@ -56,7 +56,7 @@ namespace Chinchillada.Utilities
         /// <returns>The found component, or null.</returns>
         private Component FindComponent(MonoBehaviour behaviour, Type type)
         {
-            switch (_strategy)
+            switch (this.strategy)
             {
                 case SearchStrategy.FindComponent:
                     return behaviour.GetComponent(type);

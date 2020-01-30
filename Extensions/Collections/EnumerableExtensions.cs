@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.OdinInspector.Editor;
 
 namespace Chinchillada.Utilities
 {
@@ -258,12 +259,18 @@ namespace Chinchillada.Utilities
         public static LinkedList<T> ToLinked<T>(this IEnumerable<T> enumerable)
         {
             var linkedList = new LinkedList<T>();
-            foreach (T element in enumerable)
+            foreach (var element in enumerable)
             {
                 linkedList.AddLast(element);
             }
 
             return linkedList;
+        }
+
+        public static BucketSet<TKey, TValue> ToBuckets<TKey, TValue>(this IEnumerable<TValue> enumerable,
+            Func<TValue, TKey> bucketSelector)
+        {
+            return new BucketSet<TKey, TValue>(enumerable, bucketSelector);
         }
 
         /// <summary>
@@ -310,7 +317,7 @@ namespace Chinchillada.Utilities
             yield return tuple.y;
         }
 
-        public static void EnumerateFully<T>(this IEnumerable<T> enumerable)
+        public static void Enumerate<T>(this IEnumerable<T> enumerable)
         {
             var _ = enumerable.ToList();
         }
