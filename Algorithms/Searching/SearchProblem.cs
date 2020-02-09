@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Utilities.Algorithms
@@ -25,14 +26,14 @@ namespace Utilities.Algorithms
         /// <summary>
         /// Generates the successor states of <paramref name="state"/>.
         /// </summary>
-        IEnumerable<SearchAction<T>> GetSuccessors(T state);
+        IEnumerable<SearchNode<T>> GetSuccessors(T state);
     }
 
     /// <summary>
     /// An action within <see cref="ISearchProblem{T}"/>.
     /// </summary>
     /// <typeparam name="TState">The type of the state.</typeparam>
-    public class SearchAction<TState>
+    public class SearchNode<TState> : IComparable
     {
         /// <summary>
         /// The resulting state.
@@ -40,14 +41,20 @@ namespace Utilities.Algorithms
         public TState State { get; }
         
         /// <summary>
-        /// The cost of performing this <see cref="SearchAction{TState}"/>.
+        /// The cost of performing this <see cref="SearchNode{TState}"/>.
         /// </summary>
         public float Cost { get; }
 
-        public SearchAction(TState state, float cost = 1f)
+        public SearchNode(TState state, float cost = 1f)
         {
             this.State = state;
             this.Cost = cost;
+        }
+
+        public int CompareTo(object obj)
+        {
+            var otherNode = (SearchNode<TState>) obj;
+            return this.Cost.CompareTo(otherNode.Cost);
         }
     }
 }
