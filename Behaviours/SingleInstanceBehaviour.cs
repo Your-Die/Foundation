@@ -3,13 +3,11 @@ using UnityEngine;
 
 namespace Utilities.Behaviours
 {
-    public abstract class SingleInstanceBehaviour<T> : ChinchilladaBehaviour where T : MonoBehaviour
+    public abstract class SingleInstanceBehaviour<T> : ChinchilladaBehaviour where T : SingleInstanceBehaviour<T>
     {
         public static T Instance { get; private set; }
 
         public static bool HasInstance => Instance != null;
-
-        protected abstract T GetInstance();
 
         protected override void Awake()
         {
@@ -20,7 +18,7 @@ namespace Utilities.Behaviours
             }
             else
             {
-                Instance = this.GetInstance();
+                Instance = (T) this;
                 base.Awake();
             }
         }

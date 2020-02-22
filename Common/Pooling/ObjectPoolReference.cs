@@ -5,9 +5,9 @@ namespace Utilities.Pooling
     [CreateAssetMenu(menuName = "Chinchillada/Pool")]
     public class ObjectPoolReference : ScriptableObject, IGameObjectPool
     {
-        [SerializeField] private GameObjectPool poolPrefab;
+        [SerializeField] private GameObjectPoolBase poolPrefab;
 
-        private GameObjectPool pool;
+        private GameObjectPoolBase pool;
         
         public GameObject Instantiate(Vector3 position, Transform parent = null)
         {
