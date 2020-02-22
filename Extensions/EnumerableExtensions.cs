@@ -1,4 +1,6 @@
 ﻿using System;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -313,6 +315,23 @@ namespace Chinchillada.Utilities
         public static void EnumerateFully<T>(this IEnumerable<T> enumerable)
         {
             var _ = enumerable.ToList();
+        }
+
+        public static int LastIndex<T>(this IList<T> list)
+        {
+            return list.Count - 1;
+        }
+
+        public static T ExtractLast<T>(this IList<T> list)
+        {
+            if (list.IsEmpty())
+                return default;
+
+            var index = list.LastIndex();
+            var item = list[index];
+            list.RemoveAt(index);
+
+            return item;
         }
     }
 }
