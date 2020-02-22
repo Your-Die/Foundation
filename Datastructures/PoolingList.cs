@@ -32,6 +32,10 @@ public class PoolingList<TItem> : IReadOnlyList<TItem> where TItem : Component, 
         _parent = parent;
     }
 
+    public PoolingList()
+    {
+    }
+
     public int ApplyWith<TOther>(IList<TOther> list, Action<TOther, TItem> action)
     {
         var count = list.Count;
@@ -46,6 +50,14 @@ public class PoolingList<TItem> : IReadOnlyList<TItem> where TItem : Component, 
         }
 
         return delta;
+    }
+
+    public void Apply<TOther>(TOther other, Action<TOther, TItem> action)
+    {
+        this.Scope(1);
+        var item = this._items.First();
+
+        action(other, item);
     }
 
     public void ForEach(Action<TItem> action)
