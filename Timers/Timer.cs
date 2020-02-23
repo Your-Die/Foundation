@@ -42,6 +42,8 @@ namespace Chinchillada.Timers
         /// </summary>
         public bool IsRunning { get; private set; }
 
+        public float FinishedPercentage => this.elapsedTime / this.Duration;
+
         #region Constructors
 
         /// <summary>
