@@ -15,7 +15,11 @@ namespace Chinchillada.Timers
             return routine;
         }
 
-        public static void CancelInvocation(IEnumerator routine) => Instance.StopCoroutine(routine);
+        public static void CancelInvocation(IEnumerator routine)
+        {
+            if (routine != null)
+                Instance.StopCoroutine(routine);
+        }
 
         public static IEnumerator DelayedInvokeRoutine(Action action, float delay)
         {
