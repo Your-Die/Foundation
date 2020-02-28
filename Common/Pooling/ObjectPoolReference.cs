@@ -9,13 +9,13 @@ namespace Utilities.Pooling
 
         private GameObjectPoolBase pool;
         
-        public GameObject Instantiate(Vector3 position, Transform parent = null)
+        public GameObject Instantiate(Vector3? position = null, Transform parent = null)
         {
             this.EnsurePool();
             return this.pool.Instantiate(position, parent);
         }
 
-        public T Instantiate<T>(Vector3 position, Transform parent = null)
+        public T Instantiate<T>(Vector3? position = null, Transform parent = null)
         {
             this.EnsurePool();
             return this.pool.Instantiate<T>(position, parent);

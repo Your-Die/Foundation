@@ -12,14 +12,16 @@ public class GameObjectPool : GameObjectPoolBase
 
     private readonly LinkedList<GameObject> inactiveObjects = new LinkedList<GameObject>();
 
-    public override GameObject Instantiate(Vector3 position, Transform parent = null)
+    public override GameObject Instantiate(Vector3? location = null, Transform parent = null)
     {
+        var position = location ?? Vector3.zero;
+        
         return this.inactiveObjects.Any()
             ? this.GetInactiveObject(position, parent)
             : Instantiate(this.prefab, position, Quaternion.identity, parent);
     }
 
-    public override T Instantiate<T>(Vector3 position, Transform parent = null)
+    public override T Instantiate<T>(Vector3? position = null, Transform parent = null)
     {
         var obj = this.Instantiate(position, parent);
         return obj.GetComponent<T>();
