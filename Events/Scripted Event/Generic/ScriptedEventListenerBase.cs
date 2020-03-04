@@ -3,12 +3,12 @@ using UnityEngine.Events;
 
 namespace Chinchillada.Events
 {
-    public abstract class ScriptedEventListener<T> : ChinchilladaBehaviour
+    public abstract class ScriptedEventListenerBase<T> : ChinchilladaBehaviour
     {
         /// <summary>
         /// The <see cref="ScriptedEvent"/> we listen to.
         /// </summary>
-        [SerializeField] private ScriptedEvent<T> @event = null;
+        [SerializeField] private ScriptedEventBase<T> @event = null;
 
         /// <summary>
         /// The event invoked when the <see cref="Event"/> is raised.
@@ -18,7 +18,7 @@ namespace Chinchillada.Events
         /// <summary>
         /// The <see cref="ScriptedEvent"/> we listen to.
         /// </summary>
-        public ScriptedEvent<T> Event
+        public ScriptedEventBase<T> Event
         {
             get => this.@event;
             set => this.@event = value;

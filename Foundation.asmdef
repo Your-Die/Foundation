@@ -1,15 +1,13 @@
 {
-    "name": "Utilities",
-    "references": [
-        "Externals",
-        "Plugins"
-    ],
-    "optionalUnityReferences": [],
+    "name": "Chinchillada.Foundation",
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": []
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
