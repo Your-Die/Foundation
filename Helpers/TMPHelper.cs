@@ -7,7 +7,8 @@ namespace Chinchillada.Utilities
         public static string WrapColor(this string text, Color color)
         {
             const string colorTag = "color";
-            var hexString = ColorUtility.ToHtmlStringRGBA(color);
+            var hex = ColorUtility.ToHtmlStringRGBA(color);
+            var hexString = "#" + hex; 
             
             return WrapTag(text, colorTag, hexString);
         }
@@ -40,7 +41,7 @@ namespace Chinchillada.Utilities
 
         public static string GetTagOpen(string tagName, string tagContent)
         {
-            return $"<{tagName}=\"{tagContent}\">";
+            return $"<{tagName}={tagContent}>";
         }
 
         public static string GetTagClose(string tagName) => $"</{tagName}>";
