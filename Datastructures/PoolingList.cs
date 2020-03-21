@@ -9,27 +9,27 @@ using Object = UnityEngine.Object;
 [Serializable]
 public class PoolingList<TItem> : IReadOnlyList<TItem> where TItem : Component, IPoolable
 {
-    [SerializeField] private TItem _prefab;
-    [SerializeField] private Transform _parent;
+    [SerializeField] private TItem prefab;
+    [SerializeField] private Transform parent;
 
-    private readonly List<TItem> _items = new List<TItem>();
-    private readonly Stack<TItem> _unusedItems = new Stack<TItem>();
+    private readonly List<TItem> items = new List<TItem>();
+    private readonly Stack<TItem> unusedItems = new Stack<TItem>();
 
     public event Action<TItem> ItemAdded;
     public event Action<TItem> ItemDeactivated;
 
-    public int Count => _items.Count;
+    public int Count => this.items.Count;
 
     public TItem this[int index]
     {
-        get => _items[index];
-        set => _items[index] = value;
+        get => this.items[index];
+        set => this.items[index] = value;
     }
 
     public PoolingList(TItem prefab, Transform parent)
     {
-        _prefab = prefab;
-        _parent = parent;
+        this.prefab = prefab;
+        this.parent = parent;
     }
 
     public PoolingList()
@@ -39,12 +39,12 @@ public class PoolingList<TItem> : IReadOnlyList<TItem> where TItem : Component, 
     public int ApplyWith<TOther>(IList<TOther> list, Action<TOther, TItem> action)
     {
         var count = list.Count;
-        var delta = Scope(count);
+        var delta = this.Scope(count);
 
         for (var i = 0; i < list.Count; i++)
         {
             var other = list[i];
-            var item = _items[i];
+            var item = this.items[i];
 
             action(other, item);
         }
@@ -55,14 +55,14 @@ public class PoolingList<TItem> : IReadOnlyList<TItem> where TItem : Component, 
     public void Apply<TOther>(TOther other, Action<TOther, TItem> action)
     {
         this.Scope(1);
-        var item = this._items.First();
+        var item = this.items.First();
 
         action(other, item);
     }
 
     public void ForEach(Action<TItem> action)
     {
-        foreach (var item in _items)
+        foreach (var item in this.items)
         {
             action(item);
         }
@@ -72,22 +72,22 @@ public class PoolingList<TItem> : IReadOnlyList<TItem> where TItem : Component, 
     {
         var delta = 0;
 
-        while (_items.Count < count)
+        while (this.items.Count < count)
         {
             delta++;
-            Acquire();
+            this.Acquire();
         }
 
-        while (_items.Count > count)
+        while (this.items.Count > count)
         {
-            var item = _items.ExtractLast();
+            var item = this.items.ExtractLast();
             item.OnRelease();
 
             item.gameObject.SetActive(false);
-            _unusedItems.Push(item);
+            this.unusedItems.Push(item);
 
             delta--;
-            ItemDeactivated?.Invoke(item);
+            this.ItemDeactivated?.Invoke(item);
         }
 
         return delta;
@@ -95,31 +95,31 @@ public class PoolingList<TItem> : IReadOnlyList<TItem> where TItem : Component, 
 
     public void Clear()
     {
-        Scope(0);
+        this.Scope(0);
     }
 
     public TItem Acquire()
     {
-        var item = _unusedItems.Any()
-            ? _unusedItems.Pop()
-            : Object.Instantiate(_prefab, _parent);
+        var item = this.unusedItems.Any()
+            ? this.unusedItems.Pop()
+            : Object.Instantiate(this.prefab, this.parent);
 
         item.gameObject.SetActive(true);
-        _items.Add(item);
+        this.items.Add(item);
 
-        ItemAdded?.Invoke(item);
+        this.ItemAdded?.Invoke(item);
         return item;
     }
 
     public IEnumerator<TItem> GetEnumerator()
     {
-        return _items.GetEnumerator();
+        return this.items.GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator()
     {
-        return GetEnumerator();
+        return this.GetEnumerator();
     }
 
-    public int IndexOf(TItem item) => _items.IndexOf(item);
+    public int IndexOf(TItem item) => this.items.IndexOf(item);
 }
