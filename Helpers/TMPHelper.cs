@@ -1,6 +1,8 @@
 namespace Chinchillada.Utilities
 {
+    using TMPro;
     using UnityEngine;
+    using UnityEngine.EventSystems;
 
     public static class TMPHelper
     {
@@ -8,8 +10,8 @@ namespace Chinchillada.Utilities
         {
             const string colorTag = "color";
             var hex = ColorUtility.ToHtmlStringRGBA(color);
-            var hexString = "#" + hex; 
-            
+            var hexString = "#" + hex;
+
             return WrapTag(text, colorTag, hexString);
         }
 
@@ -35,7 +37,7 @@ namespace Chinchillada.Utilities
         {
             var tagOpen = GetTagOpen(tagName, tagContent);
             var tagClose = GetTagClose(tagName);
-            
+
             return $"{tagOpen}{text}{tagClose}";
         }
 
@@ -45,5 +47,20 @@ namespace Chinchillada.Utilities
         }
 
         public static string GetTagClose(string tagName) => $"</{tagName}>";
+
+        public static bool TryGetLinkID(this TMP_Text text, Vector3 position, Camera camera, out string linkID)
+        {
+            var linkIndex = TMP_TextUtilities.FindIntersectingLink(text, position, camera);
+
+            if (linkIndex == -1)
+            {
+                linkID = null;
+                return false;
+            }
+
+            var linkInfo = text.textInfo.linkInfo[linkIndex];
+            linkID = linkInfo.GetLinkID();
+            return true;
+        }
     }
 }
