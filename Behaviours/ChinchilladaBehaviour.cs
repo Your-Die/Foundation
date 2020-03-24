@@ -19,22 +19,6 @@ namespace Chinchillada
             this.FindComponents();
         }
 
-        protected virtual void Start()
-        {
-            this.OnActivate();
-            this.hasStarted = true;
-        }
-
-        protected virtual void OnEnable()
-        {
-            if (this.hasStarted) 
-                this.OnActivate();
-        }
-
-        protected virtual void OnActivate()
-        {
-        }
-        
         /// <summary>
         /// Applies the <see cref="FindComponentAttribute"/> on this <see cref="UnityEngine.MonoBehaviour"/>
         /// </summary>
