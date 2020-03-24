@@ -189,6 +189,12 @@ namespace Chinchillada.Utilities
             return worstIndex;
         }
 
+        public static IEnumerable<int> GetIndices<T>(this IReadOnlyList<T> list)
+        {
+            for (var index = 0; index < list.Count; index++)
+                yield return index;
+        }
+
         /// <summary>
         /// Returns true if only a single element in the <paramref name="enumerable"/> satisfies the <paramref name="predicate"/>.
         /// If this is the case, will output the index of that element through <paramref name="index"/>.

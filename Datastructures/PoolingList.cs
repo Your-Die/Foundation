@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Chinchillada.Utilities;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -12,8 +13,8 @@ public class PoolingList<TItem> : IReadOnlyList<TItem> where TItem : Component, 
     [SerializeField] private TItem prefab;
     [SerializeField] private Transform parent;
 
-    private readonly List<TItem> items = new List<TItem>();
-    private readonly Stack<TItem> unusedItems = new Stack<TItem>();
+    [SerializeField, HideInInspector] private List<TItem> items = new List<TItem>();
+    [SerializeField, HideInInspector] private Stack<TItem> unusedItems = new Stack<TItem>();
 
     public event Action<TItem> ItemAdded;
     public event Action<TItem> ItemDeactivated;
@@ -26,14 +27,15 @@ public class PoolingList<TItem> : IReadOnlyList<TItem> where TItem : Component, 
         set => this.items[index] = value;
     }
 
+    public PoolingList()
+    {
+        
+    }
+    
     public PoolingList(TItem prefab, Transform parent)
     {
         this.prefab = prefab;
         this.parent = parent;
-    }
-
-    public PoolingList()
-    {
     }
 
     public int ApplyWith<TOther>(IList<TOther> list, Action<TOther, TItem> action)
@@ -81,7 +83,7 @@ public class PoolingList<TItem> : IReadOnlyList<TItem> where TItem : Component, 
         while (this.items.Count > count)
         {
             var item = this.items.ExtractLast();
-            item.OnRelease();
+            item.OnRelease();    
 
             item.gameObject.SetActive(false);
             this.unusedItems.Push(item);
