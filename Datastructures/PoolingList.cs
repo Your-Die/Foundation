@@ -2,13 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Chinchillada;
 using Chinchillada.Utilities;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 [Serializable]
-public class PoolingList<TItem> : IReadOnlyList<TItem> where TItem : Component, IPoolable
+public class PoolingList<TItem> : IReadOnlyList<TItem> where TItem : IComponent, IPoolable
 {
     [SerializeField] private TItem prefab;
     [SerializeField] private Transform parent;
@@ -104,13 +105,19 @@ public class PoolingList<TItem> : IReadOnlyList<TItem> where TItem : Component, 
     {
         var item = this.unusedItems.Any()
             ? this.unusedItems.Pop()
-            : Object.Instantiate(this.prefab, this.parent);
+            : this.CreateNew();
 
         item.gameObject.SetActive(true);
         this.items.Add(item);
 
         this.ItemAdded?.Invoke(item);
         return item;
+    }
+
+    private TItem CreateNew()
+    {
+        var gameObject = Object.Instantiate(this.prefab.gameObject, this.parent);
+        return gameObject.GetComponent<TItem>();
     }
 
     public IEnumerator<TItem> GetEnumerator()
