@@ -22,7 +22,7 @@ namespace Robots
             if (member == null)
                 return;
 
-            this.audience.Add(member.Key, member);
+            this.audience[member.Key] = member;
             this.OnAudienceJoined(member);
         }
 
