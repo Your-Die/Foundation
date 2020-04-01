@@ -2,6 +2,7 @@ namespace Robots
 {
     using System.Collections.Generic;
     using Chinchillada.Utilities;
+    using Mutiny;
     using UnityEngine;
 
     public class Tribune<T>
@@ -9,8 +10,8 @@ namespace Robots
         private readonly IPerformer<T> performer;
         private readonly Dictionary<object, AudienceMember<T>> audience = new Dictionary<object, AudienceMember<T>>();
 
-        public bool LogRequests { get; set; }
-        
+        public LogHandler Logger { get; set; }
+
         private AudienceMember<T> Requester { get; set; }
 
         private IEnumerable<AudienceMember<T>> Audience => this.audience.Values;
@@ -34,13 +35,13 @@ namespace Robots
 
         public void LeaveAudience(AudienceMember<T> member)
         {
-            if (this.audience.Remove(member.Key)) 
+            if (this.audience.Remove(member.Key))
                 this.OnAudienceLeft(member);
         }
 
         public void LeaveAudience(object key)
         {
-            if (this.audience.TryGetValue(key, out var member)) 
+            if (this.audience.TryGetValue(key, out var member))
                 this.LeaveAudience(member);
         }
 
@@ -79,8 +80,7 @@ namespace Robots
             this.Requester = member;
             this.performer.PerformRequest(this.Requester.Request);
 
-            if (this.LogRequests)
-                Debug.Log($"Request {this.Requester.Request} by {this.Requester} performed by {this.performer}");
+            this.Logger?.Log($"Request {this.Requester.Request} by {this.Requester} performed by {this.performer}");
         }
     }
 }
