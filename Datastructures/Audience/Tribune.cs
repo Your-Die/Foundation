@@ -23,6 +23,11 @@ namespace Robots
             if (member == null)
                 return;
 
+            if (this.audience.ContainsKey(member.Key))
+            {
+                LeaveAudience(member.Key);
+            }
+
             this.audience[member.Key] = member;
             this.OnAudienceJoined(member);
         }
