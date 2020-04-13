@@ -4,17 +4,21 @@ using UnityEngine;
 
 namespace Chinchillada
 {
+    using System;
+
     /// <summary>
     /// Base class for MonoBehaviours. Inherits from <see cref="Sirenix.OdinInspector.SerializedMonoBehaviour"/>.
     /// Automatically applies <see cref="FindComponentAttribute"/> on awake, and also extends a Button to manually trigger it from the Unity editor.
     /// </summary>
     public abstract class ChinchilladaBehaviour : SerializedMonoBehaviour, IComponent
     {
+        private bool hasStarted;
+        
         protected virtual void Awake()
         {
             this.FindComponents();
         }
-        
+
         /// <summary>
         /// Applies the <see cref="FindComponentAttribute"/> on this <see cref="UnityEngine.MonoBehaviour"/>
         /// </summary>

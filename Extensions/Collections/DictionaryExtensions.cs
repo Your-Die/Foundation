@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.UIElements;
 
 namespace Chinchillada.Utilities
 {
@@ -41,6 +39,15 @@ namespace Chinchillada.Utilities
             }
 
             return inverted;
+        }
+
+        public static void RemoveValueAll<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TValue value)
+        {
+            var comparer = Comparer<TValue>.Default;
+            
+            var pairs = dictionary.Where(pair => comparer.Compare(pair.Value, value) == 0).ToList();
+            foreach (var pair in pairs) 
+                dictionary.Remove(pair.Key);
         }
     }
 }

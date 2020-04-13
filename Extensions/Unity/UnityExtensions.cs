@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Chinchillada.Utilities
@@ -47,6 +47,12 @@ namespace Chinchillada.Utilities
         {
             return vector.x >= bounds.xMin && vector.x < bounds.xMax &&
                    vector.y >= bounds.yMin && vector.y < bounds.yMax;
+        }
+
+        public static IEnumerable<int> AsRange(this Vector2Int vector)
+        {
+            for (var value = vector.x; value <= vector.y; value++)
+                yield return value;
         }
     }
 }

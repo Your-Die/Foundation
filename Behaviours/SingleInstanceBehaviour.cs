@@ -1,23 +1,13 @@
 using Chinchillada;
-using Chinchillada.Utilities;
 using UnityEngine;
 
 namespace Utilities.Behaviours
 {
-    /// <summary>
-    /// Enforces that only a single instance of the <typeparamref name="T"/> exists.
-    /// </summary>
-    /// <remarks>
-    /// Similar to <see cref="SingletonBehaviour{T}"/>, but does not create an instance if the instance is requested but
-    /// none currently exists.
-    /// </remarks>
-    public abstract class SingleInstanceBehaviour<T> : ChinchilladaBehaviour where T : MonoBehaviour
+    public abstract class SingleInstanceBehaviour<T> : ChinchilladaBehaviour where T : SingleInstanceBehaviour<T>
     {
         public static T Instance { get; private set; }
 
         public static bool HasInstance => Instance != null;
-
-        protected abstract T GetInstance();
 
         protected override void Awake()
         {
@@ -28,7 +18,7 @@ namespace Utilities.Behaviours
             }
             else
             {
-                Instance = this.GetInstance();
+                Instance = (T) this;
                 base.Awake();
             }
         }

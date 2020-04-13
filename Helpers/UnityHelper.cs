@@ -21,7 +21,7 @@ namespace Chinchillada.Utilities
         /// </summary>
         public static T CreateObject<T>() where T : Component
         {
-            var gameObject = new GameObject(nameof(T));
+            var gameObject = new GameObject(typeof(T).Name);
             return gameObject.AddComponent<T>();
         }
     }

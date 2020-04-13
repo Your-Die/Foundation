@@ -4,7 +4,7 @@ using Chinchillada;
 using Chinchillada.Utilities;
 using UnityEngine;
 
-public class GameObjectPool : ChinchilladaBehaviour, IGameObjectPool
+public class GameObjectPool : GameObjectPoolBase
 {
     [SerializeField, FindComponent] private Transform poolParent;
 
@@ -12,27 +12,29 @@ public class GameObjectPool : ChinchilladaBehaviour, IGameObjectPool
 
     private readonly LinkedList<GameObject> inactiveObjects = new LinkedList<GameObject>();
 
-    public GameObject Instantiate(Vector3 position, Transform parent = null)
+    public override GameObject Instantiate(Vector3? location = null, Transform parent = null)
     {
+        var position = location ?? Vector3.zero;
+        
         return this.inactiveObjects.Any()
             ? this.GetInactiveObject(position, parent)
             : Instantiate(this.prefab, position, Quaternion.identity, parent);
     }
 
-    public T Instantiate<T>(Vector3 position, Transform parent = null)
+    public override T Instantiate<T>(Vector3? position = null, Transform parent = null)
     {
         var obj = this.Instantiate(position, parent);
         return obj.GetComponent<T>();
     }
 
-    public void Return(GameObject obj)
+    public override void Return(GameObject obj)
     {
         obj.SetActive(false);
         obj.transform.parent = this.poolParent;
 
         this.inactiveObjects.AddFirst(obj);
     }
-
+    
     private GameObject GetInactiveObject(Vector3 position, Transform parent)
     {
         var inactiveObject = this.inactiveObjects.GrabFirst();

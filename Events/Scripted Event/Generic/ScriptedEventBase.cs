@@ -7,7 +7,7 @@ namespace Chinchillada.Events
     /// Generic version of <see cref="ScriptedEvent"/> that allows a parameter of {T} to be passed along.
     /// </summary>
     /// <typeparam name="T">The type of parameter we want to pass along with the event.</typeparam>
-    public class ScriptedEvent<T> : ScriptableObject
+    public class ScriptedEventBase<T> : ScriptableObject
     {
         public Action<T> Happened;
 

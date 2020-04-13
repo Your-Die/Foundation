@@ -13,7 +13,7 @@ namespace Chinchillada.Timers
     {
         [SerializeField] private float _duration;
 
-        [SerializeField] private UnityEvent _finished = null;
+        [SerializeField] private UnityEvent _finished = new UnityEvent();
 
         /// <summary>
         /// Handle to the routine.
@@ -42,6 +42,10 @@ namespace Chinchillada.Timers
         /// </summary>
         public bool IsRunning { get; private set; }
 
+        public float ElapsedTime => Time.time - _startTime;
+        
+        public float FinishedPercentage => this.ElapsedTime / this.Duration;
+
         #region Constructors
 
         /// <summary>
@@ -56,6 +60,7 @@ namespace Chinchillada.Timers
         public Timer(float duration)
         {
             this._duration = duration;
+            this._finished = new UnityEvent();
         }
 
         /// <summary>
