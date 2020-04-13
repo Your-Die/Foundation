@@ -13,7 +13,7 @@ namespace Chinchillada.Utilities
         /// Sorts items into buckets.
         /// </summary>
         private readonly Func<TValue, TKey> bucketSelector;
-        
+
         /// <summary>
         /// The buckets.
         /// </summary>
@@ -30,17 +30,22 @@ namespace Chinchillada.Utilities
         public IEnumerable<TKey> Buckets => this.buckets.Keys;
 
         public BucketSet(Func<TValue, TKey> bucketSelector)
+            : this()
+        {
+            this.bucketSelector = bucketSelector;
+        }
+
+        public BucketSet()
         {
             this.buckets = new DefaultDictionary<TKey, List<TValue>>(BucketConstructor);
-            this.bucketSelector = bucketSelector;
-            
+
             List<TValue> BucketConstructor() => new List<TValue>();
         }
 
-        public BucketSet(IEnumerable<TValue> enumerable, Func<TValue, TKey> bucketSelector) 
+        public BucketSet(IEnumerable<TValue> enumerable, Func<TValue, TKey> bucketSelector)
             : this(bucketSelector)
         {
-            foreach (var item in enumerable) 
+            foreach (var item in enumerable)
                 this.Add(item);
         }
 
@@ -51,9 +56,13 @@ namespace Chinchillada.Utilities
         public TKey Add(TValue value)
         {
             var bucket = this.bucketSelector.Invoke(value);
-            this.buckets[bucket].Add(value);
+            this.Add(bucket, value);
 
             return bucket;
         }
+
+        public void Add(TKey key, TValue value) => this.buckets[key].Add(value);
+
+        public bool ContainsKey(TKey key) => this.buckets.ContainsKey(key);
     }
 }
