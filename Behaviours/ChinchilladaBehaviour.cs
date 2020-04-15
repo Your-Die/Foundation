@@ -12,8 +12,6 @@ namespace Chinchillada
     /// </summary>
     public abstract class ChinchilladaBehaviour : SerializedMonoBehaviour, IComponent
     {
-        private bool hasStarted;
-        
         protected virtual void Awake()
         {
             this.FindComponents();
