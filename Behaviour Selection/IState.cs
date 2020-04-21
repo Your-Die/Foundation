@@ -1,12 +1,11 @@
 ﻿namespace Mutiny.Foundation.SSM
 {
-    public interface IState
+    public interface IState : ITickable
     {
         bool IsActive { get; }
 
         void Enter();
         void Exit();
-        void Tick();
     }
 
     public static class StateExtensions
