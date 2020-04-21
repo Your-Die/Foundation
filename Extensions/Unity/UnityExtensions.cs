@@ -37,7 +37,11 @@ namespace Chinchillada.Utilities
         }
 
         public static Vector2Int ToVector2(this Vector3Int vector) => new Vector2Int(vector.x, vector.y);
-        
+
+        public static Vector3Int GetCenterInt(this BoundsInt bounds)
+        {
+            return bounds.position + bounds.size / 2;
+        }
 
         public static bool Contains2D(this BoundsInt bounds, Vector2Int vector)
         {
