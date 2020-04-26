@@ -59,5 +59,7 @@ namespace Chinchillada.Utilities
         {
             _initialValue = _runtimeValue;
         }
+
+        public static implicit operator T(SharedVariable<T> variable) => variable.Value;
     }
 }
