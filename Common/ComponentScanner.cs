@@ -7,22 +7,28 @@ namespace Chinchillada.Utilities
     public class ComponentScanner<T> : ChinchilladaBehaviour, IProvider<T>
     where T : Component
     {
-        [SerializeField, FindComponent] private Transform _center;
+        [SerializeField, FindComponent] private Transform center;
 
-        [SerializeField] private float _radius = 10f;
+        [SerializeField] private float radius = 10f;
 
-        [SerializeField] private LayerMask _layerMask;
+        [SerializeField] private LayerMask layerMask;
 
-        [SerializeField] private QueryTriggerInteraction _interaction;
+        [SerializeField] private QueryTriggerInteraction interaction;
 
-        [SerializeField] private int _colliderCacheSize = 10;
+        [SerializeField] private int colliderCacheSize = 10;
 
-        private Collider[] _colliderCache;
+        private Collider[] colliderCache;
         
         public IEnumerable<T> Provide()
         {
-            var size = Physics.OverlapSphereNonAlloc(_center.position, _radius, _colliderCache, _layerMask, _interaction);
-            return _colliderCache
+            var size = Physics.OverlapSphereNonAlloc(
+                this.center.position, 
+                this.radius, 
+                this.colliderCache, 
+                this.layerMask, 
+                this.interaction);
+            
+            return this.colliderCache
                 .Take(size)
                 .Select(c => c.GetComponent<T>())
                 .Where(Equality.NotNull);
@@ -32,7 +38,7 @@ namespace Chinchillada.Utilities
         {
             base.Awake();
             
-            _colliderCache = new Collider[_colliderCacheSize];
+            this.colliderCache = new Collider[this.colliderCacheSize];
         }
     }
 }

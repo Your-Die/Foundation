@@ -10,31 +10,31 @@ namespace Chinchillada.Utilities
         /// <summary>
         /// Event invoked when a trigger is entered.
         /// </summary>
-        [SerializeField] private UnityEvent _triggerEntered = new UnityEvent();
+        [SerializeField] private UnityEvent triggerEntered = new UnityEvent();
 
         /// <summary>
         /// Event invoked when a trigger is exited.
         /// </summary>
-        [SerializeField] private UnityEvent _triggerExited = new UnityEvent();
+        [SerializeField] private UnityEvent triggerExited = new UnityEvent();
 
         /// <summary>
         /// Event invoked when a trigger is entered.
         /// </summary>
-        public UnityEvent TriggerEntered => _triggerEntered;
+        public UnityEvent TriggerEntered => this.triggerEntered;
 
         /// <summary>
         /// Event invoked when a trigger is exited.
         /// </summary>
-        public UnityEvent TriggerExited => _triggerExited;
+        public UnityEvent TriggerExited => this.triggerExited;
 
         private void OnTriggerEnter(Collider other)
         {
-            _triggerEntered.Invoke();
+            this.triggerEntered.Invoke();
         }
 
         private void OnTriggerExit(Collider other)
         {
-            _triggerExited.Invoke();
+            this.triggerExited.Invoke();
         }
     }
 }

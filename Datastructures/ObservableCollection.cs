@@ -4,6 +4,9 @@ namespace Chinchillada.Utilities
 {
     using System;
     
+    /// <summary>
+    /// Wrapper of <see cref="ICollection{T}"/> with events for <see cref="Add"/>, <see cref="Remove"/> and <see cref="Clear"/>.
+    /// </summary>
     public class ObservableCollection<T> : CollectionWrapper<T>
     {
         public event Action<T> ItemAdded;

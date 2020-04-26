@@ -24,7 +24,13 @@ namespace Chinchillada.Utilities
 
         public static bool IsUneven(this int value)
         {
-            return value % 2 != 0;
+            return value.IsEven() == false;
+        }
+
+        public static bool IsEven(this int value)
+        {
+            return value % 2 == 0;
+
         }
         
         public static (int width, int height) GetShape<T>(this T[,] array)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.OdinInspector.Editor;
 
 namespace Chinchillada.Utilities
 {
@@ -25,7 +26,8 @@ namespace Chinchillada.Utilities
         /// <typeparam name="T">The type of elements in the <paramref name="enumerable"/>.</typeparam>
         /// <param name="enumerable">The <see cref="IEnumerable{T}"/> that we want to ensure as a <see cref="List{T}"/>.</param>
         /// <returns>The <paramref name="enumerable"/> as <see cref="List{T}"/>.</returns>
-        public static IList<T> EnsureList<T>(this IEnumerable<T> enumerable) => enumerable as IList<T> ?? enumerable.ToList();
+        public static IList<T> EnsureList<T>(this IEnumerable<T> enumerable) =>
+            enumerable as IList<T> ?? enumerable.ToList();
 
 
         /// <summary>
@@ -35,7 +37,8 @@ namespace Chinchillada.Utilities
         /// <typeparam name="T">The type of elements in the <paramref name="enumerable"/>.</typeparam>
         /// <param name="enumerable">The <see cref="IEnumerable{T}"/> that we want to ensure as a <see cref="List{T}"/>.</param>
         /// <returns>The <paramref name="enumerable"/> as <see cref="List{T}"/>.</returns>
-        public static LinkedList<T> EnsureLinked<T>(this IEnumerable<T> enumerable) => enumerable as LinkedList<T> ?? enumerable.ToLinked();
+        public static LinkedList<T> EnsureLinked<T>(this IEnumerable<T> enumerable) =>
+            enumerable as LinkedList<T> ?? enumerable.ToLinked();
 
         /// <summary>
         /// Checks if the <paramref name="enumerable"/> is empty.
@@ -44,6 +47,17 @@ namespace Chinchillada.Utilities
         /// <param name="enumerable">The enumerable.</param>
         /// <returns>Whether the <paramref name="enumerable"/> is empty or not.</returns>
         public static bool IsEmpty<T>(this IEnumerable<T> enumerable) => !enumerable.Any();
+
+        public static IEnumerable<TOutput> SelectWithIndex<TInput, TOutput>(this IEnumerable<TInput> enumerable,
+            Func<TInput, int, TOutput> selector)
+        {
+            var index = 0;
+            foreach (var item in enumerable)
+            {
+                yield return selector.Invoke(item, index);
+                index++;
+            }
+        }
 
         /// <summary>
         /// Partitions the <paramref name="enumerable"/> into blocks of <paramref name="blockSize"/>.
@@ -246,7 +260,8 @@ namespace Chinchillada.Utilities
         /// <summary>
         /// Checks if the <paramref name="enumerable"/> range contains the <paramref name="index"/>.
         /// </summary>
-        public static bool ContainsIndex<T>(this IEnumerable<T> enumerable, int index) => 0 <= index && index < enumerable.Count();
+        public static bool ContainsIndex<T>(this IEnumerable<T> enumerable, int index) =>
+            0 <= index && index < enumerable.Count();
 
         public static IEnumerable<int> IndicesWhere<T>(this IList<T> list, Func<T, bool> predicate)
         {
@@ -257,19 +272,25 @@ namespace Chinchillada.Utilities
                     yield return index;
             }
         }
-        
+
         /// <summary>
         /// Creates a <see cref="LinkedList{T}"/> from the <paramref name="enumerable"/>.
         /// </summary>
         public static LinkedList<T> ToLinked<T>(this IEnumerable<T> enumerable)
         {
             var linkedList = new LinkedList<T>();
-            foreach (T element in enumerable)
+            foreach (var element in enumerable)
             {
                 linkedList.AddLast(element);
             }
 
             return linkedList;
+        }
+
+        public static BucketSet<TKey, TValue> ToBuckets<TKey, TValue>(this IEnumerable<TValue> enumerable,
+            Func<TValue, TKey> bucketSelector)
+        {
+            return new BucketSet<TKey, TValue>(enumerable, bucketSelector);
         }
 
         /// <summary>
@@ -294,7 +315,8 @@ namespace Chinchillada.Utilities
             return (min, max);
         }
 
-        public static IEnumerable<T> DropEndWhile<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate) => enumerable.ApplyBackwards(sequence => sequence.SkipWhile(predicate));
+        public static IEnumerable<T> DropEndWhile<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate) =>
+            enumerable.ApplyBackwards(sequence => sequence.SkipWhile(predicate));
 
         public static IEnumerable<T> ApplyBackwards<T>(this IEnumerable<T> enumerable,
             Func<IEnumerable<T>, IEnumerable<T>> projection)
@@ -316,7 +338,7 @@ namespace Chinchillada.Utilities
             yield return tuple.y;
         }
 
-        public static void EnumerateFully<T>(this IEnumerable<T> enumerable)
+        public static void Enumerate<T>(this IEnumerable<T> enumerable)
         {
             var _ = enumerable.ToList();
         }

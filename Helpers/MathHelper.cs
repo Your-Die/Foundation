@@ -59,6 +59,11 @@ namespace Chinchillada.Utilities
                 yield return value;
         }
 
+        public static (int smaller, int bigger) SortPair(int x, int y)
+        {
+            return x >= y ? (x, y) : (y, x);
+        }
+
         /// <summary>
         /// Uses the <paramref name="stepSize"/> to step from <paramref name="min"/> until <paramref name="max"/> is reached or exceeded.
         /// </summary>
