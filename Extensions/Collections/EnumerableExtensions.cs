@@ -359,5 +359,10 @@ namespace Chinchillada.Utilities
 
             return item;
         }
+
+        public static bool ContainsAll<T>(this IList<T> collection, IEnumerable<T> requiredItems)
+        {
+            return requiredItems.All(collection.Contains);
+        }
     }
 }
