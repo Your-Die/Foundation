@@ -1,9 +1,12 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using Chinchillada;
 using Chinchillada.Utilities;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Mutiny.Thesis.UI
 {
@@ -18,6 +21,10 @@ namespace Mutiny.Thesis.UI
         /// </summary>
         [SerializeField] private UPoolingList<ButtonController> buttons = new UPoolingList<ButtonController>();
 
+        private const string EventFoldoutGroup = "Events";
+        [SerializeField, FoldoutGroup(EventFoldoutGroup)] private UnityEvent presentEvent;
+        [SerializeField, FoldoutGroup(EventFoldoutGroup)] private UnityEvent hideEvent;
+        
         private readonly Dictionary<ButtonController, IOption> optionLookup
             = new Dictionary<ButtonController, IOption>();
 
@@ -44,6 +51,8 @@ namespace Mutiny.Thesis.UI
             this.Content = contentList;
             this.buttons.ApplyWith(contentList, PresentOption);
 
+            this.presentEvent.Invoke();
+            
             void PresentOption(IOption option, ButtonController button)
             {
                 option.Present(button);
@@ -67,6 +76,8 @@ namespace Mutiny.Thesis.UI
 
             this.optionLookup.Clear();
             this.buttons.Clear();
+            
+            this.hideEvent.Invoke();
         }
 
         protected override void Awake()
