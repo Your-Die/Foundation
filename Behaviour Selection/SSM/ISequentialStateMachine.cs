@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Mutiny.Foundation.SSM
+namespace Mutiny.Foundation.States
 {
     public interface ISequentialStateMachine : IList<ISequentialState>, IState
     {

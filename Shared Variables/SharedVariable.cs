@@ -1,4 +1,5 @@
 ﻿using System;
+using Mutiny.Foundation;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -8,8 +9,8 @@ namespace Chinchillada.Utilities
     /// A variable of the given type that is wrapped in a <see cref="ScriptableObject"/> so it can be easily shared by different systems
     /// in a modular way.
     /// </summary> 
-    public abstract class SharedVariable<T> : ScriptableObject, 
-        ISerializationCallbackReceiver where T : IComparable
+    public abstract class SharedVariable<T> : ScriptableObject, IListenable<T>,
+        ISerializationCallbackReceiver where T : IComparable, IEquatable<T>
     {
         [SerializeField] private T _initialValue;
 

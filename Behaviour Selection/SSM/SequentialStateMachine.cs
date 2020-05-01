@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Mutiny.Foundation.SSM
+namespace Mutiny.Foundation.States
 {
     public class SequentialStateMachine : ISequentialStateMachine
     {

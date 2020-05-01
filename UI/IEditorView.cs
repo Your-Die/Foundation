@@ -1,7 +1,11 @@
-﻿namespace Mutiny.Foundation.UI
+﻿using System;
+
+namespace Mutiny.Foundation.UI
 {
-    public interface IEditorView<out T>
+    public interface IEditorView<T> : IPresenter<T>
     {
-        T Publish();
+        bool CanEdit { get; set; }
+        
+        event Action Edited;
     }
 }

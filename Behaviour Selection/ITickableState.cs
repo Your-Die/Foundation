@@ -1,13 +1,13 @@
-﻿namespace Mutiny.Foundation.SSM
+﻿namespace Mutiny.Foundation.States
 {
-    public interface IState : ITickable
+    public interface IState
     {
         bool IsActive { get; }
-
         void Enter();
         void Exit();
     }
-
+    
+    
     public static class StateExtensions
     {
         public static bool TryEnter(this IState state)

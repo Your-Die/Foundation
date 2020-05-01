@@ -1,4 +1,4 @@
-﻿namespace Mutiny.Foundation.SSM
+﻿namespace Mutiny.Foundation
 {
     public interface ITickable
     {

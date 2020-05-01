@@ -5,7 +5,7 @@ using Mutiny.Foundation.Common;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Mutiny.Foundation.SSM
+namespace Mutiny.Foundation.States
 {
     public class GenericSequentialState : ChinchilladaBehaviour, ISequentialState
     {

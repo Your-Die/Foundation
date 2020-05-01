@@ -1,6 +1,6 @@
-﻿namespace Mutiny.Foundation.SSM
+﻿namespace Mutiny.Foundation.States
 {
-    public interface ISequentialState : IState
+    public interface ISequentialState : IState, ITickable
     {
         bool ShouldTransitionForward();
         

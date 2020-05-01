@@ -5,7 +5,7 @@ using Mutiny.Foundation.Behaviours;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Mutiny.Foundation.SSM
+namespace Mutiny.Foundation.States
 {
     /// <summary>
     /// Humble object <see cref="Component"/> wrapper for <see cref="SequentialStateMachine"/>.
