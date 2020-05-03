@@ -89,5 +89,14 @@ namespace Chinchillada.Utilities
             var integer = Convert.ToInt32(floored);
             return Convert.ToChar(integer);
         }
+
+        public static Vector2Int Vector(Vector2Int max)
+        {
+            return new Vector2Int
+            {
+                x = Range(max.x),
+                y = Range(max.y)
+            };
+        }
     }
 }

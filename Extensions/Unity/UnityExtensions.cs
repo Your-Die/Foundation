@@ -38,9 +38,20 @@ namespace Chinchillada.Utilities
 
         public static Vector2Int ToVector2(this Vector3Int vector) => new Vector2Int(vector.x, vector.y);
 
+        /// <summary>
+        /// Gets the center point of the <paramref name="bounds"/>.
+        /// </summary>
         public static Vector3Int GetCenterInt(this BoundsInt bounds)
         {
-            return bounds.position + bounds.size / 2;
+            var size = bounds.size;
+            var halfSize = new Vector3Int
+            {
+                x = size.x / 2,
+                y = size.y / 2,
+                z = size.z / 2
+            };
+            
+            return bounds.position + halfSize;
         }
 
         public static bool Contains2D(this BoundsInt bounds, Vector2Int vector)

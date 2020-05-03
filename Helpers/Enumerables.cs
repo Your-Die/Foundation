@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Chinchillada.Utilities
 {
@@ -16,6 +17,12 @@ namespace Chinchillada.Utilities
         {
             while (true)
                 yield return element;
+        }
+
+        public static IEnumerable<T> Generate<T>(Func<T> factory)
+        {
+            while (true)
+                yield return factory.Invoke();
         }
     }
 }
