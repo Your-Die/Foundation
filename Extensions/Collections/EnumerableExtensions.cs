@@ -59,6 +59,21 @@ namespace Chinchillada.Utilities
             }
         }
 
+        public static bool TryFind<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate, out T result)
+        {
+            foreach (var item in enumerable)
+            {
+                if (!predicate.Invoke(item))
+                    continue;
+                
+                result = item;
+                return true;
+            }
+
+            result = default;
+            return false;
+        }
+
         /// <summary>
         /// Partitions the <paramref name="enumerable"/> into blocks of <paramref name="blockSize"/>.
         /// </summary>
