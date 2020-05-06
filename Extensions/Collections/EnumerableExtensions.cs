@@ -131,6 +131,14 @@ namespace Chinchillada.Utilities
             return index >= 0 ? array[index] : default;
         }
 
+        public static T Best<T>(this IEnumerable<T> enumerable, Func<T, int> scoreFunction)
+        {
+            T[] array = enumerable.EnsureArray();
+            int index = array.IndexOfBest(scoreFunction);
+
+            return index >= 0 ? array[index] : default;
+        }
+
         /// <summary>
         /// Finds the element in the <paramref name="enumerable"/> that scores the worst with the <paramref name="scoreFunction"/>.
         /// </summary> 
@@ -161,6 +169,37 @@ namespace Chinchillada.Utilities
         /// Finds the index of the element in the <paramref name="enumerable"/> that scores the best with the <paramref name="scoreFunction"/>.
         /// </summary> 
         public static int IndexOfBest<T>(this IEnumerable<T> enumerable, Func<T, float> scoreFunction)
+        {
+            //Cast to list so we only enumerate once and can use indexing.
+            T[] array = enumerable.EnsureArray();
+
+            //Ensure the list is filled.
+            if (array.IsEmpty())
+                return -1;
+
+            //Start with first element.
+            int bestIndex = 0;
+            float bestScore = scoreFunction(array[bestIndex]);
+
+            //Find best scoring element.
+            for (int index = 1; index < array.Length; index++)
+            {
+                //Get element and score.
+                T element = array[index];
+                float score = scoreFunction(element);
+
+                //Compare and set.
+                if (score <= bestScore)
+                    continue;
+                bestIndex = index;
+                bestScore = score;
+            }
+
+            return bestIndex;
+        }      /// <summary>
+        /// Finds the index of the element in the <paramref name="enumerable"/> that scores the best with the <paramref name="scoreFunction"/>.
+        /// </summary> 
+        public static int IndexOfBest<T>(this IEnumerable<T> enumerable, Func<T, int> scoreFunction)
         {
             //Cast to list so we only enumerate once and can use indexing.
             T[] array = enumerable.EnsureArray();
