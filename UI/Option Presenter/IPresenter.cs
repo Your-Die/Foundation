@@ -13,11 +13,6 @@ namespace Mutiny
     public interface IPresenter<T> : IComponent
     {
         /// <summary>
-        /// The <see cref="T"/> being presented.
-        /// </summary>
-        T Content { get; }
-        
-        /// <summary>
         /// Presents the <paramref name="content"/>.
         /// </summary>
         void Present(T content);

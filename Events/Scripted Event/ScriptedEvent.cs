@@ -10,6 +10,8 @@ namespace Chinchillada.Events
     [CreateAssetMenu(menuName = "Chinchillada/Event", fileName = "Event")]
     public class ScriptedEvent : ScriptableObject
     {
+        [SerializeField] private bool log = true;
+        
         /// <summary>
         /// The event.
         /// </summary>
@@ -18,6 +20,15 @@ namespace Chinchillada.Events
         /// <summary>
         /// Raises the <see cref="Happened"/>.
         /// </summary>
-        public void Raise() => this.Happened?.Invoke();
+        public void Raise()
+        {
+            this.Happened?.Invoke();
+            if (this.log)
+            {
+                Debug.Log($"{this.name} raised.");
+            }
+        }
+
+        public override string ToString() => this.name;
     }
 }
