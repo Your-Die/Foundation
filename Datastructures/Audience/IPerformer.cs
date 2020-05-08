@@ -1,11 +1,7 @@
-namespace Robots
+namespace Chinchillada.Foundation
 {
-    using System;
-
-    public interface IPerformer<T>
+    public interface IPerformer<in T>
     {
-        Tribune<T> Tribune { get; }
-        
         void PerformRequest(T request);
 
         void StopPerformance();

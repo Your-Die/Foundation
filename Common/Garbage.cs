@@ -7,7 +7,7 @@ namespace Mutiny.Foundation.Common
 {
     public class Garbage : SingletonBehaviour<Garbage>
     {
-        private List<Action> taskQueue;
+        private List<Action> taskQueue = new List<Action>();
         
         public static void Register<T>(ICollection<T> collection, T garbage)
         {

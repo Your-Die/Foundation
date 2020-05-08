@@ -1,12 +1,22 @@
-namespace Mutiny.Thesis.UI
+using Mutiny;
+
+namespace Chinchillada.Foundation.UI
 {
-    using Chinchillada.Utilities;
+    using Utilities;
     using JetBrains.Annotations;
     using Robots;
     using Sirenix.OdinInspector;
     using UnityEngine;
 
-    public abstract class PresenterPopup<T> : Popup, IPerformer<T>
+    public interface IPresenterPopup
+    {
+        void Unsummon(object summoner);
+        void ForceHide();
+        void Freeze();
+        void Unfreeze();
+    }
+
+    public abstract class PresenterPopup<T> : Popup, IPerformer<T>, IPresenterPopup
     {
         [SerializeField] private int freezePriority = 2;
 
@@ -24,7 +34,7 @@ namespace Mutiny.Thesis.UI
             this.Tribune.JoinAudience(summoner, priority, content);
         }
 
-        public override void Unsummon(object summoner)
+        public void Unsummon(object summoner)
         {
             this.Tribune.LeaveAudience(summoner);
         }

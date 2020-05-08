@@ -1,4 +1,6 @@
-namespace Mutiny.Thesis.UI
+using Mutiny;
+
+namespace Chinchillada.Foundation.UI
 {
     using Chinchillada;
     using Chinchillada.Utilities;
@@ -22,10 +24,6 @@ namespace Mutiny.Thesis.UI
         public virtual void Freeze() => this.shouldFollow = false;
 
         public virtual void Unfreeze() => this.shouldFollow = this.followMouse;
-
-        public virtual void Summon(object summoner) => this.Summon();
-
-        public virtual void Unsummon(object summoner) => this.Hide();
         
         public void Summon()
         {

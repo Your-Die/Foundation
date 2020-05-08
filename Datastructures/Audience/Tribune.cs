@@ -1,11 +1,11 @@
+using Chinchillada.Foundation;
+
 namespace Robots
 {
     using System.Collections.Generic;
     using Chinchillada.Utilities;
-    using Mutiny;
-    using UnityEngine;
 
-    public class Tribune<T>
+    public class Tribune<T> 
     {
         private readonly IPerformer<T> performer;
         private readonly Dictionary<object, AudienceMember<T>> audience = new Dictionary<object, AudienceMember<T>>();
