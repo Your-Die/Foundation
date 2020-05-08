@@ -24,7 +24,7 @@ namespace Mutiny.Thesis.UI
             this.Tribune.JoinAudience(summoner, priority, content);
         }
 
-        public void Unsummon(object summoner)
+        public override void Unsummon(object summoner)
         {
             this.Tribune.LeaveAudience(summoner);
         }

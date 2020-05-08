@@ -23,7 +23,11 @@ namespace Mutiny.Thesis.UI
 
         public virtual void Unfreeze() => this.shouldFollow = this.followMouse;
 
-        protected void Summon()
+        public virtual void Summon(object summoner) => this.Summon();
+
+        public virtual void Unsummon(object summoner) => this.Hide();
+        
+        public void Summon()
         {
             this.cam = this.hostRect.GetCanvasCamera();
             this.gameObject.SetActive(true);
@@ -36,7 +40,7 @@ namespace Mutiny.Thesis.UI
             this.IsSummoned = true;
         }
 
-        protected void Hide()
+        public void Hide()
         {
             this.gameObject.SetActive(false);
 
