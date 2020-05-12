@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Sirenix.OdinInspector.Editor;
 
 namespace Chinchillada.Utilities
 {
@@ -53,6 +52,11 @@ namespace Chinchillada.Utilities
         /// <returns>Whether the <paramref name="enumerable"/> is empty or not.</returns>
         public static bool IsEmpty<T>(this IEnumerable<T> enumerable) => !enumerable.Any();
 
+        public static bool ContentEquals<T>(this IReadOnlyCollection<T> collection, IReadOnlyCollection<T> other)
+        {
+            return collection.Count == other.Count && collection.All(other.Contains);
+        }
+        
         public static IEnumerable<TOutput> SelectWithIndex<TInput, TOutput>(this IEnumerable<TInput> enumerable,
             Func<TInput, int, TOutput> selector)
         {
@@ -62,6 +66,21 @@ namespace Chinchillada.Utilities
                 yield return selector.Invoke(item, index);
                 index++;
             }
+        }
+
+        public static bool TryFind<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate, out T result)
+        {
+            foreach (var item in enumerable)
+            {
+                if (!predicate.Invoke(item))
+                    continue;
+                
+                result = item;
+                return true;
+            }
+
+            result = default;
+            return false;
         }
 
         /// <summary>
@@ -116,6 +135,14 @@ namespace Chinchillada.Utilities
             return index >= 0 ? array[index] : default;
         }
 
+        public static T Best<T>(this IEnumerable<T> enumerable, Func<T, int> scoreFunction)
+        {
+            T[] array = enumerable.EnsureArray();
+            int index = array.IndexOfBest(scoreFunction);
+
+            return index >= 0 ? array[index] : default;
+        }
+
         /// <summary>
         /// Finds the element in the <paramref name="enumerable"/> that scores the worst with the <paramref name="scoreFunction"/>.
         /// </summary> 
@@ -146,6 +173,37 @@ namespace Chinchillada.Utilities
         /// Finds the index of the element in the <paramref name="enumerable"/> that scores the best with the <paramref name="scoreFunction"/>.
         /// </summary> 
         public static int IndexOfBest<T>(this IEnumerable<T> enumerable, Func<T, float> scoreFunction)
+        {
+            //Cast to list so we only enumerate once and can use indexing.
+            T[] array = enumerable.EnsureArray();
+
+            //Ensure the list is filled.
+            if (array.IsEmpty())
+                return -1;
+
+            //Start with first element.
+            int bestIndex = 0;
+            float bestScore = scoreFunction(array[bestIndex]);
+
+            //Find best scoring element.
+            for (int index = 1; index < array.Length; index++)
+            {
+                //Get element and score.
+                T element = array[index];
+                float score = scoreFunction(element);
+
+                //Compare and set.
+                if (score <= bestScore)
+                    continue;
+                bestIndex = index;
+                bestScore = score;
+            }
+
+            return bestIndex;
+        }      /// <summary>
+        /// Finds the index of the element in the <paramref name="enumerable"/> that scores the best with the <paramref name="scoreFunction"/>.
+        /// </summary> 
+        public static int IndexOfBest<T>(this IEnumerable<T> enumerable, Func<T, int> scoreFunction)
         {
             //Cast to list so we only enumerate once and can use indexing.
             T[] array = enumerable.EnsureArray();

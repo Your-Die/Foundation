@@ -20,7 +20,12 @@ namespace Utilities.Behaviours
             {
                 Instance = (T) this;
                 base.Awake();
+                this.OnAwake();
             }
+        }
+
+        protected virtual void OnAwake()
+        {
         }
     }
 }

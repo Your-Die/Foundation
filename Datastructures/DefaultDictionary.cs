@@ -65,6 +65,6 @@ namespace Chinchillada.Utilities
 
         IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 
-
+        public override string ToString() => this.dictionary.ToString();
     }
 }

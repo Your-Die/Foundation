@@ -2,43 +2,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Chinchillada.Utilities
 {
-    [Serializable]
-    public abstract class PoolingListBase<TItem> : IReadOnlyList<TItem>
+    public interface IPoolList<TItem> : IReadOnlyList<TItem>
     {
-        [SerializeField] private TItem prefab;
-        [SerializeField] private Transform parent;
+        event Action<TItem> ItemAdded;
+        event Action<TItem> ItemDeactivated;
+        int ApplyWith<TOther>(IList<TOther> list, Action<TOther, TItem> action);
+        void Apply<TOther>(TOther other, Action<TOther, TItem> action);
+        void ForEach(Action<TItem> action);
+        int Scope(int count);
+        void Clear();
+        TItem Acquire();
+        int IndexOf(TItem item);
+    }
 
-        [SerializeField, HideInInspector] private List<TItem> items = new List<TItem>();
-        [SerializeField, HideInInspector] private Stack<TItem> unusedItems = new Stack<TItem>();
+    public abstract class PoolListBase<TItem> : IPoolList<TItem>
+    {
+        private readonly List<TItem> items = new List<TItem>();
+        private readonly Stack<TItem> unusedItems = new Stack<TItem>();
 
         public event Action<TItem> ItemAdded;
         public event Action<TItem> ItemDeactivated;
 
         public int Count => this.items.Count;
 
-        protected TItem Prefab => this.prefab;
-
-        protected Transform Parent => this.parent;
-
         public TItem this[int index]
         {
             get => this.items[index];
             set => this.items[index] = value;
-        }
-
-        public PoolingListBase()
-        {
-        }
-
-        public PoolingListBase(TItem prefab, Transform parent)
-        {
-            this.prefab = prefab;
-            this.parent = parent;
         }
 
         public int ApplyWith<TOther>(IList<TOther> list, Action<TOther, TItem> action)
@@ -90,7 +83,7 @@ namespace Chinchillada.Utilities
                 if (item is IPoolable poolable)
                     poolable.OnRelease();
 
-                Deactivate(item);
+                this.Deactivate(item);
                 this.unusedItems.Push(item);
 
                 delta--;
@@ -112,7 +105,7 @@ namespace Chinchillada.Utilities
                 ? this.unusedItems.Pop()
                 : this.CreateNew();
 
-            Activate(item);
+            this.Activate(item);
             this.items.Add(item);
 
             this.ItemAdded?.Invoke(item);
@@ -130,10 +123,14 @@ namespace Chinchillada.Utilities
         }
 
         public int IndexOf(TItem item) => this.items.IndexOf(item);
-        
-        protected abstract void Activate(TItem item);
 
-        protected abstract void Deactivate(TItem item);
+        protected virtual void Activate(TItem item)
+        {
+        }
+
+        protected virtual void Deactivate(TItem item)
+        {
+        }
 
         protected abstract TItem CreateNew();
     }

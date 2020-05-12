@@ -1,4 +1,6 @@
-namespace Mutiny.Thesis.UI
+using Mutiny;
+
+namespace Chinchillada.Foundation.UI
 {
     using Chinchillada;
     using Chinchillada.Utilities;
@@ -22,8 +24,8 @@ namespace Mutiny.Thesis.UI
         public virtual void Freeze() => this.shouldFollow = false;
 
         public virtual void Unfreeze() => this.shouldFollow = this.followMouse;
-
-        protected void Summon()
+        
+        public void Summon()
         {
             this.cam = this.hostRect.GetCanvasCamera();
             this.gameObject.SetActive(true);
@@ -36,7 +38,7 @@ namespace Mutiny.Thesis.UI
             this.IsSummoned = true;
         }
 
-        protected void Hide()
+        public void Hide()
         {
             this.gameObject.SetActive(false);
 

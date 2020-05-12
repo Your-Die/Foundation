@@ -1,4 +1,4 @@
-namespace Mutiny
+namespace Chinchillada.Foundation
 {
     using UnityEngine;
 

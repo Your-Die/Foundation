@@ -1,0 +1,12 @@
+﻿using UnityEngine;
+
+namespace Chinchillada.Foundation
+{
+    [CreateAssetMenu(menuName = "Chinchillada/Singleton reference")]
+    public class SingletonReference : ScriptableObject
+    {
+        public GameObject Instance { get; set; }
+
+        public bool HasInstance => this.Instance != null;
+    }
+}
