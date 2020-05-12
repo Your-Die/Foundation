@@ -25,7 +25,7 @@ namespace Chinchillada.Utilities
 
         public static T Best<T>(this IDictionary<T, float> dictionary)
         {
-            return dictionary.Keys.Best(key => dictionary[key]);
+            return dictionary.Keys.ArgMax(key => dictionary[key]);
         }
 
         public static IDictionary<TValue, TKey> Invert<TKey, TValue>(this IDictionary<TKey, TValue> dictionary)

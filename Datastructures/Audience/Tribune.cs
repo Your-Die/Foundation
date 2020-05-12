@@ -75,7 +75,7 @@ namespace Robots
             }
             else
             {
-                var highestPriority = this.Audience.Best(audienceMember => audienceMember.Priority);
+                var highestPriority = this.Audience.ArgMax(audienceMember => audienceMember.Priority);
                 this.MakeRequest(highestPriority);
             }
         }

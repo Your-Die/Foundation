@@ -1,9 +1,15 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Chinchillada.Utilities
 {
     public static class MiscExtensions
     {
+        public static Vector3 ToVector(this Color color)
+        {
+            return new Vector3(color.r, color.g, color.b);
+        }
+        
         public static int ToBinary(this bool value)
         {
             return value ? 1 : 0;

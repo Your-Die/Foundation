@@ -108,7 +108,7 @@ namespace Chinchillada.Utilities
         /// <summary>
         /// Finds the element in the <paramref name="enumerable"/> that scores the best with the <paramref name="scoreFunction"/>.
         /// </summary> 
-        public static T Best<T>(this IEnumerable<T> enumerable, Func<T, float> scoreFunction)
+        public static T ArgMax<T>(this IEnumerable<T> enumerable, Func<T, float> scoreFunction)
         {
             T[] array = enumerable.EnsureArray();
             int index = array.IndexOfBest(scoreFunction);
@@ -119,7 +119,7 @@ namespace Chinchillada.Utilities
         /// <summary>
         /// Finds the element in the <paramref name="enumerable"/> that scores the worst with the <paramref name="scoreFunction"/>.
         /// </summary> 
-        public static T Worst<T>(this IEnumerable<T> enumerable, Func<T, float> scoreFunction)
+        public static T ArgMin<T>(this IEnumerable<T> enumerable, Func<T, float> scoreFunction)
         {
             T[] array = enumerable.EnsureArray();
             int index = array.IndexOfWorst(scoreFunction);
