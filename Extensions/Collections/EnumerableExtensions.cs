@@ -52,6 +52,11 @@ namespace Chinchillada.Utilities
         /// <returns>Whether the <paramref name="enumerable"/> is empty or not.</returns>
         public static bool IsEmpty<T>(this IEnumerable<T> enumerable) => !enumerable.Any();
 
+        public static bool ContentEquals<T>(this IReadOnlyCollection<T> collection, IReadOnlyCollection<T> other)
+        {
+            return collection.Count == other.Count && collection.All(other.Contains);
+        }
+        
         public static IEnumerable<TOutput> SelectWithIndex<TInput, TOutput>(this IEnumerable<TInput> enumerable,
             Func<TInput, int, TOutput> selector)
         {
