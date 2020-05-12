@@ -4,7 +4,7 @@ using Chinchillada.Utilities;
 using Object = UnityEngine.Object;
 
 [Serializable]
-public class PoolingList<TItem> : PoolingListBase<TItem> where TItem : IComponent
+public class PoolingList<TItem> : ComponentPoolListBase<TItem> where TItem : IComponent
 {
     protected override void Activate(TItem item) => item.gameObject.SetActive(true);
 

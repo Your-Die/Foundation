@@ -11,7 +11,11 @@
             this.Content = content;
         }
 
-        public T Content { get; }
+        public Option()
+        {
+        }
+
+        public T Content { get; set; }
 
         public virtual void Present(ButtonController button)
         {
