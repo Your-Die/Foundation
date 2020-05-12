@@ -1,4 +1,4 @@
-namespace Robots
+namespace Chinchillada.Foundation
 {
     public class AudienceMember<T>
     {

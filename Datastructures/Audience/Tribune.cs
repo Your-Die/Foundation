@@ -1,9 +1,7 @@
-using Chinchillada.Foundation;
-
-namespace Robots
+namespace Chinchillada.Foundation
 {
     using System.Collections.Generic;
-    using Chinchillada.Utilities;
+    using Utilities;
 
     public class Tribune<T> 
     {

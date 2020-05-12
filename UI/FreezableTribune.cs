@@ -1,42 +1,17 @@
-using Mutiny;
+﻿using UnityEngine;
 
 namespace Chinchillada.Foundation.UI
 {
-    using Utilities;
-    using JetBrains.Annotations;
-    using Sirenix.OdinInspector;
-    using UnityEngine;
-
-    public interface ITribunePresenter<T> : IFreezableTribune, IPerformer<T>
-    {
-        void Summon(object summoner, int priority, T content);
-    }
-    
-    public interface IFreezableTribune
-    {
-        void Unsummon(object summoner);
-        void ForceHide();
-        void Freeze();
-        void Unfreeze();
-    }
-
-    /// <summary>
-    /// <remarks>
-    /// Todo: Rewrite to use <see cref="FreezableTribune{T}"/>
-    /// </remarks>
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public abstract class PresenterPopup<T> : Popup, ITribunePresenter<T>
+    public abstract class FreezableTribune<T> : ChinchilladaBehaviour, IPerformer<T>, IFreezableTribune
     {
         [SerializeField] private int freezePriority = 2;
 
         [SerializeField] private LogHandler tribuneLogHandler;
-        
-        [SerializeField, FindComponent, Required]
-        private IPresenter<T> presenter;
 
         private T currentContent;
-        
+
+        public bool IsSummoned { get; private set; }
+
         public Tribune<T> Tribune { get; private set; }
 
         public void Summon(object summoner, int priority, T content)
@@ -49,22 +24,20 @@ namespace Chinchillada.Foundation.UI
             this.Tribune.LeaveAudience(summoner);
         }
 
-        [UsedImplicitly]
         public void ForceHide() => this.Tribune.Clear();
 
-        public override void Freeze()
+        public virtual void Freeze()
         {
             if (this.IsSummoned == false)
                 return;
 
             this.Tribune.JoinAudience(this, this.freezePriority, this.currentContent);
-            base.Freeze();
         }
 
-        public override void Unfreeze()
+
+        public virtual void Unfreeze()
         {
             this.Tribune.LeaveAudience(this);
-            base.Unfreeze();
         }
 
         protected override void Awake()
@@ -76,19 +49,26 @@ namespace Chinchillada.Foundation.UI
             };
         }
 
+        protected abstract void Show(T content);
+
+        protected abstract void Hide();
+
         private void ShowInternal(T content)
         {
+            this.IsSummoned = true;
             this.currentContent = content;
-            this.presenter.Present(content);
-            base.Summon();
+            
+            this.Show(content);
         }
 
         private void HideInternal()
         {
-            this.presenter.Hide();
+            this.IsSummoned = false;
+            this.currentContent = default;
+            
             this.Hide();
         }
-
+        
         void IPerformer<T>.PerformRequest(T request)
         {
             if (request == null)
@@ -97,6 +77,6 @@ namespace Chinchillada.Foundation.UI
                 this.ShowInternal(request);
         }
 
-        void IPerformer<T>.StopPerformance() => this.HideInternal();
+        void IPerformer<T>.StopPerformance() => this.Hide();
     }
 }
