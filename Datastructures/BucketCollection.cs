@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace Chinchillada.Utilities
 {
@@ -57,6 +59,20 @@ namespace Chinchillada.Utilities
         public void Clear() => this.buckets.Clear();
 
         public bool ContainsKey(TKey key) => this.buckets.ContainsKey(key);
+
+        public bool Contains(TKey key, TValue value)
+        {
+            return this.buckets.TryGetValue(key, out var bucket) && bucket.Contains(value);
+        }
+        public bool Contains(TKey key, TValue value, Func<TValue, TValue, bool> equalityCheck)
+        {
+            if (this.buckets.TryGetValue(key, out var bucket) == false)
+                return false;
+
+            return bucket.Any(item => equalityCheck.Invoke(item, value));
+        }
+        
+        
         
         public IEnumerator<KeyValuePair<TKey, ICollection<TValue>>> GetEnumerator() => this.buckets.GetEnumerator();
 
