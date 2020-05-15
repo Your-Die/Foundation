@@ -64,15 +64,10 @@ namespace Chinchillada.Utilities
         {
             return this.buckets.TryGetValue(key, out var bucket) && bucket.Contains(value);
         }
-        public bool Contains(TKey key, TValue value, Func<TValue, TValue, bool> equalityCheck)
+        public bool Contains(TKey key, Func<TValue, bool> predicate)
         {
-            if (this.buckets.TryGetValue(key, out var bucket) == false)
-                return false;
-
-            return bucket.Any(item => equalityCheck.Invoke(item, value));
+            return this.buckets.TryGetValue(key, out var bucket) && bucket.Any(predicate);
         }
-        
-        
         
         public IEnumerator<KeyValuePair<TKey, ICollection<TValue>>> GetEnumerator() => this.buckets.GetEnumerator();
 
