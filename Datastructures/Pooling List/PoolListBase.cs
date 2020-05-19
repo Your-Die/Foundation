@@ -5,23 +5,11 @@ using System.Linq;
 
 namespace Chinchillada.Utilities
 {
-    public interface IPoolList<TItem> : IReadOnlyList<TItem>
+    [Serializable]
+    public abstract class PoolListBase<TItem> : IReadOnlyList<TItem>
     {
-        event Action<TItem> ItemAdded;
-        event Action<TItem> ItemDeactivated;
-        int ApplyWith<TOther>(IList<TOther> list, Action<TOther, TItem> action);
-        void Apply<TOther>(TOther other, Action<TOther, TItem> action);
-        void ForEach(Action<TItem> action);
-        int Scope(int count);
-        void Clear();
-        TItem Acquire();
-        int IndexOf(TItem item);
-    }
-
-    public abstract class PoolListBase<TItem> : IPoolList<TItem>
-    {
-        private readonly List<TItem> items = new List<TItem>();
-        private readonly Stack<TItem> unusedItems = new Stack<TItem>();
+        private List<TItem> items = new List<TItem>();
+        private Stack<TItem> unusedItems = new Stack<TItem>();
 
         public event Action<TItem> ItemAdded;
         public event Action<TItem> ItemDeactivated;
@@ -70,6 +58,9 @@ namespace Chinchillada.Utilities
         {
             var delta = 0;
 
+            if (this.items == null) 
+                this.items = new List<TItem>();
+
             while (this.items.Count < count)
             {
                 delta++;
@@ -101,6 +92,9 @@ namespace Chinchillada.Utilities
 
         public TItem Acquire()
         {
+            if (this.unusedItems == null) 
+                this.unusedItems = new Stack<TItem>();
+
             var item = this.unusedItems.Any()
                 ? this.unusedItems.Pop()
                 : this.CreateNew();
