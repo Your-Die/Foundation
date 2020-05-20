@@ -9,6 +9,12 @@ namespace Mutiny.Foundation.States
         [ShowInInspector]
         public IState CurrentState { get; private set; }
 
+        public StateMachine()
+        {
+        }
+
+        public StateMachine(IState initialState) => this.TransitionTo(initialState);
+
         public void TransitionTo(IState state)
         {
             this.CurrentState?.TryExit();
