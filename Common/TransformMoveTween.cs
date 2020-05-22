@@ -1,5 +1,6 @@
 ﻿using Chinchillada.Foundation;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Mutiny.Foundation.Common
@@ -16,6 +17,7 @@ namespace Mutiny.Foundation.Common
 
         private Tweener tweener;
         
+        [Button]
         public Tweener Tween()
         {
             this.Kill();
