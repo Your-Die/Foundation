@@ -8,7 +8,7 @@ namespace Chinchillada.Foundation
     /// Meant to able to be shared across decoupled systems.
     /// </summary>
     [CreateAssetMenu(menuName = "Chinchillada/Event", fileName = "Event")]
-    public class ScriptedEvent : ScriptableObject, IEvent
+    public class ScriptedEvent : ScriptableObject, IInvokableEvent
     {
         [SerializeField] private bool log = true;
         
