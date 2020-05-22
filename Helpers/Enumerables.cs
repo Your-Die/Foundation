@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Chinchillada.Utilities
+namespace Chinchillada.Foundation
 {
     /// <summary>
     /// Helper class for simple enumerable constructors.

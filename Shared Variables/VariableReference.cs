@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Chinchillada.Utilities
+namespace Chinchillada.Foundation
 {
     /// <summary>
     /// Serializable reference to a <see cref="SharedVariable{T}"/>.

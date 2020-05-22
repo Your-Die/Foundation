@@ -1,7 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Chinchillada.Utilities
+namespace Chinchillada.Foundation
 {
     /// <summary>
     /// Wrapper class for <see cref="MonoBehaviour"/> that creates a singleton of the wrapped type.

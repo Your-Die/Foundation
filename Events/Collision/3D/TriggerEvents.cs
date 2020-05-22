@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Chinchillada.Utilities
+namespace Chinchillada.Foundation
 {
     /// <summary>
     /// Component that propagates trigger events to C# events.

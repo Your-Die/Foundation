@@ -1,5 +1,5 @@
 using Chinchillada;
-using Chinchillada.Utilities;
+using Chinchillada.Foundation;
 using UnityEngine;
 
 public abstract class GameObjectPoolBase : ChinchilladaBehaviour, IGameObjectPool

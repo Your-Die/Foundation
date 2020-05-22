@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Chinchillada.Utilities
+namespace Chinchillada.Foundation
 {
     public class BucketCollection<TKey, TValue> : IDictionary<TKey, ICollection<TValue>>
     {

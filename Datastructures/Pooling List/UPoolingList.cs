@@ -2,7 +2,7 @@
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Chinchillada.Utilities
+namespace Chinchillada.Foundation
 {
     [Serializable]
     public class UPoolingList<TItem> : ComponentPoolListBase<TItem> where TItem : Component

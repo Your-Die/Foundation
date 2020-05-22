@@ -2,7 +2,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace Chinchillada.Utilities
+namespace Chinchillada.Foundation
 {
     public static class ScriptableObjectHelper
     {

@@ -1,4 +1,4 @@
-namespace Mutiny
+namespace Chinchillada.Foundation.UI
 {
     public interface IWindow
     {

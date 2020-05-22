@@ -1,4 +1,4 @@
-﻿namespace Mutiny.Foundation.States
+﻿namespace Chinchillada.Foundation.States
 {
     public abstract class StateBase : IState
     {

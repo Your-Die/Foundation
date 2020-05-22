@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace Chinchillada.Events
+namespace Chinchillada.Foundation
 {
     public abstract class ScriptedEventListenerBase<T> : ChinchilladaBehaviour
     {

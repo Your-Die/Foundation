@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Chinchillada.Events
+namespace Chinchillada.Foundation
 {
     public class ScriptedEventRaiser : MonoBehaviour
     {
@@ -16,7 +16,7 @@ namespace Chinchillada.Events
                 Debug.Log("Raisin event: " + this.@event);
             }
             
-            this.@event.Raise();
+            this.@event.Invoke();
         }
     }
 }

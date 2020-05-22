@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Chinchillada.Utilities
+namespace Chinchillada.Foundation
 {
     [CreateAssetMenu(menuName = "Termination/Disable Component")]
     public class DisableComponentTerminator : ScriptableTerminator

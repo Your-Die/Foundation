@@ -1,7 +1,7 @@
 namespace Chinchillada.Foundation
 {
     using System.Collections.Generic;
-    using Utilities;
+    using Foundation;
 
     public class Tribune<T> 
     {

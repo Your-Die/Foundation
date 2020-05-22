@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Chinchillada.Utilities
+namespace Chinchillada.Foundation
 {
     [Serializable]
     public abstract class PoolListBase<TItem> : IReadOnlyList<TItem>

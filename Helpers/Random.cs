@@ -3,7 +3,7 @@ using System.Text;
 using UnityEngine;
 using RNG = UnityEngine.Random;
 
-namespace Chinchillada.Utilities
+namespace Chinchillada.Foundation
 {
     /// <summary>
     /// Wrapper class for <see cref="UnityEngine.Random"/> that also adds some common overloads.

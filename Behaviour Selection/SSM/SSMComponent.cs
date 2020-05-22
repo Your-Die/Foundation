@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Mutiny.Foundation.Behaviours;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Mutiny.Foundation.States
+namespace Chinchillada.Foundation.States
 {
     /// <summary>
     /// Humble object <see cref="Component"/> wrapper for <see cref="SequentialStateMachine"/>.

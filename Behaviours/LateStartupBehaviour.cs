@@ -1,6 +1,4 @@
-﻿using Chinchillada;
-
-namespace Mutiny.Foundation.Behaviours
+﻿namespace Chinchillada.Foundation
 {
     public abstract class LateStartupBehaviour  : ChinchilladaBehaviour
     {

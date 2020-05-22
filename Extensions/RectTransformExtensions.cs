@@ -1,4 +1,4 @@
-namespace Chinchillada.Utilities
+namespace Chinchillada.Foundation
 {
     using UnityEngine;
 

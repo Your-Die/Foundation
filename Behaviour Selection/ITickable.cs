@@ -1,4 +1,4 @@
-﻿namespace Mutiny.Foundation
+﻿namespace Chinchillada.Foundation
 {
     public interface ITickable
     {

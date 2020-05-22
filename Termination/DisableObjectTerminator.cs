@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Chinchillada.Utilities
+namespace Chinchillada.Foundation
 {
     [CreateAssetMenu(menuName = "Termination/Disable GameObject")]
     public class DisableObjectTerminator : ScriptableTerminator

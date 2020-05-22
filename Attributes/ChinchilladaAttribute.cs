@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using UnityEngine;
 
-namespace Chinchillada.Utilities
+namespace Chinchillada.Foundation
 {
     /// <summary>
     /// Base class for custom attributes that can be applied through <see cref="AttributeHelper.ApplyAttribute{T}"/>.

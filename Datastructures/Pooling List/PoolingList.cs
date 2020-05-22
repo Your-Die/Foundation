@@ -1,6 +1,6 @@
 using System;
 using Chinchillada;
-using Chinchillada.Utilities;
+using Chinchillada.Foundation;
 using Object = UnityEngine.Object;
 
 [Serializable]

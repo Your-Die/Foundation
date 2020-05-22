@@ -1,7 +1,7 @@
 ﻿using System;
 using Sirenix.OdinInspector;
 
-namespace Mutiny.Foundation.States
+namespace Chinchillada.Foundation.States
 {
     [Serializable]
     public class StateMachine

@@ -3,7 +3,7 @@ using Mutiny;
 namespace Chinchillada.Foundation.UI
 {
     using Chinchillada;
-    using Chinchillada.Utilities;
+    using Foundation;
     using UnityEngine;
 
     public class Popup : ChinchilladaBehaviour

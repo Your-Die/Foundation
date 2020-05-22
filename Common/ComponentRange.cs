@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Chinchillada;
-using Chinchillada.Utilities;
+using Chinchillada.Foundation;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]

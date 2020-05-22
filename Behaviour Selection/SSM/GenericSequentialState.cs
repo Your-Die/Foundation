@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Chinchillada;
 using Mutiny.Foundation.Common;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Mutiny.Foundation.States
+namespace Chinchillada.Foundation.States
 {
     public class GenericSequentialState : ChinchilladaBehaviour, ISequentialState
     {

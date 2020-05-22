@@ -1,22 +1,24 @@
-﻿using Chinchillada.Foundation;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SingletonInitializer : MonoBehaviour
+namespace Chinchillada.Foundation
 {
-    [SerializeField] private GameObject prefab;
-
-    [SerializeField] private Transform parent;
-
-    [SerializeField] private SingletonReference reference;
-
-    [SerializeField] private bool destroyInitializer = true;
-
-    private void Awake()
+    public class SingletonInitializer : MonoBehaviour
     {
-        if (!this.reference.HasInstance)
-            this.reference.Instance = Instantiate(this.prefab, this.parent);
+        [SerializeField] private GameObject prefab;
 
-        if (this.destroyInitializer)
-            Destroy(this.gameObject);
+        [SerializeField] private Transform parent;
+
+        [SerializeField] private SingletonReference reference;
+
+        [SerializeField] private bool destroyInitializer = true;
+
+        private void Awake()
+        {
+            if (!this.reference.HasInstance)
+                this.reference.Instance = Instantiate(this.prefab, this.parent);
+
+            if (this.destroyInitializer)
+                Destroy(this.gameObject);
+        }
     }
 }

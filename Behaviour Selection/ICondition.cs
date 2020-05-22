@@ -1,4 +1,4 @@
-﻿namespace Mutiny.Foundation.Common
+﻿namespace Chinchillada.Foundation
 {
     public interface ICondition
     {

@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 
-namespace Mutiny
+namespace Chinchillada.Foundation.UI
 {
     using System;
     using Chinchillada;
-    using Chinchillada.Utilities;
+    using Chinchillada.Foundation;
 
     /// <summary>
     /// Interface for UI presenters.

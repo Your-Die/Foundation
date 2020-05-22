@@ -1,7 +1,6 @@
-using Chinchillada;
 using UnityEngine;
 
-namespace Utilities.Behaviours
+namespace Chinchillada.Foundation
 {
     public abstract class SingleInstanceBehaviour<T> : ChinchilladaBehaviour where T : SingleInstanceBehaviour<T>
     {

@@ -2,7 +2,7 @@ using Mutiny;
 
 namespace Chinchillada.Foundation.UI
 {
-    using Utilities;
+    using Foundation;
     using JetBrains.Annotations;
     using Sirenix.OdinInspector;
     using UnityEngine;

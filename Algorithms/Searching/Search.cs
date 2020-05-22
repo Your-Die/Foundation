@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Chinchillada.Utilities;
+using Chinchillada.Foundation;
 
 namespace Utilities.Algorithms
 {

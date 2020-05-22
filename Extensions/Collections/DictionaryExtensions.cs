@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Chinchillada.Utilities
+namespace Chinchillada.Foundation
 {
     public static class DictionaryExtensions
     {

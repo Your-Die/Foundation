@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Chinchillada.Utilities
+namespace Chinchillada.Foundation
 {
     public class CameraMover : ChinchilladaBehaviour
     {
