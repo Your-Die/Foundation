@@ -1,5 +1,4 @@
-﻿using Chinchillada;
-using Chinchillada.Foundation;
+﻿using Chinchillada.Foundation;
 using DG.Tweening;
 using UnityEngine;
 

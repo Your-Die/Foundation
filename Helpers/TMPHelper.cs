@@ -3,7 +3,6 @@ namespace Chinchillada.Foundation
     using System;
     using TMPro;
     using UnityEngine;
-    using UnityEngine.EventSystems;
 
     public static class TMPHelper
     {

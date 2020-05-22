@@ -1,5 +1,4 @@
-﻿using Chinchillada;
-using Chinchillada.Foundation;
+﻿using Chinchillada.Foundation;
 using UnityEngine;
 
 namespace Submodules.Foundation.Common

@@ -1,5 +1,4 @@
-﻿using Chinchillada;
-using Chinchillada.Foundation;
+﻿using Chinchillada.Foundation;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
