@@ -6,22 +6,42 @@ namespace Foundation.Algorithms
 {
     public static class Combinations
     {
+        /// <summary>
+        /// Generates all combinations of the <paramref name="items"/>
+        /// of lengths up to and including the length of the <paramref name="items"/> array.
+        /// </summary>
+        /// <param name="items">The items to generate combinations of.</param>
+        /// <typeparam name="T">The type of items.</typeparam>
+        /// <returns>All the combinations of lengths in the interval of [0, <paramref name="items"/>.Length].</returns>
         public static IEnumerable<T[]> Generate<T>(T[] items)
         {
             return Generate(items, items.Length);
         }
 
-        public static IEnumerable<T[]> Generate<T>(T[] items, int k)
+        /// <summary>
+        /// Generates all combinations of the <paramref name="items"/>
+        /// of lengths up to and including <paramref name="maxLength"/>.
+        /// </summary>
+        /// <param name="items">The items to generate combinations of.</param>
+        /// <param name="maxLength">The highest length of combinations we want to generate.</param>
+        /// <typeparam name="T">The type of items.</typeparam>
+        /// <returns>All the combinations of lengths in the interval of [0, <paramref name="maxLength"/>].</returns>
+        public static IEnumerable<T[]> Generate<T>(T[] items, int maxLength)
         {
+            // The combination of length 0 (Empty).
+            yield return new T[0];
+            
+            // Generate the length-1 combinations (The individual elements).
             var layer = new List<int[]>();
-            for (int index = 0; index < items.Length; index++)
+            for (var index = 0; index < items.Length; index++)
             {
                 var indexSet = new[] {index};
                 yield return InterpretIndices(indexSet);
                 layer.Add(indexSet);
             }
 
-            for (int layerIndex = 1; layerIndex < k; layerIndex++)
+            // Generate the combinations of lengths [2, maxLength].
+            for (var combinationLength = 1; combinationLength < maxLength; combinationLength++)
             {
                 var nextLayer = new List<int[]>();
 
@@ -31,7 +51,7 @@ namespace Foundation.Algorithms
                     var lastValue = combination[lastIndex];
                     var newIndex = lastIndex + 1;
 
-                    for (var newValue = lastValue + 1; newValue < k; newValue++)
+                    for (var newValue = lastValue + 1; newValue < maxLength; newValue++)
                     {
                         var newCombination = new int[combination.Length + 1];
                         Array.Copy(combination, 0, newCombination, 0, combination.Length);
@@ -46,10 +66,10 @@ namespace Foundation.Algorithms
                 layer = nextLayer;
             }
 
-            T[] InterpretIndices(int[] indices)
+            T[] InterpretIndices(IReadOnlyList<int> indices)
             {
-                var combination = new T[indices.Length];
-                for (var i = 0; i < indices.Length; i++)
+                var combination = new T[indices.Count];
+                for (var i = 0; i < indices.Count; i++)
                 {
                     var index = indices[i];
                     combination[i] = items[index];
