@@ -13,9 +13,9 @@ namespace Foundation.Algorithms
         /// <param name="items">The items to generate combinations of.</param>
         /// <typeparam name="T">The type of items.</typeparam>
         /// <returns>All the combinations of lengths in the interval of [0, <paramref name="items"/>.Length].</returns>
-        public static IEnumerable<T[]> Generate<T>(T[] items)
+        public static IEnumerable<T[]> Generate<T>(IList<T> items)
         {
-            return Generate(items, items.Length);
+            return Generate(items, items.Count);
         }
 
         /// <summary>
@@ -26,14 +26,14 @@ namespace Foundation.Algorithms
         /// <param name="maxLength">The highest length of combinations we want to generate.</param>
         /// <typeparam name="T">The type of items.</typeparam>
         /// <returns>All the combinations of lengths in the interval of [0, <paramref name="maxLength"/>].</returns>
-        public static IEnumerable<T[]> Generate<T>(T[] items, int maxLength)
+        public static IEnumerable<T[]> Generate<T>(IList<T> items, int maxLength)
         {
             // The combination of length 0 (Empty).
             yield return new T[0];
             
             // Generate the length-1 combinations (The individual elements).
             var layer = new List<int[]>();
-            for (var index = 0; index < items.Length; index++)
+            for (var index = 0; index < items.Count; index++)
             {
                 var indexSet = new[] {index};
                 yield return InterpretIndices(indexSet);
