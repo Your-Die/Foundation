@@ -9,10 +9,89 @@ namespace Chinchillada.Foundation
         public static string WrapColor(this string text, Color color)
         {
             const string colorTag = "color";
-            var hex = ColorUtility.ToHtmlStringRGBA(color);
-            var hexString = "#" + hex;
+            var content = GetColorString(color);
 
-            return WrapTag(text, colorTag, hexString);
+            return WrapTag(text, colorTag, content);
+        }
+
+        public static string WrapBold(this string text)
+        {
+            const string bold = "b";
+            return WrapTag(text, bold);
+        }    
+        
+        public static string WrapItalic(this string text)
+        {
+            const string italic = "i";
+            return WrapTag(text, italic);
+        }     
+        
+        public static string WrapStrikethrough(this string text)
+        {
+            const string italic = "s";
+            return WrapTag(text, italic);
+        } 
+        
+        public static string WrapUnderline(this string text)
+        {
+            const string italic = "u";
+            return WrapTag(text, italic);
+        }
+        
+        public static string WrapSpacing(this string text, float spacing)
+        {
+            const string tag = "cspace";
+            var content = $"{spacing}em";
+
+            return WrapTag(text, tag, content);
+        }
+
+        public static string WrapFont(this string text, TMP_FontAsset font)
+        {
+            const string tag = "font";
+            var content = $"\"{font.name}\"";
+
+            return WrapTag(text, tag, content);
+        }
+
+        public static string WrapCaps(this string text, CapsStyle style)
+        {
+            if (style == CapsStyle.None)
+                return text;
+
+            var tag = ChooseTag();
+            return WrapTag(text, tag);
+
+            string ChooseTag()
+            {
+                switch (style)
+                {
+                    case CapsStyle.Uppercase:
+                        return "uppercase";
+                    case CapsStyle.lowercase:
+                        return "lowercase";
+                    case CapsStyle.smallCaps:
+                        return "smallcaps";
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(style), style, null);
+                }
+            }
+        }
+
+        public static string WrapSize(this string text, int size)
+        {
+            const string tag = "size";
+            var content = $"{size}%";
+
+            return WrapTag(text, tag, content);
+        }
+
+        public static string WrapMark(this string text, Color color)
+        {
+            const string tag = "mark";
+            var content = GetColorString(color);
+
+            return WrapTag(text, tag, content);
         }
 
         public static string WrapLink(this string text, string linkID)
@@ -41,65 +120,27 @@ namespace Chinchillada.Foundation
             return $"{tagOpen}{text}{tagClose}";
         }
 
-        public static string GetTagOpen(string tagName, string tagContent)
+        public static string WrapTag(this string text, string tag)
         {
-            return $"<{tagName}={tagContent}>";
+            var tagOpen = GetTagOpen(tag);
+            var tagClose = GetTagClose(tag);
+
+            return $"{tagOpen}{text}{tagClose}";
+        }
+
+        public static string GetTagOpen(string tagName, string tagContent = null)
+        {
+            return tagContent != null
+                ? $"<{tagName}={tagContent}>"
+                : $"<{tagName}>";
         }
 
         public static string GetTagClose(string tagName) => $"</{tagName}>";
 
-        public static bool TryGetLinkID(this TMP_Text text, Vector3 position, Camera camera, out string linkID)
+        private static string GetColorString(Color color)
         {
-            var linkIndex = TMP_TextUtilities.FindIntersectingLink(text, position, camera);
-
-            if (linkIndex == -1)
-            {
-                linkID = null;
-                return false;
-            }
-
-            var linkInfo = text.textInfo.linkInfo[linkIndex];
-            linkID = linkInfo.GetLinkID();
-            return true;
-        }
-
-        public static int GetMouseoverLinkIndex(this TMP_Text text)
-        {
-            var position = Input.mousePosition;
-            var camera = Camera.main;
-
-            if (camera == null)
-                throw new InvalidOperationException();
-
-             return TMP_TextUtilities.FindIntersectingLink(text, position, camera);
-        }
-
-        public static void SetColor(this TMP_Text text, TMP_LinkInfo linkInfo, Color32 color,
-            bool updateVertexData = true)
-        {
-            var textInfo = text.textInfo;
-
-            for (var i = 0; i < linkInfo.linkTextLength; i++)
-            {
-                var characterIndex = linkInfo.linkTextfirstCharacterIndex + i;
-
-                // Get the index of the material / sub text object used by this character.
-                var meshIndex = textInfo.characterInfo[characterIndex].materialReferenceIndex;
-
-                // Get the index of the first vertex of this character.
-                var vertexIndex = textInfo.characterInfo[characterIndex].vertexIndex;
-
-                // Get a reference to the vertex color
-                var vertexColors = textInfo.meshInfo[meshIndex].colors32;
-
-                vertexColors[vertexIndex + 0] = color;
-                vertexColors[vertexIndex + 1] = color;
-                vertexColors[vertexIndex + 2] = color;
-                vertexColors[vertexIndex + 3] = color;
-            }
-
-            if (updateVertexData)
-                text.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
+            var hex = ColorUtility.ToHtmlStringRGBA(color);
+            return "#" + hex;
         }
     }
 }
