@@ -10,7 +10,7 @@ namespace Chinchillada.Foundation
 
         public IEnumerable<TValue> this[TKey bucket] => this.buckets[bucket];
 
-        public IEnumerable<TKey> Buckets => this.buckets.Keys;
+        public IEnumerable<TKey> BucketKeys => this.buckets.Keys;
 
         public BucketSet(IEnumerable<TValue> collection, Func<TValue, TKey> bucketSelector)
             : this(bucketSelector)
