@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Chinchillada.Foundation
 {
@@ -11,7 +13,8 @@ namespace Chinchillada.Foundation
         /// <summary>
         /// The <see cref="ScriptedEvent"/> we listen to.
         /// </summary>
-        [SerializeField] private ScriptedEvent _event = null;
+        [FormerlySerializedAs("_event")] [SerializeField] 
+        private ScriptedEvent @event = null;
 
         /// <summary>
         /// The event invoked when the <see cref="Event"/> is raised.
@@ -23,24 +26,27 @@ namespace Chinchillada.Foundation
         /// </summary>
         public ScriptedEvent Event
         {
-            get => _event;
-            set => _event = value;
+            get => this.@event;
+            set => this.@event = value;
         }
 
         /// <summary>
         /// Subscribes to the <see cref="Event"/>.
         /// </summary>
-        private void OnEnable() => Event.Happened += OnEventHappened;
+        private void OnEnable() => this.Event.Happened += this.OnEventHappened;
 
         /// <summary>
         /// Unsubscribes from the <see cref="Event"/>.
         /// </summary>
-        private void OnDisable() => Event.Happened -= OnEventHappened;
+        private void OnDisable() => this.Event.Happened -= this.OnEventHappened;
 
         /// <summary>
         /// Called when the <see cref="Event"/> happened.
         /// Invokes the <see cref="response"/>.
         /// </summary>
-        public void OnEventHappened() => this.response?.Invoke();
+        private void OnEventHappened() => this.response?.Invoke();
+
+        [Button]
+        private void SimulateEvent() => this.OnEventHappened();
     }
 }
