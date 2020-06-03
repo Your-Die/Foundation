@@ -8,7 +8,7 @@ namespace Chinchillada.Foundation
         private readonly Func<TValue, TKey> bucketSelector;
         private readonly IDictionary<TKey, List<TValue>> buckets;
 
-        public IEnumerable<TValue> this[TKey bucket] => this.buckets[bucket];
+        public IReadOnlyCollection<TValue> this[TKey bucket] => this.buckets[bucket];
 
         public IEnumerable<TKey> BucketKeys => this.buckets.Keys;
 
