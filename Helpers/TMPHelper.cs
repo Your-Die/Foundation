@@ -54,6 +54,14 @@ namespace Chinchillada.Foundation
             return WrapTag(text, tag, content);
         }
 
+        public static string WrapIndent(this string text, int indentPercentage)
+        {
+            const string tag = "indent";
+            var content = $"{indentPercentage}%";
+
+            return WrapTag(text, tag, content);
+        }
+
         public static string WrapCaps(this string text, CapsStyle style)
         {
             if (style == CapsStyle.None)
