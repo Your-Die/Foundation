@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Chinchillada;
 using Chinchillada.Foundation;
 using DG.Tweening;
 using Sirenix.OdinInspector;
@@ -9,7 +10,15 @@ using UnityEngine.UI;
 
 namespace Mutiny.UI
 {
-    public class TweenFader : ChinchilladaBehaviour
+    public interface IFader : IComponent
+    {
+        void StartFadeIn();
+        void StartFadeOut();
+        IEnumerator FadeIn();
+        IEnumerator FadeOut();
+    }
+
+    public class TweenFader : ChinchilladaBehaviour, IFader
     {
         [SerializeField, FindComponent(SearchStrategy.InChildren)]
         private Image fadeImage;
