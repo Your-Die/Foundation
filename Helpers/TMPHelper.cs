@@ -22,20 +22,26 @@ namespace Chinchillada.Foundation
         
         public static string WrapItalic(this string text)
         {
-            const string italic = "i";
-            return WrapTag(text, italic);
+            const string tag = "i";
+            return WrapTag(text, tag);
         }     
         
         public static string WrapStrikethrough(this string text)
         {
-            const string italic = "s";
-            return WrapTag(text, italic);
-        } 
+            const string tag = "s";
+            return WrapTag(text, tag);
+        }
+
+        public static string WrapStyle(this string text, string styleName)
+        {
+            const string tag = "style";
+            return WrapTag(text, tag, styleName);
+        }
         
         public static string WrapUnderline(this string text)
         {
-            const string italic = "u";
-            return WrapTag(text, italic);
+            const string tag = "u";
+            return WrapTag(text, tag);
         }
         
         public static string WrapSpacing(this string text, float spacing)
