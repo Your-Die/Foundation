@@ -49,5 +49,16 @@ namespace Chinchillada.Foundation
             foreach (var pair in pairs) 
                 dictionary.Remove(pair.Key);
         }
+
+        public static IDictionary<TKey, TValue> Copy<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, 
+            Func<IDictionary<TKey, TValue>> dictionaryConstructor = null)
+        {
+            var copy = dictionaryConstructor?.Invoke() ?? new Dictionary<TKey, TValue>();
+
+            foreach (var key in dictionary.Keys) 
+                copy[key] = dictionary[key];
+
+            return copy;
+        }
     }
 }
