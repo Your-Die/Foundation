@@ -1,4 +1,5 @@
 ﻿using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Chinchillada.Foundation
@@ -20,6 +21,7 @@ namespace Chinchillada.Foundation
         /// <summary>
         /// Raises the <see cref="Happened"/>.
         /// </summary>
+        [HideInEditorMode, Button]
         public void Invoke()
         {
             this.Happened?.Invoke();
