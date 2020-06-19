@@ -37,6 +37,22 @@ namespace Chinchillada.Foundation
 
             return delta;
         }
+        
+     public int ApplyWith<TOther>(IList<TOther> list, Action<int, TOther, TItem> action)
+        {
+            var count = list.Count;
+            var delta = this.Scope(count);
+
+            for (var index = 0; index < list.Count; index++)
+            {
+                var other = list[index];
+                var item = this.items[index];
+
+                action(index, other, item);
+            }
+
+            return delta;
+        }
 
         public void Apply<TOther>(TOther other, Action<TOther, TItem> action)
         {
