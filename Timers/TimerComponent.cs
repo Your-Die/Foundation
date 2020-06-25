@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Chinchillada.Timers
 {
@@ -11,30 +12,31 @@ namespace Chinchillada.Timers
         /// <summary>
         /// The timer.
         /// </summary>
-        [SerializeField] private Timer _timer = new Timer();
+        [FormerlySerializedAs("_timer")] [SerializeField]
+        private Timer timer = new Timer();
 
         ///<inheritdoc />
-        public float Duration => _timer.Duration;
+        public float Duration => this.timer.Duration;
 
         ///<inheritdoc />
-        public UnityEvent Finished => _timer.Finished;
+        public UnityEvent Finished => this.timer.Finished;
 
         ///<inheritdoc />
-        public bool IsRunning => _timer.IsRunning;
+        public bool IsRunning => this.timer.IsRunning;
 
         ///<inheritdoc />
-        public void Start() => _timer.Start();
+        public void Start() => this.timer.Start();
 
         ///<inheritdoc />
-        public void Pause() => _timer.Pause();
+        public void Pause() => this.timer.Pause();
 
         ///<inheritdoc />
-        public void Restart() => _timer.Restart();
+        public void Restart() => this.timer.Restart();
 
         ///<inheritdoc />
-        public void Finish() => _timer.Finish();
+        public void Finish() => this.timer.Finish();
 
         ///<inheritdoc />
-        public void Stop() => _timer.Stop();
+        public void Stop() => this.timer.Stop();
     }
 }

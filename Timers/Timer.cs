@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Chinchillada.Timers
 {
@@ -11,9 +12,11 @@ namespace Chinchillada.Timers
     [Serializable]
     public class Timer : ITimer
     {
-        [SerializeField] private float _duration;
+        [FormerlySerializedAs("_duration")] [SerializeField]
+        private float duration;
 
-        [SerializeField] private UnityEvent _finished = new UnityEvent();
+        [FormerlySerializedAs("_finished")] [SerializeField]
+        private UnityEvent finished = new UnityEvent();
 
         /// <summary>
         /// Handle to the routine.
@@ -23,7 +26,7 @@ namespace Chinchillada.Timers
         /// <summary>
         /// Time the current timer run was started.
         /// </summary>
-        private float _startTime;
+        private float startTime;
 
         /// <summary>
         /// The amount of time that this timer has spent running since the last <see cref="Stop"/>, <see cref="Finish"/> or <see cref="Restart"/>.
@@ -33,17 +36,17 @@ namespace Chinchillada.Timers
         /// <summary>
         /// Duration of the timer.
         /// </summary>
-        public float Duration => this._duration;
+        public float Duration => this.duration;
 
-        public UnityEvent Finished => this._finished;
+        public UnityEvent Finished => this.finished;
 
         /// <summary>
         /// Whether the timer is currently running.
         /// </summary>
         public bool IsRunning { get; private set; }
 
-        public float ElapsedTime => Time.time - _startTime;
-        
+        public float ElapsedTime => Time.time - this.startTime;
+
         public float FinishedPercentage => this.ElapsedTime / this.Duration;
 
         #region Constructors
@@ -51,7 +54,9 @@ namespace Chinchillada.Timers
         /// <summary>
         /// Construct a new timer.
         /// </summary>
-        public Timer() { }
+        public Timer()
+        {
+        }
 
         /// <summary>
         /// Construct a new timer.
@@ -59,8 +64,8 @@ namespace Chinchillada.Timers
         /// <param name="duration">The amount of time the timer should run.</param>
         public Timer(float duration)
         {
-            this._duration = duration;
-            this._finished = new UnityEvent();
+            this.duration = duration;
+            this.finished = new UnityEvent();
         }
 
         /// <summary>
@@ -100,7 +105,7 @@ namespace Chinchillada.Timers
             if (this.IsRunning)
                 return;
 
-            this._startTime = Time.time;
+            this.startTime = Time.time;
             this.IsRunning = true;
 
             var remaining = this.Duration - this.elapsedTime;
@@ -123,7 +128,7 @@ namespace Chinchillada.Timers
             this.IsRunning = false;
 
             var time = Time.time;
-            var elapsed = time - this._startTime;
+            var elapsed = time - this.startTime;
 
             this.elapsedTime += elapsed;
         }

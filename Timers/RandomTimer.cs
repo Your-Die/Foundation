@@ -2,6 +2,7 @@
 using Chinchillada.Foundation;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Chinchillada.Timers
 {
@@ -14,43 +15,45 @@ namespace Chinchillada.Timers
         /// <summary>
         /// Range of possible random durations.
         /// </summary>
-        [SerializeField] private Vector2 _durationRange = new Vector2(0, 1);
+        [FormerlySerializedAs("_durationRange")] [SerializeField]
+        private Vector2 durationRange = new Vector2(0, 1);
 
         /// <summary>
         /// Event invoked when the timer is finished running.
         /// </summary>
-        [SerializeField] private UnityEvent _finished;
+        [FormerlySerializedAs("_finished")] [SerializeField]
+        private UnityEvent finished;
 
         /// <summary>
         /// The current timer.
         /// </summary>
-        private Timer _timer;
+        private Timer timer;
 
         /// <summary>
         /// Range of possible random durations.
         /// </summary>
         public Vector2 DurationRange
         {
-            get => _durationRange;
-            set => _durationRange = value;
+            get => this.durationRange;
+            set => this.durationRange = value;
         }
 
         /// <inheritdoc />
-        public float Duration => _timer?.Duration ?? 0;
+        public float Duration => this.timer?.Duration ?? 0;
 
         /// <inheritdoc />
-        public UnityEvent Finished => _finished;
+        public UnityEvent Finished => this.finished;
 
         /// <inheritdoc />
-        public bool IsRunning => _timer?.IsRunning ?? false;
+        public bool IsRunning => this.timer?.IsRunning ?? false;
 
         /// <summary>
         /// Starts the timer with a random duration.
         /// </summary>
         public void StartRandom()
         {
-            float duration = _durationRange.RandomInRange();
-            _timer = Timer.StartTimer(duration, Finish);
+            var duration = this.durationRange.RandomInRange();
+            this.timer = Timer.StartTimer(duration, this.Finish);
         }
 
         /// <summary>
@@ -58,8 +61,8 @@ namespace Chinchillada.Timers
         /// </summary>
         public void RestartRandom()
         {
-            _timer.Stop();
-            StartRandom();
+            this.timer.Stop();
+            this.StartRandom();
         }
 
         /// <summary>
@@ -68,38 +71,30 @@ namespace Chinchillada.Timers
         /// </summary>
         public void Start()
         {
-            if (_timer != null)
-                _timer.Start();
+            if (this.timer != null)
+                this.timer.Start();
             else
-            {
-                StartRandom();
-            }
+                this.StartRandom();
         }
 
         /// <inheritdoc />
-        public void Pause()
-        {
-            _timer.Pause();
-        }
+        public void Pause() => this.timer.Pause();
 
         /// <inheritdoc />
-        public void Restart()
-        {
-            _timer.Restart();
-        }
+        public void Restart() => this.timer.Restart();
 
         /// <inheritdoc />
         public void Finish()
         {
-            _timer = null;
-            Finished?.Invoke();
+            this.timer = null;
+            this.Finished?.Invoke();
         }
 
         /// <inheritdoc />
         public void Stop()
         {
-            _timer.Stop();
-            _timer = null;
+            this.timer.Stop();
+            this.timer = null;
         }
     }
 }
