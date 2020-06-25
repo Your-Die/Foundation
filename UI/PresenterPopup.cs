@@ -5,19 +5,6 @@ namespace Chinchillada.Foundation.UI
     using Sirenix.OdinInspector;
     using UnityEngine;
 
-    public interface ITribunePresenter<T> : IFreezableTribune, IPerformer<T>
-    {
-        void Summon(object summoner, int priority, T content);
-    }
-    
-    public interface IFreezableTribune
-    {
-        void Unsummon(object summoner);
-        void ForceHide();
-        void Freeze();
-        void Unfreeze();
-    }
-
     /// <summary>
     /// <remarks>
     /// Todo: Rewrite to use <see cref="FreezableTribune{T}"/>

@@ -10,7 +10,7 @@ using UnityEngine.Events;
 namespace Mutiny.Thesis.UI
 {
     /// <summary>
-    /// Generic implementation of <see cref="IMultipleChoicePresenter{T}"/> that hides the type imlementation behind
+    /// Generic implementation of <see cref="IMultipleChoicePresenter{T}"/> that hides the type implementation behind
     /// a <see cref="IOption"/> interface.
     /// </summary>
     public class OptionPresenter : ChinchilladaBehaviour, IMultipleChoicePresenter<IOption>
@@ -147,10 +147,5 @@ namespace Mutiny.Thesis.UI
 
             private void OnButtonClicked() => this.callback.Invoke(this.button);
         }
-    }
-
-    public interface IOption
-    {
-        void Present(ButtonController button);
     }
 }

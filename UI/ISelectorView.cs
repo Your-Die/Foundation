@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Mutiny.Foundation.UI
+namespace Chinchillada.Foundation.UI
 {
     public interface ISelectorView<out T>
     {
