@@ -1,6 +1,7 @@
 ﻿using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Chinchillada.Foundation
 {
@@ -19,46 +20,43 @@ namespace Chinchillada.Foundation
             /// <summary>
             /// The constant value.
             /// </summary>
-            [SerializeField, ShowIf(nameof(_useConstant))]
-            private bool _constantValue = false;
+            [FormerlySerializedAs("_constantValue")] [SerializeField, ShowIf(nameof(useConstant))]
+            private bool constantValue = false;
 
             /// <summary>
             /// The <see cref="SharedVariable{T}"/>.
             /// </summary>
-            [SerializeField, HideIf(nameof(_useConstant))]
-            private SharedBool _variable = null;
+            [FormerlySerializedAs("_variable")] [SerializeField, HideIf(nameof(useConstant))]
+            private SharedBool variable = null;
 
             /// <summary>
             /// Whether to use constant instead of variable.
             /// </summary>
-            [SerializeField] private bool _useConstant = false;
+            [FormerlySerializedAs("_useConstant")] [SerializeField]
+            private bool useConstant = false;
 
             /// <summary>
             /// Construct a new <see cref="SharedBool.Reference"/>.
             /// </summary>
-            public Reference() { }
+            public Reference()
+            {
+            }
 
             /// <summary>
             /// Construct a new <see cref="SharedBool.Reference"/>.
             /// </summary>
-            public Reference(bool constantValue)
-            {
-                _constantValue = constantValue;
-            }
+            public Reference(bool constantValue) => this.constantValue = constantValue;
 
-            public Reference(SharedBool variable)
-            {
-                _variable = variable;
-            }
+            public Reference(SharedBool variable) => this.variable = variable;
 
             ///<inheritdoc />
-            protected override bool ConstantValue => _constantValue;
+            protected override bool ConstantValue => this.constantValue;
 
             ///<inheritdoc />
-            protected override SharedVariable<bool> Variable => _variable;
+            protected override SharedVariable<bool> Variable => this.variable;
 
             ///<inheritdoc />
-            protected override bool UseConstant => _useConstant;
+            protected override bool UseConstant => this.useConstant;
         }
     }
 }

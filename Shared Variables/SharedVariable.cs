@@ -2,6 +2,7 @@
 using Mutiny.Foundation;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Chinchillada.Foundation
 {
@@ -12,13 +13,14 @@ namespace Chinchillada.Foundation
     public abstract class SharedVariable<T> : ScriptableObject, IListenable<T>,
         ISerializationCallbackReceiver where T : IComparable, IEquatable<T>
     {
-        [SerializeField] private T _initialValue;
+        [FormerlySerializedAs("_initialValue")] [SerializeField]
+        private T initialValue;
 
         /// <summary>
         /// The value during runtime.
         /// </summary>
-        private T _runtimeValue;
-        
+        private T runtimeValue;
+
         /// <summary>
         /// Event invoked when the value is changed.
         /// </summary>
@@ -29,24 +31,21 @@ namespace Chinchillada.Foundation
         /// </summary>
         public T Value
         {
-            get => _runtimeValue;
+            get => this.runtimeValue;
             set
             {
-                if (_runtimeValue.CompareTo(value) != 0)
+                if (this.runtimeValue.CompareTo(value) != 0)
                     return;
 
-                _runtimeValue = value;
-                ValueChanged?.Invoke(value);
+                this.runtimeValue = value;
+                this.ValueChanged?.Invoke(value);
             }
         }
 
         /// <summary>
         /// Resets the variable to the initial value.
         /// </summary>
-        public void OnBeforeSerialize()
-        {
-            Value = _initialValue;
-        }
+        public void OnBeforeSerialize() => this.Value = this.initialValue;
 
         public void OnAfterDeserialize()
         {
@@ -56,10 +55,7 @@ namespace Chinchillada.Foundation
         /// Will cause the current value to be used as the new value outside of play-mode.
         /// </summary>
         [Button]
-        public void SaveCurrentValueAfterPlay()
-        {
-            _initialValue = _runtimeValue;
-        }
+        public void SaveCurrentValueAfterPlay() => this.initialValue = this.runtimeValue;
 
         public static implicit operator T(SharedVariable<T> variable) => variable.Value;
     }
