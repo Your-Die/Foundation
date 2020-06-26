@@ -3,6 +3,14 @@ namespace Chinchillada.Foundation
     using System;
     using TMPro;
     using UnityEngine;
+    
+    public enum CapsStyle
+    {
+        None,
+        Uppercase,
+        Lowercase,
+        SmallCaps
+    }
 
     public static class TMPHelper
     {
@@ -82,9 +90,9 @@ namespace Chinchillada.Foundation
                 {
                     case CapsStyle.Uppercase:
                         return "uppercase";
-                    case CapsStyle.lowercase:
+                    case CapsStyle.Lowercase:
                         return "lowercase";
-                    case CapsStyle.smallCaps:
+                    case CapsStyle.SmallCaps:
                         return "smallcaps";
                     default:
                         throw new ArgumentOutOfRangeException(nameof(style), style, null);
