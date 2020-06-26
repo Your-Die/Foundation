@@ -266,12 +266,6 @@ namespace Chinchillada.Foundation
             return worstIndex;
         }
 
-        public static IEnumerable<int> GetIndices<T>(this IReadOnlyList<T> list)
-        {
-            for (var index = 0; index < list.Count; index++)
-                yield return index;
-        }
-
         /// <summary>
         /// Returns true if only a single element in the <paramref name="enumerable"/> satisfies the <paramref name="predicate"/>.
         /// If this is the case, will output the index of that element through <paramref name="index"/>.
@@ -326,15 +320,8 @@ namespace Chinchillada.Foundation
         public static bool ContainsIndex<T>(this IEnumerable<T> enumerable, int index) =>
             0 <= index && index < enumerable.Count();
 
-        public static IEnumerable<int> IndicesWhere<T>(this IList<T> list, Func<T, bool> predicate)
-        {
-            for (var index = 0; index < list.Count; index++)
-            {
-                var item = list[index];
-                if (predicate(item))
-                    yield return index;
-            }
-        }
+        
+
 
         /// <summary>
         /// Creates a <see cref="LinkedList{T}"/> from the <paramref name="enumerable"/>.
@@ -404,28 +391,6 @@ namespace Chinchillada.Foundation
         public static void Enumerate<T>(this IEnumerable<T> enumerable)
         {
             var _ = enumerable.ToList();
-        }
-
-        public static int LastIndex<T>(this IList<T> list)
-        {
-            return list.Count - 1;
-        }
-
-        public static T ExtractLast<T>(this IList<T> list)
-        {
-            if (list.IsEmpty())
-                return default;
-
-            var index = list.LastIndex();
-            var item = list[index];
-            list.RemoveAt(index);
-
-            return item;
-        }
-
-        public static bool ContainsAll<T>(this IList<T> collection, IEnumerable<T> requiredItems)
-        {
-            return requiredItems.All(collection.Contains);
         }
     }
 }

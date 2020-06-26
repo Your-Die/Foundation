@@ -29,19 +29,13 @@ namespace Chinchillada.Foundation
         }
 
         /// <summary>
-        /// Attempts to generate elements that satisfy the <paramref name="validator"/> using the <paramref name="factoryMethod"/>.
-        /// </summary>
-        public static IEnumerable<T> GenerateValid<T>(this Func<T> factoryMethod, Predicate<T> validator)
-        {
-            return factoryMethod.Generate().Where(value => validator(value));
-        }
-
-        /// <summary>
         /// Attempts to generate <paramref name="amount"/> of items with the <paramref name="factoryMethod"/> that satisfy the <paramref name="validator"/>.
         /// </summary>
-        public static IEnumerable<T> GenerateValid<T>(this Func<T> factoryMethod, Predicate<T> validator, int amount)
+        public static IEnumerable<T> GenerateValid<T>(this Func<T> factoryMethod, Func<T, bool> validator, int amount)
         {
-            return factoryMethod.GenerateValid(validator).Take(amount);
+            return factoryMethod.Generate()
+                                .Where(validator)
+                                .Take(amount);
         }
 
         public static float Area(
