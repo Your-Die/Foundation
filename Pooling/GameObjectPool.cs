@@ -9,15 +9,22 @@ public class GameObjectPool : GameObjectPoolBase
 
     [SerializeField] private GameObject prefab;
 
+    private HashSet<GameObject> activeObjects = new HashSet<GameObject>();
+    
     private readonly LinkedList<GameObject> inactiveObjects = new LinkedList<GameObject>();
+
+    public override IReadOnlyCollection<GameObject> ActiveObjects => this.activeObjects;
 
     public override GameObject Instantiate(Vector3? location = null, Transform parent = null)
     {
         var position = location ?? Vector3.zero;
-        
-        return this.inactiveObjects.Any()
+
+        var instance = this.inactiveObjects.Any()
             ? this.GetInactiveObject(position, parent)
             : Instantiate(this.prefab, position, Quaternion.identity, parent);
+
+        this.activeObjects.Add(instance);
+        return instance;
     }
 
     public override T Instantiate<T>(Vector3? position = null, Transform parent = null)
@@ -31,6 +38,7 @@ public class GameObjectPool : GameObjectPoolBase
         obj.SetActive(false);
         obj.transform.parent = this.poolParent;
 
+        this.activeObjects.Remove(obj);
         this.inactiveObjects.AddFirst(obj);
     }
     

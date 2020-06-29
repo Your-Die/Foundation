@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Utilities.Pooling
@@ -8,7 +9,9 @@ namespace Utilities.Pooling
         [SerializeField] private GameObjectPoolBase poolPrefab;
 
         private GameObjectPoolBase pool;
-        
+
+        public IReadOnlyCollection<GameObject> ActiveObjects => this.pool.ActiveObjects;
+
         public GameObject Instantiate(Vector3? position = null, Transform parent = null)
         {
             this.EnsurePool();
