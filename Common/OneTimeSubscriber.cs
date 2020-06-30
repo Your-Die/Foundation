@@ -23,6 +23,7 @@ namespace Mutiny.Foundation.Common
 
         private void InvokeOnce()
         {
+            this.UnSubscribe();
             this.onEvent.Invoke();
         }
 
