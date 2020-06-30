@@ -18,4 +18,24 @@ namespace Mutiny.Foundation.Coroutines
 
         private void OnEventTriggered() => this.isEventTriggered = true;
     }
+
+    public class EventAwaiter<T> : CustomYieldInstruction
+    {
+        private bool isEventTriggered;
+
+        public override bool keepWaiting => !this.isEventTriggered;
+
+        public T Result { get; private set; }
+
+        public EventAwaiter(Action<Action<T>> subscribe, Action<Action<T>> unsubscribe)
+        {
+            OneTimeSubscriber<T>.CreateAndSubscribe(this.OnEventTriggered, subscribe, unsubscribe);
+        }
+
+        private void OnEventTriggered(T result)
+        {
+            this.Result = result;
+            this.isEventTriggered = true;
+        }
+    }
 }
