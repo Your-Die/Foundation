@@ -4,13 +4,13 @@ namespace Chinchillada.Foundation
 {
     public class CameraMover : ChinchilladaBehaviour
     {
-        [SerializeField] private float moveSpeed = 1;
+        [SerializeField] private float moveSpeed = 10;
         [SerializeField] private float zoomSpeed = 1;
         
         [SerializeField] private string horizontalAxis = "Horizontal";
         [SerializeField] private string verticalAxis = "Vertical";
 
-        [SerializeField] private string zoomAxis = "Mouse Scroll";
+        [SerializeField] private string zoomAxis = "Mouse ScrollWheel";
         
         [SerializeField, FindComponent] private Camera cam;
 
