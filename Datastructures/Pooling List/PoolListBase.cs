@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.OdinInspector;
 
 namespace Chinchillada.Foundation
 {
@@ -37,8 +38,8 @@ namespace Chinchillada.Foundation
 
             return delta;
         }
-        
-     public int ApplyWith<TOther>(IList<TOther> list, Action<int, TOther, TItem> action)
+
+        public int ApplyWith<TOther>(IList<TOther> list, Action<int, TOther, TItem> action)
         {
             var count = list.Count;
             var delta = this.Scope(count);
@@ -74,7 +75,7 @@ namespace Chinchillada.Foundation
         {
             var delta = 0;
 
-            if (this.items == null) 
+            if (this.items == null)
                 this.items = new List<TItem>();
 
             while (this.items.Count < count)
@@ -100,6 +101,12 @@ namespace Chinchillada.Foundation
             return delta;
         }
 
+        [Button]
+        public void AddEmptyItem()
+        {
+            var currentCount = this.items?.Count ?? 0;
+            this.Scope(currentCount + 1);
+        }
 
         public void Clear()
         {
@@ -108,7 +115,7 @@ namespace Chinchillada.Foundation
 
         public TItem Acquire()
         {
-            if (this.unusedItems == null) 
+            if (this.unusedItems == null)
                 this.unusedItems = new Stack<TItem>();
 
             var item = this.unusedItems.Any()
