@@ -5,6 +5,13 @@ namespace Chinchillada.Foundation
 {
     public static class EnumHelper
     {
+        public static IEnumerable<T> GetValues<T>() where T : Enum
+        {
+            var values = Enum.GetValues(typeof(T));
+            foreach (var value in values)
+                yield return (T) value;
+        }
+        
         public static T ChooseRandom<T>() where T : Enum
         {
             var values = Enum.GetValues(typeof(T));
