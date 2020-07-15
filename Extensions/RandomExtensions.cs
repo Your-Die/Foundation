@@ -82,6 +82,12 @@ namespace Chinchillada.Foundation
         
         #region Choosing
 
+        public static T ChooseRandom<T>(this IEnumerable<T> enumerable)
+        {
+            var array = enumerable.ToArray();
+            return array.ChooseRandom();
+        }
+
         /// <summary>
         /// Chooses a random element.
         /// </summary>
