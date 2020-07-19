@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Chinchillada.Foundation;
 using UnityEngine;
 
 namespace Chinchillada.Grid
@@ -33,6 +34,13 @@ namespace Chinchillada.Grid
 
                 yield return grid[windowX, windowY];
             }
+        }
+
+        public static IEnumerable<Vector2Int> GetCoordinates<T>(this IGrid2D<T> grid)
+        {
+            for (var x = 0; x < grid.Width; x++)
+            for (var y = 0; y < grid.Height; y++)
+                yield return new Vector2Int(x, y);
         }
     }
 }
