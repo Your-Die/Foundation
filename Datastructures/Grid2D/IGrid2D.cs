@@ -13,12 +13,14 @@ namespace Chinchillada.Grid
 
     public static class GridExtensions
     {
-        public static IEnumerable<Vector2Int> GetNeighbors<T>(this IGrid2D<T> grid, Vector2Int node)
+
+        
+        public static IEnumerable<(Vector2Int, Direction)> GetNeighbors<T>(this IGrid2D<T> grid, Vector2Int node)
         {
-            if (node.x > 0) yield return new Vector2Int(node.x - 1, node.y);
-            if (node.y > 0) yield return new Vector2Int(node.x, node.y - 1);
-            if (node.x < grid.Width - 1) yield return new Vector2Int(node.x + 1, node.y);
-            if (node.y < grid.Height - 1) yield return new Vector2Int(node.x, node.y + 1);
+            if (node.x > 0) yield return (new Vector2Int(node.x - 1, node.y), Direction.West);
+            if (node.y > 0) yield return (new Vector2Int(node.x, node.y - 1), Direction.South);
+            if (node.x < grid.Width - 1) yield return (new Vector2Int(node.x + 1, node.y), Direction.East);
+            if (node.y < grid.Height - 1) yield return (new Vector2Int(node.x, node.y + 1), Direction.South);
         }
 
         public static IEnumerable<T> GetWindow<T>(this IGrid2D<T> grid, int topLeftX, int topLeftY, Vector2Int window)
