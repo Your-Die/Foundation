@@ -9,7 +9,7 @@ namespace Chinchillada.Foundation
     /// </summary>
     public class DefaultDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
-        private readonly Func<TValue> defaultConstructor;
+        private readonly Func<TKey, TValue> defaultConstructor;
         private readonly Dictionary<TKey, TValue> dictionary = new Dictionary<TKey, TValue>();
         
         public bool IsReadOnly => false;
@@ -22,21 +22,26 @@ namespace Chinchillada.Foundation
             get
             {
                 if (!this.dictionary.ContainsKey(key)) 
-                    this.dictionary[key] = this.defaultConstructor.Invoke();
+                    this.dictionary[key] = this.defaultConstructor.Invoke(key);
 
                 return this.dictionary[key];
             }
             set => this.dictionary[key] = value;
         }
 
-        public DefaultDictionary(Func<TValue> defaultConstructor)
+        public DefaultDictionary(Func<TKey, TValue> defaultConstructor)
         {
             this.defaultConstructor = defaultConstructor;
+        }
+        
+        public DefaultDictionary(Func<TValue> defaultConstructor)
+        {
+            this.defaultConstructor = _ => defaultConstructor.Invoke();
         }
 
         public DefaultDictionary(TValue defaultValue)
         {
-            this.defaultConstructor = () => defaultValue;
+            this.defaultConstructor = _ => defaultValue;
         }
         
         void ICollection<KeyValuePair<TKey, TValue>>.CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
