@@ -63,13 +63,6 @@ namespace Chinchillada.Foundation
             action(other, item);
         }
 
-        public void ForEach(Action<TItem> action)
-        {
-            foreach (var item in this.items)
-            {
-                action(item);
-            }
-        }
 
         public int Scope(int count)
         {

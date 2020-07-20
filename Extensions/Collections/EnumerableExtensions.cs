@@ -10,6 +10,15 @@ namespace Chinchillada.Foundation
     public static class EnumerableExtensions
     {
         /// <summary>
+        /// Execute the <paramref name="action"/> for each item in the <paramref name="enumerable"/>.
+        /// </summary>
+        public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
+        {
+            foreach (var item in enumerable) 
+                action.Invoke(item);
+        }
+        
+        /// <summary>
         /// Ensures the <paramref name="enumerable"/> is an array.
         /// First attempts to cast it and if that fails calls <see cref="IEnumerable{T}.ToArray()"/>
         /// </summary>
