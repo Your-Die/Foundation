@@ -11,7 +11,7 @@ namespace Chinchillada.Foundation
     /// </summary>
     /// <typeparam name="TItem">The type of items in the list.</typeparam>
     [Serializable]
-    public abstract class PoolListBase<TItem> : IReadOnlyList<TItem>
+    public abstract class PoolListBase<TItem> : IPoolList<TItem>
     {
         /// <summary>
         /// The currently active items.
