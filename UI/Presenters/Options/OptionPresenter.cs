@@ -83,20 +83,20 @@ namespace Mutiny.Thesis.UI
         {
             base.Awake();
 
-            this.buttons.ItemAdded += this.OnButtonAdded;
+            this.buttons.ItemActivated += this.OnButtonActivated;
             this.buttons.ItemDeactivated += this.OnButtonDeactivated;
         }
 
         private void OnDestroy()
         {
-            this.buttons.ItemAdded -= this.OnButtonAdded;
+            this.buttons.ItemActivated -= this.OnButtonActivated;
             this.buttons.ItemDeactivated -= this.OnButtonDeactivated;
         }
 
         /// <summary>
         /// Invoked when a new button is added to the <see cref="buttons"/>.
         /// </summary>
-        private void OnButtonAdded(ButtonController button)
+        private void OnButtonActivated(ButtonController button)
         {
             // Create a new button listener.
             this.listenerLookup[button] = new ButtonListener(button, this.OnButtonClicked);

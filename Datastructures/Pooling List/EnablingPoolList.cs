@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using Sirenix.Utilities;
 using UnityEngine;
 
 namespace Chinchillada.Foundation
 {
+    /// <summary>
+    /// Implementation of <see cref="PoolListBase{TItem}"/> that uses a list of existing objects.
+    /// The objects are deactivated until they are acquired.
+    /// </summary>
     [Serializable]
     public class EnablingPoolList<TItem> : PoolListBase<TItem> where TItem : Component
     {
@@ -18,12 +23,18 @@ namespace Chinchillada.Foundation
         protected override TItem CreateNew()
         {
             if (this.itemQueue == null) 
-                this.itemQueue = new Queue<TItem>(this.items);
+                this.Initialize();
 
             if (this.itemQueue.IsEmpty())
                 throw new IndexOutOfRangeException();
 
             return this.itemQueue.Dequeue();
+        }
+
+        private void Initialize()
+        {
+            this.itemQueue = new Queue<TItem>(this.items);
+            this.items.ForEach(this.Deactivate);
         }
     }
 }

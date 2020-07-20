@@ -6,23 +6,52 @@ using Sirenix.OdinInspector;
 
 namespace Chinchillada.Foundation
 {
+    /// <summary>
+    /// Base class for pool lists: an implementation of the Object Pool pattern, structured as a list.
+    /// </summary>
+    /// <typeparam name="TItem">The type of items in the list.</typeparam>
     [Serializable]
     public abstract class PoolListBase<TItem> : IReadOnlyList<TItem>
     {
+        /// <summary>
+        /// The currently active items.
+        /// </summary>
         private List<TItem> items = new List<TItem>();
+        
+        /// <summary>
+        /// Reserve of items not currently in use.
+        /// </summary>
         private Stack<TItem> unusedItems = new Stack<TItem>();
 
-        public event Action<TItem> ItemAdded;
+        /// <summary>
+        /// Event invoked when a new item is activated.
+        /// </summary>
+        public event Action<TItem> ItemActivated;
+        
+        /// <summary>
+        /// Event invoked when an item is deactivated.
+        /// </summary>
         public event Action<TItem> ItemDeactivated;
 
+        /// <summary>
+        /// Amount of currently active items.
+        /// </summary>
         public int Count => this.items.Count;
 
+        /// <summary>
+        /// Get the active item at <paramref name="index"/>.
+        /// </summary>
         public TItem this[int index]
         {
             get => this.items[index];
             set => this.items[index] = value;
         }
 
+        /// <summary>
+        /// Applies the <paramref name="action"/> for each item in <paramref name="list"/>,
+        /// with an item from this <see cref="PoolListBase{T}"/>.
+        /// </summary>
+        /// <returns>The change in active items in this <see cref="PoolListBase{T}"/>.</returns>
         public int ApplyWith<TOther>(IList<TOther> list, Action<TOther, TItem> action)
         {
             var count = list.Count;
@@ -39,6 +68,11 @@ namespace Chinchillada.Foundation
             return delta;
         }
 
+        /// <summary>
+        /// Applies the <paramref name="action"/> for each item in <paramref name="list"/> with associated index,
+        /// with an item from this <see cref="PoolListBase{T}"/>.
+        /// </summary>
+        /// <returns>The change in active items in this <see cref="PoolListBase{T}"/>.</returns>
         public int ApplyWith<TOther>(IList<TOther> list, Action<int, TOther, TItem> action)
         {
             var count = list.Count;
@@ -55,14 +89,7 @@ namespace Chinchillada.Foundation
             return delta;
         }
 
-        public void Apply<TOther>(TOther other, Action<TOther, TItem> action)
-        {
-            this.Scope(1);
-            var item = this.items.First();
-
-            action(other, item);
-        }
-
+    
 
         public int Scope(int count)
         {
@@ -118,7 +145,7 @@ namespace Chinchillada.Foundation
             this.Activate(item);
             this.items.Add(item);
 
-            this.ItemAdded?.Invoke(item);
+            this.ItemActivated?.Invoke(item);
             return item;
         }
 
