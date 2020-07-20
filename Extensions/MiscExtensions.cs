@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Chinchillada.Foundation
@@ -13,6 +14,11 @@ namespace Chinchillada.Foundation
         public static int ToBinary(this bool value)
         {
             return value ? 1 : 0;
+        }
+
+        public static BitArray ToBitArray(this byte number)
+        {
+            return new BitArray(new [] {number});
         }
 
         public static T Until<T>(this Func<T> generator, Func<T, bool> predicate)

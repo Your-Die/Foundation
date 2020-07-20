@@ -9,6 +9,14 @@ namespace Chinchillada.Foundation
     /// </summary>
     public static class EnumerableExtensions
     {
+        public static T Mode<T>(this IEnumerable<T> enumerable)
+        {
+            var groups = enumerable.GroupBy(x => x);
+            var biggestGroup = groups.ArgMax(group => group.Count());
+
+            return biggestGroup.Key;
+        }
+        
         /// <summary>
         /// Execute the <paramref name="action"/> for each item in the <paramref name="enumerable"/>.
         /// </summary>

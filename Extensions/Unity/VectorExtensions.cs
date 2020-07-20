@@ -18,5 +18,14 @@ namespace Chinchillada.Foundation
         {
             return vectors.Aggregate(Vector3.zero, (current, vector) => current + vector);
         }
+
+        public static Vector2Int DivideElementWise(this Vector2Int vector, Vector2Int divider)
+        {
+            return new Vector2Int
+            {
+                x = vector.x / divider.x,
+                y = vector.y / divider.y
+            };
+        }
     }
 }
