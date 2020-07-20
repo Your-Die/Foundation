@@ -105,7 +105,7 @@ namespace Chinchillada.Foundation
             var indices = list.RandomIndices();
             return indices.Select(index => list[index]);
         }
-        public static IEnumerable<T> RandomElementsDistinct<T>(this IEnumerable<T> enumerable)
+        public static IEnumerable<T> RandomOrder<T>(this IEnumerable<T> enumerable)
         {
             var list = enumerable.EnsureList();
             
@@ -135,7 +135,7 @@ namespace Chinchillada.Foundation
         /// <returns>Multiple randomly chosen elements.</returns>
         public static IEnumerable<T> ChooseRandomDistinct<T>(this IEnumerable<T> list, int amount)
         {
-            return list.RandomElementsDistinct().Take(amount);
+            return list.RandomOrder().Take(amount);
         }
 
         #region Weighted
@@ -163,7 +163,7 @@ namespace Chinchillada.Foundation
             while (true)
             {
                 var randomValue = Random.Range(weightSum);
-                var items = weightedCollection.Keys.RandomElementsDistinct();
+                var items = weightedCollection.Keys.RandomOrder();
                 
                 foreach (var item in items)
                 {
@@ -228,10 +228,10 @@ namespace Chinchillada.Foundation
                     unpreferred.Add(item);
             }
 
-            foreach (var item in  preferred.RandomElementsDistinct())
+            foreach (var item in  preferred.RandomOrder())
                 yield return item;
 
-            foreach (var item in unpreferred.RandomElementsDistinct())
+            foreach (var item in unpreferred.RandomOrder())
                 yield return item;
         }
 

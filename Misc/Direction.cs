@@ -29,6 +29,20 @@ namespace Chinchillada.Foundation
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
         }
+
+        public static Direction Inverse(this Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.North: return Direction.South;
+                case Direction.East: return Direction.West;
+                case Direction.South: return Direction.North;
+                case Direction.West: return Direction.East;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+            }
+
+        }
         
         public static Direction Clockwise(this Direction direction)
         {

@@ -6,7 +6,6 @@ namespace Chinchillada.Foundation
 {
     public static class ListExtensions
     {
-        
         public static int LastIndex<T>(this IList<T> list)
         {
             return list.Count - 1;
@@ -32,18 +31,31 @@ namespace Chinchillada.Foundation
             return element;
         }
 
+        public static IDictionary<T, int> IndexDictionary<T>(this IReadOnlyList<T> list,
+            Func<IDictionary<T, int>> constructor = null)
+        {
+            var dictionary = constructor?.Invoke() ?? new Dictionary<T, int>();
+            for (var index = list.Count - 1; index >= 0; index--)
+            {
+                var item = list[index];
+                dictionary[item] = index;
+            }
+
+            return dictionary;
+        }
+
         public static bool ContainsAll<T>(this IList<T> collection, IEnumerable<T> requiredItems)
         {
             return requiredItems.All(collection.Contains);
         }
-        
+
         public static IEnumerable<int> GetIndices<T>(this IList<T> list)
         {
             for (var index = 0; index < list.Count; index++)
                 yield return index;
         }
 
-        
+
         public static IEnumerable<int> IndicesWhere<T>(this IList<T> list, Func<T, bool> predicate)
         {
             for (var index = 0; index < list.Count; index++)
