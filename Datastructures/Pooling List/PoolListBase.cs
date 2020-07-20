@@ -129,15 +129,9 @@ namespace Chinchillada.Foundation
             return item;
         }
 
-        public IEnumerator<TItem> GetEnumerator()
-        {
-            return this.items.GetEnumerator();
-        }
+        public IEnumerator<TItem> GetEnumerator() => this.items.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 
         public int IndexOf(TItem item) => this.items.IndexOf(item);
 
