@@ -7,13 +7,13 @@ namespace Mutiny.Foundation.Common
 {
     public class TransformMoveTween : ChinchilladaBehaviour
     {
-        [SerializeField, FindComponent] private Transform target;
+        [SerializeField] private Transform target;
 
-        [SerializeField] private Transform endLocation;
+        [SerializeField, FindComponent] private Transform endLocation;
 
-        [SerializeField] private float duration;
+        [SerializeField] private float duration = 0.3f;
 
-        [SerializeField] private Ease ease;
+        [SerializeField] private Ease ease = Ease.InOutSine;
 
         private Tweener tweener;
         
