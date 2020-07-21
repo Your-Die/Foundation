@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.Utilities;
 
 namespace Chinchillada.Foundation
 {
     public static class ListExtensions
     {
+        public static void AddNew<T>(this IList<T> list, IEnumerable<T> other)
+        {
+            var newItems = other.Except(list).ToArray();
+            list.AddRange(newItems);
+        }
+        
         public static int LastIndex<T>(this IList<T> list)
         {
             return list.Count - 1;
