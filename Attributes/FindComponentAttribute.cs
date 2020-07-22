@@ -40,10 +40,12 @@ namespace Chinchillada.Foundation
         }
 
         /// <inheritdoc />
-        public override void Apply(MonoBehaviour behaviour, FieldInfo field)
+        public override void Apply(MonoBehaviour behaviour, FieldInfo field) => Apply(behaviour, field, this.strategy);
+
+        public void Apply(MonoBehaviour behaviour, FieldInfo field, SearchStrategy searchStrategy)
         {
-            Type type = field.FieldType;
-            Component component = this.FindComponent(behaviour, type);
+            var type = field.FieldType;
+            var component = FindComponent(behaviour, type, searchStrategy);
 
             field.SetValue(behaviour, component);
         }
@@ -53,10 +55,11 @@ namespace Chinchillada.Foundation
         /// </summary>
         /// <param name="behaviour">The behaviour we want to find a component of.</param>
         /// <param name="type">The type of component we are looking for.</param>
+        /// <param name="strategy">The strategy to use for searching.</param>
         /// <returns>The found component, or null.</returns>
-        private Component FindComponent(MonoBehaviour behaviour, Type type)
+        private static Component FindComponent(MonoBehaviour behaviour, Type type, SearchStrategy strategy)
         {
-            switch (this.strategy)
+            switch (strategy)
             {
                 case SearchStrategy.FindComponent:
                     return behaviour.GetComponent(type);
