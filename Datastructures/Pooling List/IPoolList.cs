@@ -16,16 +16,6 @@ namespace Chinchillada.Foundation
         event Action<TItem> ItemDeactivated;
 
         /// <summary>
-        /// Amount of currently active items.
-        /// </summary>
-        int Count { get; }
-
-        /// <summary>
-        /// Get the active item at <paramref name="index"/>.
-        /// </summary>
-        TItem this[int index] { get; set; }
-
-        /// <summary>
         /// Applies the <paramref name="action"/> for each item in <paramref name="list"/>,
         /// with an item from this <see cref="PoolListBase{T}"/>.
         /// </summary>
@@ -43,7 +33,6 @@ namespace Chinchillada.Foundation
         void AddEmptyItem();
         void Clear();
         TItem Acquire();
-        IEnumerator<TItem> GetEnumerator();
         int IndexOf(TItem item);
     }
 }
