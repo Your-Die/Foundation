@@ -312,6 +312,27 @@ namespace Chinchillada.Foundation
 
             return true;
         }
+        
+        public static int GetIndexIfSingle<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
+        {
+            var index = 0;
+            var predicateIndex = -1;
+
+            foreach (var item in enumerable)
+            {
+                if (predicate.Invoke(item))
+                {
+                    if (predicateIndex == -1) 
+                        predicateIndex = index;
+                    else
+                        return -1;
+                }
+
+                index++;
+            }
+
+            return predicateIndex;
+        }
 
         public static IEnumerable<T> Cumulative<T>(this IEnumerable<T> enumerable, Func<T, T, T> aggregator)
         {
