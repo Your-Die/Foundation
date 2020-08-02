@@ -1,6 +1,7 @@
 ﻿using System;
 using DG.Tweening;
 using Mutiny.Foundation.Common;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Chinchillada.Foundation
@@ -13,9 +14,17 @@ namespace Chinchillada.Foundation
 
         private Tweener tweener;
 
+        [Button, HideInEditorMode]
         public void TweenForward() => this.Tween(this.forwardTween);
 
+        [Button, HideInEditorMode]
         public void TweenBackward() => this.Tween(this.backwardTween);
+
+        public void TweenBackward(TweenCallback onFinished)
+        {
+            this.TweenBackward();
+            this.tweener.onComplete = onFinished;
+        }
 
         public void ForceForward() => this.Force(this.forwardTween);
 

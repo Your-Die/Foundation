@@ -1,4 +1,5 @@
-﻿using Chinchillada.Foundation;
+﻿using System;
+using Chinchillada.Foundation;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -22,6 +23,14 @@ namespace Mutiny.Foundation.Common
         {
             this.Kill();
             this.tweener = this.target.DOMove(this.endLocation.position, this.duration).SetEase(this.ease);
+
+            return this.tweener;
+        }
+
+        public Tweener Tween(TweenCallback onFinished)
+        {
+            this.Tween();
+            this.tweener.onComplete = onFinished;
 
             return this.tweener;
         }

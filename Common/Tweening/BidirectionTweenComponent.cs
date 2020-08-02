@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 
 namespace Chinchillada.Foundation
 {
@@ -8,15 +9,10 @@ namespace Chinchillada.Foundation
         public void TweenForward() => this.tweener.TweenForward();
 
         public void TweenBackward() => this.tweener.TweenBackward();
+        public void TweenBackward(TweenCallback onFinished) => this.tweener.TweenBackward(onFinished);
 
-        public void ForceForward()
-        {
-            this.tweener.ForceForward();
-        }
+        public void ForceForward() => this.tweener.ForceForward();
 
-        public void ForceBackward()
-        {
-            this.tweener.ForceBackward();
-        }
+        public void ForceBackward() => this.tweener.ForceBackward();
     }
 }
