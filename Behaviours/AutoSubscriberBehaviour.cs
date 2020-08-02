@@ -1,7 +1,4 @@
-﻿using Sirenix.OdinInspector;
-using UnityEngine;
-
-namespace Chinchillada.Foundation
+﻿namespace Chinchillada.Foundation
 {
     public abstract class AutoSubscriberBehaviour : SubscriberBehaviour
     {
