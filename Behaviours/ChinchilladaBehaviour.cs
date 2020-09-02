@@ -18,10 +18,7 @@ namespace Chinchillada.Foundation
         /// Applies the <see cref="FindComponentAttribute"/> on this <see cref="UnityEngine.MonoBehaviour"/>
         /// </summary>
         [Button]
-        protected virtual void FindComponents()
-        {
-            AttributeHelper.ApplyAttribute<FindComponentAttribute>(this);
-        }
+        protected virtual void FindComponents() => AttributeHelper.ApplyAttribute<FindComponentAttribute>(this);
 
         [ContextMenu("Find All Components")]
         private void FindAllComponents()
@@ -29,6 +26,23 @@ namespace Chinchillada.Foundation
             var behaviours = this.GetComponentsInChildren<ChinchilladaBehaviour>();
             foreach (var chinchillada in behaviours)
                 chinchillada.FindComponents();
+        }
+
+        [ContextMenu("Find Components In Children")]
+        private void FindComponentsInChildren() => this.FindComponentsCustom(SearchStrategy.InChildren);
+
+        [ContextMenu("Find Components In parents")]
+        private void FindComponentsInParents() => this.FindComponentsCustom(SearchStrategy.InParent);
+
+        [ContextMenu("Find Components Anywhere")]
+        private void FindComponentsAnywhere() => this.FindComponentsCustom(SearchStrategy.Anywhere);
+
+        private void FindComponentsCustom(SearchStrategy strategy)
+        {
+            var attributedFields = AttributeHelper.GetAttributedFields<FindComponentAttribute>(this);
+
+            foreach (var (field, attribute) in attributedFields)
+                attribute.Apply(this, field, strategy);
         }
     }
 }

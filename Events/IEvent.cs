@@ -1,4 +1,6 @@
 ﻿using System;
+using Mutiny.Foundation.Coroutines;
+using UnityEngine;
 
 namespace Chinchillada.Foundation
 {
@@ -22,5 +24,18 @@ namespace Chinchillada.Foundation
     {
         void Subscribe(Action action);
         void Unsubscribe(Action action);
+    }
+
+    public static class EventExtensions
+    {
+        public static CustomYieldInstruction Await(this IEvent @event)
+        {
+            return new EventAwaiter(@event.Subscribe, @event.Unsubscribe);
+        } 
+        
+        public static CustomYieldInstruction Await<T>(this IEvent<T> @event)
+        {
+            return new EventAwaiter<T>(@event.Subscribe, @event.Unsubscribe);
+        }
     }
 }

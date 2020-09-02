@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.Utilities;
 
 namespace Chinchillada.Foundation
 {
     public static class ListExtensions
     {
+        public static void AddNew<T>(this IList<T> list, IEnumerable<T> other)
+        {
+            var newItems = other.Except(list).ToArray();
+            list.AddRange(newItems);
+        }
+        
         public static int LastIndex<T>(this IList<T> list)
         {
             return list.Count - 1;
@@ -31,6 +38,18 @@ namespace Chinchillada.Foundation
             return element;
         }
 
+        public static int GetFirstIndex<T>(this IList<T> list, Func<T, bool> predicate)
+        {
+            for (var index = 0; index < list.Count; index++)
+            {
+                var item = list[index];
+                if (predicate.Invoke(item))
+                    return index;
+            }
+            
+            throw new InvalidOperationException();
+        }
+        
         public static IDictionary<T, int> IndexDictionary<T>(this IReadOnlyList<T> list,
             Func<IDictionary<T, int>> constructor = null)
         {

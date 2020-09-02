@@ -2,7 +2,7 @@
     "name": "Chinchillada.Foundation",
     "references": [
         "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:725004de3909508438c0e98462712a10"
+        "GUID:228c3024fab289a45a1a986710e8e8b4"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -11,5 +11,6 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": []
+    "versionDefines": [],
+    "noEngineReferences": false
 }

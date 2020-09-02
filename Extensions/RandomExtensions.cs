@@ -38,7 +38,7 @@ namespace Chinchillada.Foundation
         public static int ChooseRandomIndex<T>(this IList<T> enumerable)
         {
             int indexMax = enumerable.Count;
-            return Random.Range(indexMax);
+            return indexMax > 0 ? Random.Range(indexMax) : -1;
         }
 
         /// <summary>
@@ -84,10 +84,10 @@ namespace Chinchillada.Foundation
 
         public static T ChooseRandom<T>(this IEnumerable<T> enumerable)
         {
-            var array = enumerable.ToArray();
-            return array.ChooseRandom();
+            var list = enumerable.EnsureList();
+            return list.ChooseRandom();
         }
-
+        
         /// <summary>
         /// Chooses a random element.
         /// </summary>
@@ -96,6 +96,9 @@ namespace Chinchillada.Foundation
         /// <returns>A randomly chosen element.</returns>
         public static T ChooseRandom<T>(this IList<T> list)
         {
+            if (list.IsEmpty())
+                return default;
+
             var index = list.ChooseRandomIndex();
             return list[index];
         }

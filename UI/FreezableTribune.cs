@@ -24,7 +24,7 @@ namespace Chinchillada.Foundation.UI
             this.Tribune.LeaveAudience(summoner);
         }
 
-        public void ForceHide() => this.Tribune.Clear();
+        public virtual void ForceHide() => this.Tribune.Clear();
 
         public virtual void Freeze()
         {

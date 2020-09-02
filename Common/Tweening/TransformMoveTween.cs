@@ -1,4 +1,5 @@
-﻿using Chinchillada.Foundation;
+﻿using System;
+using Chinchillada.Foundation;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -7,13 +8,13 @@ namespace Mutiny.Foundation.Common
 {
     public class TransformMoveTween : ChinchilladaBehaviour
     {
-        [SerializeField, FindComponent] private Transform target;
+        [SerializeField] private Transform target;
 
-        [SerializeField] private Transform endLocation;
+        [SerializeField, FindComponent] private Transform endLocation;
 
-        [SerializeField] private float duration;
+        [SerializeField] private float duration = 0.3f;
 
-        [SerializeField] private Ease ease;
+        [SerializeField] private Ease ease = Ease.InOutSine;
 
         private Tweener tweener;
         
@@ -22,6 +23,14 @@ namespace Mutiny.Foundation.Common
         {
             this.Kill();
             this.tweener = this.target.DOMove(this.endLocation.position, this.duration).SetEase(this.ease);
+
+            return this.tweener;
+        }
+
+        public Tweener Tween(TweenCallback onFinished)
+        {
+            this.Tween();
+            this.tweener.onComplete = onFinished;
 
             return this.tweener;
         }
