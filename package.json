@@ -1,0 +1,16 @@
+{
+  "name": "com.chinchillada.foundation",
+  "version": "1.0.0",
+  "displayName": "Chinchillada Foundation",
+  "description": "",
+  "unity": "2020.1",
+  "unityRelease": "6f1",
+  "dependencies": {
+  },
+  "keywords": [],
+  "author": {
+    "name": "Jordy van Opstal",
+    "email": "jordy_van_opstal@live.nl",
+    "url": "https://jordyvanopstal.com/"
+  }
+}
