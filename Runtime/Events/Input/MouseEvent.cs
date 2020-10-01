@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Mutiny.Foundation.Events
+namespace Chinchillada.Foundation.Events
 {
     public class MouseEvent : SimpleEvent
     {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace Mutiny.Foundation.Events
+namespace Chinchillada.Foundation.Events
 {
     public class SimpleEvent : MonoBehaviour
     {

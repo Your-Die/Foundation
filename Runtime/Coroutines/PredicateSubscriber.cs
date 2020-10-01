@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Mutiny.Foundation.Coroutines
+namespace Chinchillada.Foundation.Coroutines
 {
     public class PredicateSubscriber<T>
     {

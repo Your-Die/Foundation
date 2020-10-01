@@ -1,4 +1,4 @@
-namespace Mutiny.Foundation.Common
+namespace Chinchillada.Foundation.Common
 {
     public interface IBuilder<out T>
     {

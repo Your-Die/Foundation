@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-namespace Mutiny.Foundation
+namespace Chinchillada.Foundation
 {
     [Serializable]
     public class RegexMatcher

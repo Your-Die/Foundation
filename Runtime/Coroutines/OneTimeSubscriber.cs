@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Mutiny.Foundation.Common
+namespace Chinchillada.Foundation.Common
 {
     public class OneTimeSubscriber
     {

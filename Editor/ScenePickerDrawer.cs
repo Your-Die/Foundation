@@ -2,7 +2,7 @@ using Chinchillada.Foundation;
 using UnityEditor;
 using UnityEngine;
 
-namespace Mutiny.Foundation.Editor
+namespace Chinchillada.Foundation.Editor
 {
     [CustomPropertyDrawer(typeof(ScenePickerAttribute))]
     public class ScenePickerDrawer : PropertyDrawer

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Mutiny.Foundation.Common
+namespace Chinchillada.Foundation.Common
 {
     [Serializable]
     public class Listenable<T> : IListenable<T> where T : IEquatable<T>

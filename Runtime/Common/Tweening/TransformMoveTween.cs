@@ -4,7 +4,7 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Mutiny.Foundation.Common
+namespace Chinchillada.Foundation.Common
 {
     public class TransformMoveTween : ChinchilladaBehaviour
     {

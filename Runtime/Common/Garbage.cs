@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Chinchillada.Foundation;
 
-namespace Mutiny.Foundation.Common
+namespace Chinchillada.Foundation.Common
 {
     public class Garbage : SingletonBehaviour<Garbage>
     {

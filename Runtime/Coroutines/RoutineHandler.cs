@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Mutiny.Foundation.Coroutines
+namespace Chinchillada.Foundation.Coroutines
 {
     public class RoutineHandler
     {

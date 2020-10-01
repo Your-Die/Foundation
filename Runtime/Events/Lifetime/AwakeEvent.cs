@@ -1,4 +1,4 @@
-﻿namespace Mutiny.Foundation.Events
+﻿namespace Chinchillada.Foundation.Events
 {
     public class AwakeEvent : SimpleEvent
     {

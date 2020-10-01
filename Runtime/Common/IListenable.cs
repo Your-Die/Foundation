@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Mutiny.Foundation
+namespace Chinchillada.Foundation
 {
     public interface IListenable<T> where T : IEquatable<T>
     {

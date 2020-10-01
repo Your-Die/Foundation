@@ -1,6 +1,6 @@
 ﻿using System;
 using DG.Tweening;
-using Mutiny.Foundation.Common;
+using Chinchillada.Foundation.Common;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
