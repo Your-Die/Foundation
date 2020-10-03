@@ -24,6 +24,13 @@ namespace Chinchillada.Foundation
             };
         }
 
+        public static void SetScaleX(this Transform transform, float scaleX)
+        {
+            var scale = transform.localScale;
+            scale.x = scaleX;
+            transform.localScale = scale;
+        }
+        
         public static float DistanceTo(this Transform transform, Transform other) => transform.DistanceTo(other.position);
 
         private static float DistanceTo(this Transform transform, Vector3 other) => transform.position.DistanceTo(other);

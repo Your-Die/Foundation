@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -5,7 +6,9 @@ using UnityEngine;
 public interface IGameObjectPool
 {
     IReadOnlyCollection<GameObject> ActiveObjects { get; }
-
+    event Action<GameObject> InstantiatedEvent;
+     event Action<GameObject> ReturnedEvent;
+    
     GameObject Instantiate(Vector3? position = null, Transform parent = null);
     T Instantiate<T>(Vector3? position = null, Transform parent = null);
     void Return(GameObject obj);

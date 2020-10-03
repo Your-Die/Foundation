@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,17 @@ namespace Utilities.Pooling
         private GameObjectPoolBase pool;
 
         public IReadOnlyCollection<GameObject> ActiveObjects => this.pool.ActiveObjects;
+        public event Action<GameObject> InstantiatedEvent
+        {
+            add => this.pool.InstantiatedEvent += value;
+            remove => this.pool.InstantiatedEvent -= value;
+        }
+
+        public event Action<GameObject> ReturnedEvent
+        {
+            add => this.pool.ReturnedEvent += value;
+            remove => this.pool.ReturnedEvent -= value;
+        }
 
         public GameObject Instantiate(Vector3? position = null, Transform parent = null)
         {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Chinchillada.Foundation;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class GameObjectPool : GameObjectPoolBase
     private readonly LinkedList<GameObject> inactiveObjects = new LinkedList<GameObject>();
 
     public override IReadOnlyCollection<GameObject> ActiveObjects => this.activeObjects;
+    public override event Action<GameObject> InstantiatedEvent;
+    public override event Action<GameObject> ReturnedEvent;
 
     public override GameObject Instantiate(Vector3? location = null, Transform parent = null)
     {
@@ -24,6 +27,7 @@ public class GameObjectPool : GameObjectPoolBase
             : Instantiate(this.prefab, position, Quaternion.identity, parent);
 
         this.activeObjects.Add(instance);
+        this.InstantiatedEvent?.Invoke(instance);
         return instance;
     }
 
@@ -40,6 +44,8 @@ public class GameObjectPool : GameObjectPoolBase
 
         this.activeObjects.Remove(obj);
         this.inactiveObjects.AddFirst(obj);
+
+        this.ReturnedEvent?.Invoke(obj);
     }
     
     private GameObject GetInactiveObject(Vector3 position, Transform parent)

@@ -3,7 +3,7 @@ namespace Chinchillada.Foundation
     using System.Collections.Generic;
     using Foundation;
 
-    public class Tribune<T> 
+    public class Tribune<T>
     {
         private readonly IPerformer<T> performer;
         private readonly Dictionary<object, AudienceMember<T>> audience = new Dictionary<object, AudienceMember<T>>();
@@ -81,8 +81,12 @@ namespace Chinchillada.Foundation
         private void MakeRequest(AudienceMember<T> member)
         {
             this.Requester = member;
-            this.performer.PerformRequest(this.Requester.Request);
+            this.TriggerRequest();
+        }
 
+        public void TriggerRequest()
+        {
+            this.performer.PerformRequest(this.Requester.Request);
             this.Logger?.Log($"Request {this.Requester.Request} by {this.Requester} performed by {this.performer}");
         }
     }

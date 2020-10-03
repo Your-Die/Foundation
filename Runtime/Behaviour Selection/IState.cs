@@ -6,8 +6,15 @@
         void Enter();
         void Exit();
     }
-    
-    
+
+    public interface IState<T>
+    {
+        bool IsActive { get; }
+        void Enter(T context);
+        void Exit(T context);
+    }
+
+
     public static class StateExtensions
     {
         public static bool TryEnter(this IState state)
@@ -23,7 +30,7 @@
         {
             if (state.IsActive == false)
                 return false;
-            
+
             state.Exit();
             return true;
         }

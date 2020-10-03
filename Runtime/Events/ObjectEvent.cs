@@ -1,14 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Chinchillada.Foundation
 {
-    /// <summary>
-    /// Generic version of <see cref="ScriptedEvent"/> that allows a parameter of {T} to be passed along.
-    /// </summary>
-    /// <typeparam name="T">The type of parameter we want to pass along with the event.</typeparam>
-    public class ScriptedEventBase<T> : ScriptableObject, IInvokableEvent<T>
+    public class ObjectEvent : ChinchilladaBehaviour, IInvokableEvent
+    {
+        [SerializeField] private UnityEvent @event;
+        
+        public void Subscribe(Action action) => this.@event.AddListener(action.Invoke);
+
+        public void Unsubscribe(Action action) => this.@event.RemoveListener(action.Invoke);
+
+        public void Invoke() => this.@event.Invoke();
+    }
+    
+    public class ObjectEvent<T> : ChinchilladaBehaviour, IInvokableEvent<T>
     {
         private readonly TypedEvent<T> @event = new TypedEvent<T>();
         public void Invoke(T context) => this.@event.Invoke(context);

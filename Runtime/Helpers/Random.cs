@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Text;
 using UnityEngine;
-using RNG = UnityEngine.Random;
+using URNG = UnityEngine.Random;
 
 namespace Chinchillada.Foundation
 {
+
     /// <summary>
     /// Wrapper class for <see cref="UnityEngine.Random"/> that also adds some common overloads.
     /// </summary>
@@ -13,14 +14,14 @@ namespace Chinchillada.Foundation
         /// <summary>
         /// Generates a random <see cref="float"/> value between 0 and 1.
         /// </summary>
-        public static float Value => RNG.value;
+        public static float Value => URNG.value;
 
         /// <summary>
         /// Generate a random <see cref="float"/> value between 0 and 1.
         /// </summary>
-        public static float value => RNG.value;
+        public static float value => URNG.value;
 
-        public static void SetSeed(int seed) => RNG.InitState(seed);
+        public static void SetSeed(int seed) => URNG.InitState(seed);
         
         /// <summary>
         /// Generate a random <see cref="int"/>  between 0 and <paramref name="max"/>.
@@ -35,7 +36,7 @@ namespace Chinchillada.Foundation
         /// </summary>
         public static int Range(int min, int max)
         {
-            return RNG.Range(min, max);
+            return URNG.Range(min, max);
         }
 
         /// <summary>
@@ -51,7 +52,7 @@ namespace Chinchillada.Foundation
         /// </summary>
         public static float Range(float min, float max)
         {
-            return RNG.Range(min, max);
+            return URNG.Range(min, max);
         }
 
         public static float Float() => Value;
