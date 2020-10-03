@@ -1,7 +1,7 @@
 {
     "name": "Chinchillada.Foundation.Editor",
     "references": [
-        "Chinchillada.Foundation"
+        "Chinchillada.Foundation.Runtime"
     ],
     "includePlatforms": [
         "Editor"
