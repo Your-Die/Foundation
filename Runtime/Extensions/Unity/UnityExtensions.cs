@@ -72,5 +72,13 @@ namespace Chinchillada.Foundation
             for (var value = vector.x; value <= vector.y; value++)
                 yield return value;
         }
+
+        public static void ClearAndDestroy<T>(this IList<T> list) where T : Component
+        {
+            foreach (var item in list) 
+                Object.Destroy(item.gameObject);
+            
+            list.Clear();
+        }
     }
 }

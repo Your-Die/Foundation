@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Chinchillada.Foundation
 {
@@ -306,6 +307,14 @@ namespace Chinchillada.Foundation
 
                 buffer[randomIndex] = buffer[index];
             }
+        }
+
+        public static Vector2 RandomInRect(this Rect rect)
+        {
+            var x = UnityEngine.Random.Range(rect.xMin, rect.xMax);
+            var y = UnityEngine.Random.Range(rect.yMin, rect.yMax);
+            
+            return new Vector2(x, y);
         }
     }
 }
