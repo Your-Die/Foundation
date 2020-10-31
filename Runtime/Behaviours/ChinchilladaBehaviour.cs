@@ -38,7 +38,7 @@ namespace Chinchillada.Foundation
         private void FindComponentsInParents() => this.FindComponentsCustom(SearchStrategy.InParent);
 
         [ContextMenu("Find Components Anywhere")]
-        private void FindComponentsAnywhere() => this.FindComponentsCustom(SearchStrategy.Anywhere);
+        private void FindComponentsAnywhere() => this.FindComponentsCustom(SearchStrategy.InScene);
 
         private void FindComponentsCustom(SearchStrategy strategy)
         {

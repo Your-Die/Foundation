@@ -7,6 +7,7 @@ namespace Chinchillada.Foundation
     
     public static class GetComponentExtensions
     {
+        
         public static bool TryGetComponent<T>(this Component context, out T component)
         {
             component = context.GetComponent<T>();
@@ -17,6 +18,69 @@ namespace Chinchillada.Foundation
         {
             Transform transform = component.transform;
             return transform.GetComponentsInDirectChildren<T>();
+        }
+
+        public static IEnumerable<T> GetComponentsInOnlyChildren<T>(this Transform target, 
+            SearchStrategy strategy = SearchStrategy.FindComponent)
+        {
+            var queue = new Queue<Transform>();
+            AddChildren(target);
+
+            while (queue.Any())
+            {
+                var transform = queue.Dequeue();
+                var components = strategy.FindComponents<T>(transform.gameObject);
+
+                foreach (var component in components)
+                    yield return component;
+                
+                AddChildren(transform);
+            }
+            
+            void AddChildren(Transform transform)
+            {
+                for (var index = 0; index < transform.childCount; index++)
+                {
+                    var child = transform.GetChild(index);
+                    queue.Enqueue(child);
+                }
+            }
+        }
+
+        public static IEnumerable<Component> GetComponentsInOnlyChildren(this Transform target, Type type,
+            SearchStrategy strategy = SearchStrategy.FindComponent)
+        {
+            var queue = new Queue<Transform>();
+            AddChildren(target);
+
+            while (queue.Any())
+            {
+                var transform = queue.Dequeue();
+                var components = strategy.FindComponents(transform.gameObject, type);
+
+                foreach (var component in components)
+                    yield return component;
+                
+                AddChildren(transform);
+            }
+            
+            void AddChildren(Transform transform)
+            {
+                for (var index = 0; index < transform.childCount; index++)
+                {
+                    var child = transform.GetChild(index);
+                    queue.Enqueue(child);
+                }
+            }
+        }
+
+        public static T GetComponentInOnlyChildren<T>(this Transform transform)
+        {
+            return transform.GetComponentsInOnlyChildren<T>().First();
+        }
+        public static Component GetComponentInOnlyChildren(this Transform transform, Type type)
+        {
+            return transform.GetComponentsInOnlyChildren(type).First();
         }
         
         public static IEnumerable<Component> GetComponentsInDirectChildren(this Component component, Type type)
@@ -82,6 +146,22 @@ namespace Chinchillada.Foundation
             {
                 foreach (Transform child in t)
                     yield return child;
+            }
+        }
+        
+        public static T GetComponentInScene<T>(this GameObject gameObject)
+        {
+            return gameObject.GetComponentsInScene<T>().First();
+        }
+        
+        public static IEnumerable<T> GetComponentsInScene<T>(this GameObject gameObject)
+        {
+            var rootObjects = gameObject.scene.GetRootGameObjects();
+            foreach (var root in rootObjects)
+            {
+                var components = root.GetComponentsInChildren<T>();
+                foreach (var component in components)
+                    yield return component;
             }
         }
     }
