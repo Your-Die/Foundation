@@ -12,35 +12,30 @@ namespace Chinchillada.Foundation
     /// </summary>
     public static class AttributeHelper
     {
-        public static void ApplyAttribute<TAttribute>(MonoBehaviour behaviour) where TAttribute : ChinchilladaAttribute
+        public static IEnumerable<(FieldInfo field, TAttribute)> GetAttributedFields<TAttribute>(object obj)
+            where TAttribute : PropertyAttribute
         {
-            var attributedFields = GetAttributedFields<TAttribute>(behaviour);
+            var fields = GetAllFields(obj);
+            var attributeType = typeof(TAttribute);
 
-            foreach ((FieldInfo field, TAttribute attribute) in attributedFields)
-                attribute.Apply(behaviour, field);
+            foreach (var field in fields)
+            {
+                var attributes = field.GetCustomAttributes(attributeType).ToList();
+                if (attributes.IsEmpty())
+                    continue;
+
+                var attribute = (TAttribute)attributes.First();
+                yield return (field, attribute);
+            }
         }
 
-        public static IEnumerable<(FieldInfo field, TAttribute)> GetAttributedFields<TAttribute>(Object obj)
-            where TAttribute : PropertyAttribute
+        private static IEnumerable<FieldInfo> GetAllFields(object obj)
         {
             const BindingFlags bindingFlags = BindingFlags.Instance |
                                               BindingFlags.NonPublic |
                                               BindingFlags.Public;
-            Type type = obj.GetType();
-            var fields = type.GetFields(bindingFlags);
-
-            foreach (FieldInfo field in fields)
-            {
-                if (field.GetValue(obj) != null)
-                    continue;
-
-                var attributes = field.GetCustomAttributes(typeof(TAttribute)).ToList();
-                if (attributes.IsEmpty())
-                    continue;
-
-                TAttribute attribute = (TAttribute)attributes.First();
-                yield return (field, attribute);
-            }
+            var type = obj.GetType();
+            return type.GetFields(bindingFlags);
         }
     }
 }

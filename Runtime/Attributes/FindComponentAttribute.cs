@@ -20,10 +20,10 @@ namespace Chinchillada.Foundation
 
     /// <summary>
     /// Attribute meant for removing the boilerplate code that is often found in Unity Monobehaviour classes.
-    /// This attribute is meant to automate the setting up of references to other components, instead of having to manually write the <see cref="GetComponent"/>
+    /// This attribute automates the setting up of references to other components, instead of having to manually write the <see cref="GetComponent"/>
     /// for each component reference that is necessary.
     /// </summary>
-    public class FindComponentAttribute : ChinchilladaAttribute
+    public class FindComponentAttribute : ComponentFinderAttribute
     {
         /// <summary>
         /// The search <see cref="SearchStrategy"/> that we want to use when looking for matching components.
@@ -40,14 +40,20 @@ namespace Chinchillada.Foundation
         }
 
         /// <inheritdoc />
-        public override void Apply(MonoBehaviour behaviour, FieldInfo field) => Apply(behaviour, field, this.strategy);
-
-        public void Apply(MonoBehaviour behaviour, FieldInfo field, SearchStrategy searchStrategy)
+        public override void Apply(MonoBehaviour behaviour, object obj,  FieldInfo field)
         {
+            this.Apply(behaviour, obj, field, this.strategy);
+        }
+
+        public override void Apply(MonoBehaviour behaviour, object obj, FieldInfo field, SearchStrategy searchStrategy)
+        {
+            if (field.GetValue(obj) != null)
+                return;
+            
             var type = field.FieldType;
             var component = FindComponent(behaviour, type, searchStrategy);
 
-            field.SetValue(behaviour, component);
+            field.SetValue(obj, component);
         }
 
         /// <summary>
@@ -57,7 +63,7 @@ namespace Chinchillada.Foundation
         /// <param name="type">The type of component we are looking for.</param>
         /// <param name="strategy">The strategy to use for searching.</param>
         /// <returns>The found component, or null.</returns>
-        private static Component FindComponent(MonoBehaviour behaviour, Type type, SearchStrategy strategy)
+        private static Component FindComponent(Component behaviour, Type type, SearchStrategy strategy)
         {
             switch (strategy)
             {

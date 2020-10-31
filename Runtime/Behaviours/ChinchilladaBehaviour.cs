@@ -18,7 +18,10 @@ namespace Chinchillada.Foundation
         /// Applies the <see cref="FindComponentAttribute"/> on this <see cref="UnityEngine.MonoBehaviour"/>
         /// </summary>
         [Button]
-        protected virtual void FindComponents() => AttributeHelper.ApplyAttribute<FindComponentAttribute>(this);
+        protected virtual void FindComponents()
+        {
+            ComponentFinderAttribute.ApplyAttribute<ComponentFinderAttribute>(this);
+        }
 
         [ContextMenu("Find All Components")]
         private void FindAllComponents()
@@ -39,10 +42,7 @@ namespace Chinchillada.Foundation
 
         private void FindComponentsCustom(SearchStrategy strategy)
         {
-            var attributedFields = AttributeHelper.GetAttributedFields<FindComponentAttribute>(this);
-
-            foreach (var (field, attribute) in attributedFields)
-                attribute.Apply(this, field, strategy);
+            ComponentFinderAttribute.ApplyAttribute<ComponentFinderAttribute>(this, strategy);
         }
     }
 }
