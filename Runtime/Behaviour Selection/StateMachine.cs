@@ -1,7 +1,7 @@
 ﻿using System;
 using Sirenix.OdinInspector;
 
-namespace Chinchillada.Foundation.States
+namespace Chinchillada.Behavior
 {
     [Serializable]
     public class StateMachine

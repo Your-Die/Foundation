@@ -1,4 +1,4 @@
-﻿namespace Chinchillada.Foundation.States
+﻿namespace Chinchillada.Behavior
 {
     public interface IState
     {
