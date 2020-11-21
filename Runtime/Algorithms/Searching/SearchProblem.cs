@@ -33,7 +33,7 @@ namespace Utilities.Algorithms
     /// An action within <see cref="ISearchProblem{T}"/>.
     /// </summary>
     /// <typeparam name="TState">The type of the state.</typeparam>
-    public class SearchNode<TState> : IComparable
+    public class SearchNode<TState> : IComparable, IComparable<SearchNode<TState>>
     {
         /// <summary>
         /// The resulting state.
@@ -55,6 +55,11 @@ namespace Utilities.Algorithms
         {
             var otherNode = (SearchNode<TState>) obj;
             return this.Cost.CompareTo(otherNode.Cost);
+        }
+
+        public int CompareTo(SearchNode<TState> other)
+        {
+            return this.Cost.CompareTo(other.Cost);
         }
     }
 }

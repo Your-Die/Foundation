@@ -41,7 +41,7 @@ namespace Utilities.Algorithms
 
         public static IEnumerable<T> UniformCost<T>(ISearchProblem<T> problem)
         {
-            var frontier = new PriorityQueue<SearchNode<T>>();
+            var frontier = new CustomPriorityQueue<SearchNode<T>>();
             var cameFrom = new Dictionary<T, T>();
             var costSoFar = new Dictionary<T, float>();
 
@@ -79,7 +79,7 @@ namespace Utilities.Algorithms
 
         public static IEnumerable<T> GreedyBestFirst<T>(ISearchProblem<T> problem)
         {
-            var frontier = new PriorityQueue<SearchNode<T>>();
+            var frontier = new CustomPriorityQueue<SearchNode<T>>();
             var cameFrom = new Dictionary<T, T>();
 
             var initialNode = new SearchNode<T>(problem.InitialState, 0);
@@ -113,7 +113,7 @@ namespace Utilities.Algorithms
 
         public static IEnumerable<T> AStar<T>(ISearchProblem<T> problem)
         {
-            var frontier = new PriorityQueue<SearchNode<T>>();
+            var frontier = new CustomPriorityQueue<SearchNode<T>>();
             var predecessors = new Dictionary<T, T>();
             var costs = new Dictionary<T, float>();
             
