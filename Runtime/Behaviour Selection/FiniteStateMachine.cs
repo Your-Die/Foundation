@@ -4,24 +4,24 @@ using Sirenix.OdinInspector;
 namespace Chinchillada.Behavior
 {
     [Serializable]
-    public class StateMachine
+    public class FiniteStateMachine
     {
         [ShowInInspector]
-        public IState CurrentState { get; private set; }
+        public IFiniteState CurrentFiniteState { get; private set; }
 
-        public StateMachine()
+        public FiniteStateMachine()
         {
         }
 
-        public StateMachine(IState initialState) => this.TransitionTo(initialState);
+        public FiniteStateMachine(IFiniteState initialFiniteState) => this.TransitionTo(initialFiniteState);
 
-        public void TransitionTo(IState state)
+        public void TransitionTo(IFiniteState finiteState)
         {
-            this.CurrentState?.TryExit();
+            this.CurrentFiniteState?.TryExit();
 
-            this.CurrentState = state;
+            this.CurrentFiniteState = finiteState;
 
-            this.CurrentState?.TryEnter();
+            this.CurrentFiniteState?.TryEnter();
         }
 
         public void Exit() => this.TransitionTo(null);
