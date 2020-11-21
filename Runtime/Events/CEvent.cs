@@ -2,6 +2,7 @@
 
 namespace Chinchillada.Foundation
 {
+    [Serializable]
     public class CEvent : IInvokableEvent
     {
         private event Action Event;
