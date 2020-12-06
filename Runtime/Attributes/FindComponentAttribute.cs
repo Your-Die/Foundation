@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using System.Reflection;
-using Object = UnityEngine.Object;
 
 namespace Chinchillada.Foundation
 {
@@ -27,20 +28,66 @@ namespace Chinchillada.Foundation
         }
 
         /// <inheritdoc />
-        public override void Apply(MonoBehaviour behaviour, object obj,  FieldInfo field)
+        public override void Apply(MonoBehaviour behaviour, object obj, FieldInfo field)
         {
             this.Apply(behaviour, obj, field, this.strategy);
         }
 
         public override void Apply(MonoBehaviour behaviour, object obj, FieldInfo field, SearchStrategy searchStrategy)
         {
-            if (field.GetValue(obj) != null)
-                return;
-            
-            var type = field.FieldType;
-            var component = searchStrategy.FindComponent(behaviour.gameObject, type);
+            var value = field.GetValue(obj);
 
-            field.SetValue(obj, component);
+            if (value is IList)
+                ResolveCollection(behaviour, obj, field, this.strategy);
+            else
+                ResolveField(behaviour, obj, field, searchStrategy);
+        }
+
+
+
+        private static void ResolveField(Component behaviour, object obj, FieldInfo field, SearchStrategy strategy)
+        {
+            var fieldValue = field.GetValue(obj);
+
+            if (fieldValue != null)
+                return;
+
+            var result = strategy.FindComponent(behaviour.gameObject, field.FieldType);
+            field.SetValue(obj, result);
+        }
+
+        private static void ResolveCollection(Component behaviour, object obj, FieldInfo field, SearchStrategy strategy)
+        {
+            if (field.FieldType.IsGenericType == false)
+            {
+                var message = $"{typeof(FindComponentAttribute)} found on non-generic collection field: {field}. " +
+                              "This is not currently supported.";
+                Debug.LogWarning(message);
+                return;
+            }
+
+            var itemTypes = field.FieldType.GetGenericArguments();
+            if (itemTypes.Length > 1)
+            {
+                var message = $"{typeof(FindComponentAttribute)} found on collection field with multiple type arguments: {field}  " +
+                              "This is not currently supported.";
+                Debug.LogWarning(message);
+                return;
+            }
+
+            var itemType = itemTypes.First();
+
+            var fieldValue = field.GetValue(obj);
+            if (fieldValue == null)
+                return;
+
+            var list = (IList) fieldValue;
+            
+            var items = strategy.FindComponents(behaviour.gameObject, itemType);
+            var newItems = items.Except(list.Contains);
+
+            foreach (var item in newItems.ToArray())
+                list.Add(item);
         }
     }
 }

@@ -12,9 +12,9 @@ namespace Chinchillada.Foundation
             ApplyInternal(behaviour, obj, field, null);
         }
 
-        public override void Apply(MonoBehaviour behaviour, object obj, FieldInfo field, SearchStrategy strategy)
+        public override void Apply(MonoBehaviour behaviour, object obj, FieldInfo field, SearchStrategy searchStrategy)
         {
-            ApplyInternal(behaviour, obj, field, strategy);
+            ApplyInternal(behaviour, obj, field, searchStrategy);
         }
 
         private static void ApplyInternal(MonoBehaviour behaviour, object obj, FieldInfo field, SearchStrategy? strategy)
