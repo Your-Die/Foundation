@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections;
+using System.Reflection;
 using UnityEngine;
 
 namespace Chinchillada.Foundation
@@ -10,7 +11,7 @@ namespace Chinchillada.Foundation
     {
         public abstract void Apply(MonoBehaviour behaviour, object obj, FieldInfo field);
 
-        public abstract void Apply(MonoBehaviour behaviour, object obj, FieldInfo field, SearchStrategy strategy);
+        public abstract void Apply(MonoBehaviour behaviour, object obj, FieldInfo field, SearchStrategy searchStrategy);
         
         public static void ApplyAttribute<TAttribute>(MonoBehaviour behaviour, object obj = null) 
             where TAttribute : ComponentFinderAttribute

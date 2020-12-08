@@ -9,7 +9,7 @@ namespace Chinchillada.Foundation.Events
         private void Update()
         {
             if (Input.GetMouseButtonDown(this.mouseButton)) 
-                this.Event.Invoke();
+                this.InvokeEvent();
         }
     }
 }
