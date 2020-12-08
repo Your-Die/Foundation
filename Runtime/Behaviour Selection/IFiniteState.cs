@@ -1,6 +1,6 @@
-﻿namespace Chinchillada.Foundation.States
+﻿namespace Chinchillada.Behavior
 {
-    public interface IState
+    public interface IFiniteState
     {
         bool IsActive { get; }
         void Enter();
@@ -17,21 +17,21 @@
 
     public static class StateExtensions
     {
-        public static bool TryEnter(this IState state)
+        public static bool TryEnter(this IFiniteState finiteState)
         {
-            if (state.IsActive)
+            if (finiteState.IsActive)
                 return false;
 
-            state.Enter();
+            finiteState.Enter();
             return true;
         }
 
-        public static bool TryExit(this IState state)
+        public static bool TryExit(this IFiniteState finiteState)
         {
-            if (state.IsActive == false)
+            if (finiteState.IsActive == false)
                 return false;
 
-            state.Exit();
+            finiteState.Exit();
             return true;
         }
     }

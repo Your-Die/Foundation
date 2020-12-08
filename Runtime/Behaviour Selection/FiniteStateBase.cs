@@ -1,6 +1,6 @@
-﻿namespace Chinchillada.Foundation.States
+﻿namespace Chinchillada.Behavior
 {
-    public abstract class StateBase : IState
+    public abstract class FiniteStateBase : IFiniteState
     {
         public bool IsActive { get; private set; }
         public virtual void Enter() => this.IsActive = true;

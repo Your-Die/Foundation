@@ -4,13 +4,13 @@ using UnityEngine.Events;
 
 namespace Chinchillada.Foundation
 {
-    public class ObjectEvent : ChinchilladaBehaviour, IInvokableEvent
+    public class EventComponent : ChinchilladaBehaviour, IInvokableEvent
     {
-        [SerializeField] private UnityEvent @event;
+        [SerializeField] private IInvokableEvent @event;
         
-        public void Subscribe(Action action) => this.@event.AddListener(action.Invoke);
+        public void Subscribe(Action action) => this.@event.Subscribe(action);
 
-        public void Unsubscribe(Action action) => this.@event.RemoveListener(action.Invoke);
+        public void Unsubscribe(Action action) => this.@event.Unsubscribe(action);
 
         public void Invoke() => this.@event.Invoke();
     }

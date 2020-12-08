@@ -7,7 +7,7 @@ namespace Chinchillada.Foundation
     /// Taken from https://gist.github.com/paralleltree/31045ab26f69b956052c
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    class PriorityQueue<T> where T : IComparable
+    class CustomPriorityQueue<T> where T : IComparable<T>
     {
         private List<T> list;
         public int Count => this.list.Count;
@@ -16,21 +16,21 @@ namespace Chinchillada.Foundation
 
         public readonly bool IsDescending;
 
-        public PriorityQueue() => this.list = new List<T>();
+        public CustomPriorityQueue() => this.list = new List<T>();
 
-        public PriorityQueue(bool isDescending)
+        public CustomPriorityQueue(bool isDescending)
             : this()
         {
             this.IsDescending = isDescending;
         }
 
-        public PriorityQueue(int capacity, bool isDescending = false)
+        public CustomPriorityQueue(int capacity, bool isDescending = false)
         {
             this.list = new List<T>(capacity);
             this.IsDescending = isDescending;
         }
 
-        public PriorityQueue(IEnumerable<T> collection, bool isDescending = false)
+        public CustomPriorityQueue(IEnumerable<T> collection, bool isDescending = false)
             : this()
         {
             this.IsDescending = isDescending;
