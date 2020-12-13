@@ -20,6 +20,7 @@ namespace Chinchillada.Foundation
 
         public static Vector2Int XY(this Vector3Int vector) => new Vector2Int(vector.x, vector.y);
 
+        public static Vector2 XY(this Vector3 vector) => new Vector2(vector.x, vector.y);
 
         public static Vector3 Average(this IEnumerable<Vector3> vectors)
         {

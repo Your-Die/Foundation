@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Chinchillada.Foundation
 {
@@ -7,7 +8,11 @@ namespace Chinchillada.Foundation
         public static Texture2D Copy(this Texture2D texture)
         {
             var output = new Texture2D(texture.width, texture.height);
-            Graphics.CopyTexture(texture, output);
+            
+            var pixels = texture.GetPixels();
+
+            output.SetPixels(pixels);
+            output.Apply();
 
             return output;
         }
