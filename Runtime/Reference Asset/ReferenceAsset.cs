@@ -13,13 +13,13 @@ namespace Chinchillada.Foundation
     public abstract class ReferenceAsset<T> : SerializedScriptableObject, IReferenceAsset
     {
         [field: ShowInInspector, ReadOnly]
-        protected T Reference { get; set; }
+        protected virtual T Value { get; set; }
 
         public Type ReferenceType => typeof(T);
 
         public void SetValue(object value)
         {
-            this.Reference = (T) value;
+            this.Value = (T) value;
         }
     }
 }
