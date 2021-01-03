@@ -11,7 +11,7 @@ namespace Chinchillada.Foundation
     /// in a modular way.
     /// </summary> 
     public abstract class SharedVariable<T> : ScriptableObject, IListenable<T>,
-        ISerializationCallbackReceiver where T : IComparable, IEquatable<T>
+        ISerializationCallbackReceiver where T : IEquatable<T>
     {
         [FormerlySerializedAs("_initialValue")] [SerializeField]
         private T initialValue;
