@@ -34,7 +34,7 @@ namespace Chinchillada.Foundation
             get => this.runtimeValue;
             set
             {
-                if (this.runtimeValue.CompareTo(value) != 0)
+                if (this.runtimeValue.Equals(value))
                     return;
 
                 this.runtimeValue = value;
@@ -45,7 +45,7 @@ namespace Chinchillada.Foundation
         /// <summary>
         /// Resets the variable to the initial value.
         /// </summary>
-        public void OnBeforeSerialize() => this.Value = this.initialValue;
+        public void OnBeforeSerialize() => this.Value = this.Copy(this.initialValue);
 
         public void OnAfterDeserialize()
         {
@@ -55,8 +55,10 @@ namespace Chinchillada.Foundation
         /// Will cause the current value to be used as the new value outside of play-mode.
         /// </summary>
         [Button]
-        public void SaveCurrentValueAfterPlay() => this.initialValue = this.runtimeValue;
+        public void SaveCurrentValueAfterPlay() => this.initialValue = this.Copy(this.runtimeValue);
 
         public static implicit operator T(SharedVariable<T> variable) => variable.Value;
+
+        protected virtual T Copy(T value) => value;
     }
 }
