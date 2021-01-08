@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace Chinchillada.Foundation
 {
+    using System;
+
     public static class VectorExtensions
     {
         public static (int x, int y, int z) ToTuple(this Vector3Int vector) => (vector.x, vector.y, vector.z);
@@ -104,6 +106,14 @@ namespace Chinchillada.Foundation
             var center = (max + min) / 2f;
             
             return new Bounds(center, size);
+        }
+
+        public static int ManhattanDistance(this Vector2Int vector, Vector2Int other)
+        {
+            var xDistance = Mathf.Abs(vector.x - other.x);
+            var yDistance = Mathf.Abs(vector.y - other.y);
+
+            return xDistance + yDistance;
         }
     }
 }
