@@ -3,23 +3,28 @@ using Type = System.Type;
 
 namespace Chinchillada.Foundation
 {
-    public interface IReferenceAsset
+    public interface IReference
     {
         Type ReferenceType { get; }
 
         void SetValue(object value);
     }
+
+    public interface IReference<T> : IReference
+    {
+        T Reference { get; set; }
+    }
     
-    public abstract class ReferenceAsset<T> : SerializedScriptableObject, IReferenceAsset
+    public abstract class ReferenceAsset<T> : SerializedScriptableObject, IReference<T>, ISource<T>
     {
         [field: ShowInInspector, ReadOnly]
-        protected T Reference { get; set; }
+        public T Reference { get; set; }
 
         public Type ReferenceType => typeof(T);
 
-        public void SetValue(object value)
-        {
-            this.Reference = (T) value;
-        }
+        public T GetValue() => this.Reference;
+
+
+        public void SetValue(object value) => this.Reference = (T) value;
     }
 }

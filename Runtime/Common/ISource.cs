@@ -2,6 +2,6 @@
 {
     public interface ISource<T>
     {
-        T Content { get; }
+        T GetValue();
     }
 }

@@ -5,7 +5,7 @@ namespace Chinchillada.Foundation
 {    
     public class ReferenceInitializer : ChinchilladaBehaviour
     {
-        [SerializeField] private IReferenceAsset referenceAsset;
+        [SerializeField] private IReference referenceAsset;
 
         [SerializeField] private SearchStrategy referenceSearchStrategy = SearchStrategy.FindComponent;
 
