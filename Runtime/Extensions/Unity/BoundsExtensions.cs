@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Chinchillada.Foundation
 {
@@ -42,6 +43,18 @@ namespace Chinchillada.Foundation
             var size = maxInt - minInt;
             return new BoundsInt(minInt.x, minInt.y, minInt.z, size.x, size.y, size.z);
         }
+
+        public static bool IntersectRay(this Bounds bounds, Ray ray, out Vector3 point)
+        {
+            if (bounds.IntersectRay(ray, out var distance))
+            {
+                point = ray.origin + ray.direction * distance;
+                return true;
+            }
+
+            point = Vector3.zero;
+            return false;
+        }
         
         /// <summary>
         /// Gets the center point of the <paramref name="bounds"/>.
@@ -58,7 +71,15 @@ namespace Chinchillada.Foundation
             
             return bounds.position + halfSize;
         }
-        
+
+        public static bool ContainsX(this Bounds bounds, float x) => x >= bounds.min.x && x <= bounds.max.x;
+        public static bool ContainsY(this Bounds bounds, float y) => y >= bounds.min.y && y <= bounds.max.y;
+
+        public static bool Contains2D(this Bounds bounds, Vector3 point)
+        {
+            return bounds.ContainsX(point.x) &&
+                   bounds.ContainsY(point.y);
+        }
         
         public static bool Contains2D(this BoundsInt bounds, Vector2Int vector)
         {

@@ -1,9 +1,22 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Chinchillada.Foundation
 {
     public static class TextureExtensions
     {
+        public static Texture2D Copy(this Texture2D texture)
+        {
+            var output = new Texture2D(texture.width, texture.height);
+            
+            var pixels = texture.GetPixels();
+
+            output.SetPixels(pixels);
+            output.Apply();
+
+            return output;
+        }
+        
         /// <remarks>
         /// Taken from http://wiki.unity3d.com/index.php/TextureDrawLine
         /// </remarks>
