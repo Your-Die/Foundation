@@ -48,8 +48,7 @@ namespace Chinchillada.Foundation
         private static void ResolveField(Component behaviour, object obj, FieldInfo field, SearchStrategy strategy)
         {
             var fieldValue = field.GetValue(obj);
-
-            if (fieldValue != null)
+            if (!Equality.UnityNull(fieldValue))
                 return;
 
             var result = strategy.FindComponent(behaviour.gameObject, field.FieldType);

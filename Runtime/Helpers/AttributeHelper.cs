@@ -21,7 +21,7 @@ namespace Chinchillada.Foundation
             foreach (var field in fields)
             {
                 var value = field.GetValue(obj);
-                if (!IsNull(value))
+                if (!Equality.UnityNull(value))
                     continue;
 
                 var attributes = field.GetCustomAttributes(typeof(TAttribute)).ToList();
@@ -53,14 +53,6 @@ namespace Chinchillada.Foundation
                 yield return current;
         }
 
-        private static bool IsNull(object item)
-        {
-            switch (item)
-            {
-                case null: return true;
-                case Object unityObject: return unityObject == null;
-                default: return false;
-            }
-        }
+
     }
 }
