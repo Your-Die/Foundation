@@ -31,15 +31,15 @@ namespace Chinchillada.Foundation
         }
 
         /// <summary>
-        /// Chooses a random valid index for the <paramref name="enumerable"/>.
+        /// Chooses a random valid index for the <paramref name="list"/>.
         /// </summary>
         /// <typeparam name="T">Type of the elements in the enumerable.</typeparam>
-        /// <param name="enumerable">The enumerable to choose an index for.</param>
+        /// <param name="list">The enumerable to choose an index for.</param>
         /// <returns>A valid index for the enumerable.</returns>
-        public static int ChooseRandomIndex<T>(this IList<T> enumerable)
+        public static int ChooseRandomIndex<T>(this IList<T> list)
         {
-            int indexMax = enumerable.Count;
-            return indexMax > 0 ? Random.Range(indexMax) : -1;
+            int indexMax = list.Count;
+            return list.Count > 0 ? Random.Range(indexMax) : -1;
         }
 
         /// <summary>
