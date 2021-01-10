@@ -12,7 +12,7 @@ namespace Chinchillada.Foundation
     {
         [SerializeField] private T value;
 
-        protected override T Value
+        public override T Reference
         {
             get => this.value;
             set => this.value = value;

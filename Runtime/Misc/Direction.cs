@@ -13,18 +13,26 @@ namespace Chinchillada.Foundation
 
     public static class DirectionExtensions
     {
+        public static Vector2Int ToVectorInt(this Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.North: return Vector2Int.up;
+                case Direction.East: return Vector2Int.right;
+                case Direction.South: return Vector2Int.down;
+                case Direction.West: return Vector2Int.left;
+                default: throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+            }
+        }
+        
         public static Vector2 ToVector(this Direction direction)
         {
             switch (direction)
             {
-                case Direction.North:
-                    return new Vector2(0, 1);
-                case Direction.East:
-                    return new Vector2(1, 0);
-                case Direction.South:
-                    return new Vector2(0, -1);
-                case Direction.West:
-                    return new Vector2(-1, 0);
+                case Direction.North: return Vector2.up;
+                case Direction.East:  return Vector2.right;
+                case Direction.South: return Vector2.down;
+                case Direction.West: return Vector2.left;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }

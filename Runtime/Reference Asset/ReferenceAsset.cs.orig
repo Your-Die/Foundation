@@ -18,7 +18,17 @@ namespace Chinchillada.Foundation
     public abstract class ReferenceAsset<T> : SerializedScriptableObject, IReference<T>, ISource<T>
     {
         [field: ShowInInspector, ReadOnly]
-        public virtual T Reference { get; set; }
+<<<<<<< HEAD
+        protected virtual T Value { get; set; }
+
+        public Type ReferenceType => typeof(T);
+
+        public void SetValue(object value)
+        {
+            this.Value = (T) value;
+        }
+=======
+        public T Reference { get; set; }
 
         public Type ReferenceType => typeof(T);
 
@@ -26,5 +36,6 @@ namespace Chinchillada.Foundation
 
 
         public void SetValue(object value) => this.Reference = (T) value;
+>>>>>>> origin/master
     }
 }
