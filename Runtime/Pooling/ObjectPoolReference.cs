@@ -7,9 +7,9 @@ namespace Utilities.Pooling
     [CreateAssetMenu(menuName = "Chinchillada/Pool")]
     public class ObjectPoolReference : ScriptableObject, IGameObjectPool
     {
-        [SerializeField] private GameObjectPoolBase poolPrefab;
-
-        private GameObjectPoolBase pool;
+        [SerializeField] private GameObject prefab;
+        
+        private GameObjectPool pool;
 
         public IReadOnlyCollection<GameObject> ActiveObjects => this.pool.ActiveObjects;
         public event Action<GameObject> InstantiatedEvent
@@ -47,8 +47,11 @@ namespace Utilities.Pooling
             if (this.pool != null)
                 return;
 
-            var poolParent = PoolOfPools.Instance.transform;
-            this.pool = Instantiate(this.poolPrefab, poolParent);
+            var poolObject = new GameObject($"[Pool: {this.prefab.name}]");
+            poolObject.transform.SetParent(PoolOfPools.Instance.transform);
+
+            this.pool = poolObject.AddComponent<GameObjectPool>();
+            this.pool.Prefab = this.prefab;
         }
     }
 }
