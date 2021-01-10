@@ -15,6 +15,13 @@ public class GameObjectPool : GameObjectPoolBase
     private readonly LinkedList<GameObject> inactiveObjects = new LinkedList<GameObject>();
 
     public override IReadOnlyCollection<GameObject> ActiveObjects => this.activeObjects;
+
+    public GameObject Prefab
+    {
+        get => this.prefab;
+        set => this.prefab = value;
+    }
+
     public override event Action<GameObject> InstantiatedEvent;
     public override event Action<GameObject> ReturnedEvent;
 
@@ -24,7 +31,7 @@ public class GameObjectPool : GameObjectPoolBase
 
         var instance = this.inactiveObjects.Any()
             ? this.GetInactiveObject(position, parent)
-            : Instantiate(this.prefab, position, Quaternion.identity, parent);
+            : Instantiate(this.Prefab, position, Quaternion.identity, parent);
 
         this.activeObjects.Add(instance);
         this.InstantiatedEvent?.Invoke(instance);
