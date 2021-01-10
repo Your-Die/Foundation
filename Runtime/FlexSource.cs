@@ -29,13 +29,17 @@
 
         public T Get()
         {
-            return this.type switch
+            switch (this.type)
             {
-                FlexVariableType.Constant  => this.value,
-                FlexVariableType.Source    => this.source.GetValue(),
-                FlexVariableType.Generator => this.generator.Generate(),
-                _                          => throw new NotSupportedException()
-            };
+                case FlexVariableType.Constant:
+                    return this.value;
+                case FlexVariableType.Source:
+                    return this.source.GetValue();
+                case FlexVariableType.Generator:
+                    return this.generator.Generate();
+                default:
+                    throw new NotSupportedException();
+            }
         }
 
         public static implicit operator T(FlexSource<T> variable) => variable.Get();
