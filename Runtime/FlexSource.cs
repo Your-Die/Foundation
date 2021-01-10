@@ -6,15 +6,12 @@
     using UnityEngine;
 
     [Serializable]
-    [InlineProperty]
     public class FlexSource<T>
     {
         [SerializeField]
         [HideLabel]
-        [HorizontalGroup]
         public FlexVariableType type;
 
-        [HorizontalGroup]
         [HideLabel]
         [OdinSerialize]
         [ShowIf(nameof(type), FlexVariableType.Constant)]
@@ -22,13 +19,11 @@
 
         [OdinSerialize]
         [HideLabel]
-        [HorizontalGroup]
         [ShowIf(nameof(type), FlexVariableType.Source)]
         private ISource<T> source;
 
         [OdinSerialize]
         [HideLabel]
-        [HorizontalGroup]
         [ShowIf(nameof(type), FlexVariableType.Generator)]
         private IGenerator<T> generator;
 
