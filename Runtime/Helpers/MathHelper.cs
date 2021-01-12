@@ -9,6 +9,16 @@ namespace Chinchillada.Foundation
     /// </summary>
     public static class MathHelper
     {
+        public static float Power(float value, int power)
+        {
+            var result = 1f;
+
+            for (var i = 1; i <= power; i++) 
+                result *= value;
+
+            return result;
+        }
+        
         /// <summary>
         /// Returns the percentage of the point between the min and max.
         /// </summary>
