@@ -1,6 +1,8 @@
 ﻿namespace Chinchillada
 {
+    using System;
     using Foundation;
+    using UnityEngine;
 
     public interface IRNG : IInitializable
     {
@@ -31,5 +33,11 @@
         
         public static T Choose<T>(this IRNG rng, params T[] items) => items.ChooseRandom(rng);
 
+        public static float Range(this IRNG rng, Vector2 range) => rng.Range(range.x, range.y);
+        
+        public static T Choose<T>(this IRNG rng) where T : Enum
+        {
+            return EnumHelper.GetValues<T>().ChooseRandom(rng);
+        }
     }
 }
