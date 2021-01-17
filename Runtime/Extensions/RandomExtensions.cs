@@ -10,24 +10,26 @@ namespace Chinchillada.Foundation
     /// </summary>
     public static class RandomExtensions
     {
+        private static UnityRandom uRandom = new UnityRandom();
         
         #region Indices
 
-        public static IEnumerable<int> RandomIndices<T>(this IList<T> list)
+        public static IEnumerable<int> RandomIndices<T>(this IList<T> list, IRNG random = null)
         {
             var maxIndex = list.Count;
+            random ??= uRandom;
 
             while (true)
-                yield return Random.Range(maxIndex);
+                yield return random.Range(maxIndex);
         }
         
         
-        public static IEnumerable<int> RandomIndicesDistinct<T>(this IList<T> list)
+        public static IEnumerable<int> RandomIndicesDistinct<T>(this IList<T> list, IRNG random = null)
         {
             var indices = list.GetIndices().ToList();
 
             while (indices.Any())
-                yield return indices.GrabRandom();
+                yield return indices.GrabRandom(random);
         }
 
         /// <summary>
@@ -35,11 +37,14 @@ namespace Chinchillada.Foundation
         /// </summary>
         /// <typeparam name="T">Type of the elements in the enumerable.</typeparam>
         /// <param name="list">The enumerable to choose an index for.</param>
+        /// <param name="random">Random number generator.</param>
         /// <returns>A valid index for the enumerable.</returns>
-        public static int ChooseRandomIndex<T>(this IList<T> list)
+        public static int ChooseRandomIndex<T>(this IList<T> list, IRNG random = null)
         {
-            int indexMax = list.Count;
-            return list.Count > 0 ? Random.Range(indexMax) : -1;
+            var indexMax = list.Count;
+            random ??= uRandom;
+            
+            return list.Count > 0 ? random.Range(indexMax) : -1;
         }
 
         /// <summary>
@@ -48,12 +53,13 @@ namespace Chinchillada.Foundation
         /// <typeparam name="T">Type of the elements in the enumerable.</typeparam>
         /// <param name="enumerable">The enumerable to choose indices for.</param>
         /// <param name="amount">The amount of indices to choose.</param>
+        /// <param name="random">Random number generator.</param>
         /// <remarks>The same index may be chosen multiple times. If Distinct indices are needed, use <see cref="ChooseRandomIndicesDistinct{T}"/>.</remarks>
         /// <returns>The randomly chosen indices.</returns>
-        public static IEnumerable<int> ChooseRandomIndices<T>(this IEnumerable<T> enumerable, int amount)
+        public static IEnumerable<int> ChooseRandomIndices<T>(this IEnumerable<T> enumerable, int amount, IRNG random = null)
         {
             var list = enumerable.EnsureList();
-            var randomIndices = list.RandomIndices();
+            var randomIndices = list.RandomIndices(random);
 
             return randomIndices.Take(amount);
         }
@@ -64,17 +70,18 @@ namespace Chinchillada.Foundation
         /// <typeparam name="T">Type of the elements in the enumerable.</typeparam>
         /// <param name="enumerable">The enumerable to choose indices for.</param>
         /// <param name="amount">The amount of indices to choose.</param>
+        /// <param name="random">Random number generator.</param>
         /// <returns>Multiple random distinct indices.</returns>
-        public static IEnumerable<int> ChooseRandomIndicesDistinct<T>(this IEnumerable<T> enumerable, int amount)
+        public static IEnumerable<int> ChooseRandomIndicesDistinct<T>(this IEnumerable<T> enumerable, int amount, IRNG random = null)
         {
             var list = enumerable.EnsureList();
-            return list.RandomIndicesDistinct().Take(amount);
+            return list.RandomIndicesDistinct(random).Take(amount);
         }
 
-        public static IList<int> GetIndicesShuffled<T>(this IList<T> list)
+        public static IList<int> GetIndicesShuffled<T>(this IList<T> list, IRNG random = null)
         {
             var indices = list.GetIndices().ToList();
-            indices.Shuffle();
+            indices.Shuffle(random);
 
             return indices;
         }
@@ -83,10 +90,10 @@ namespace Chinchillada.Foundation
         
         #region Choosing
 
-        public static T ChooseRandom<T>(this IEnumerable<T> enumerable)
+        public static T ChooseRandom<T>(this IEnumerable<T> enumerable, IRNG random = null)
         {
             var list = enumerable.EnsureList();
-            return list.ChooseRandom();
+            return list.ChooseRandom(random);
         }
         
         /// <summary>
@@ -94,26 +101,27 @@ namespace Chinchillada.Foundation
         /// </summary>
         /// <typeparam name="T">Type of the elements in the enumerable.</typeparam>
         /// <param name="list">The enumerable to choose an element of.</param>
+        /// <param name="random">Random number generator.</param>
         /// <returns>A randomly chosen element.</returns>
-        public static T ChooseRandom<T>(this IList<T> list)
+        public static T ChooseRandom<T>(this IList<T> list, IRNG random = null)
         {
             if (list.IsEmpty())
                 return default;
 
-            var index = list.ChooseRandomIndex();
+            var index = list.ChooseRandomIndex(random);
             return list[index];
         }
 
-        public static IEnumerable<T> RandomElements<T>(this IList<T> list)
+        public static IEnumerable<T> RandomElements<T>(this IList<T> list, IRNG random = null)
         {
-            var indices = list.RandomIndices();
+            var indices = list.RandomIndices(random);
             return indices.Select(index => list[index]);
         }
-        public static IEnumerable<T> RandomOrder<T>(this IEnumerable<T> enumerable)
+        public static IEnumerable<T> RandomOrder<T>(this IEnumerable<T> enumerable, IRNG random = null)
         {
             var list = enumerable.EnsureList();
             
-            var indices = list.RandomIndicesDistinct();
+            var indices = list.RandomIndicesDistinct(random);
             return indices.Select(index => list[index]);
         }
 
@@ -125,9 +133,9 @@ namespace Chinchillada.Foundation
         /// <param name="amount">The amount of elements to choose.</param>
         /// <remarks>The same element may be chosen multiple times. If Distinct elements are needed, use <see cref="ChooseRandomDistinct{T}"/>.</remarks>
         /// <returns>The randomly chosen elements.</returns>
-        public static IEnumerable<T> ChooseRandom<T>(this IList<T> enumerable, int amount)
+        public static IEnumerable<T> ChooseRandom<T>(this IList<T> enumerable, int amount, IRNG random = null)
         {
-            return enumerable.RandomElements().Take(amount);
+            return enumerable.RandomElements(random).Take(amount);
         }
 
         /// <summary>
@@ -137,9 +145,9 @@ namespace Chinchillada.Foundation
         /// <param name="list">The enumerable to choose an element of.</param>
         /// <param name="amount">The amount of elements to choose.</param>
         /// <returns>Multiple randomly chosen elements.</returns>
-        public static IEnumerable<T> ChooseRandomDistinct<T>(this IEnumerable<T> list, int amount)
+        public static IEnumerable<T> ChooseRandomDistinct<T>(this IEnumerable<T> list, int amount, IRNG random = null)
         {
-            return list.RandomOrder().Take(amount);
+            return list.RandomOrder(random).Take(amount);
         }
 
         #region Weighted
@@ -147,7 +155,7 @@ namespace Chinchillada.Foundation
         /// <summary>
         /// Chooses a random element from the <paramref name="enumerable"/> where the weights as determined by the <paramref name="weightFunction"/> bias the selection.
         /// </summary> 
-        public static T ChooseRandomWeighted<T>(this IEnumerable<T> enumerable, Func<T, float> weightFunction)
+        public static T ChooseRandomWeighted<T>(this IEnumerable<T> enumerable, Func<T, float> weightFunction, IRNG random = null)
         {
             var weightedCollection = new Dictionary<T, float>();
 
@@ -157,17 +165,17 @@ namespace Chinchillada.Foundation
                 weightedCollection.Add(element, weight);
             }
 
-            return weightedCollection.ChooseRandomWeighted().First();
+            return weightedCollection.ChooseRandomWeighted(random).First();
         }
 
-        public static IEnumerable<T> ChooseRandomWeighted<T>(this IDictionary<T, float> weightedCollection)
+        public static IEnumerable<T> ChooseRandomWeighted<T>(this IDictionary<T, float> weightedCollection, IRNG random = null)
         {
             var weightSum = weightedCollection.Values.Sum();
 
             while (true)
             {
-                var randomValue = Random.Range(weightSum);
-                var items = weightedCollection.Keys.RandomOrder();
+                var randomValue = random.Range(weightSum);
+                var items       = weightedCollection.Keys.RandomOrder(random);
                 
                 foreach (var item in items)
                 {
@@ -195,15 +203,15 @@ namespace Chinchillada.Foundation
         /// <param name="list">The list to choose elements of.</param>
         /// <param name="predicate">The predicate that preferred elements satisfy.</param>
         /// <returns>A randomly chosen element if any is present, or a completely randomly chosen element otherwise.</returns>
-        public static T ChooseRandomPreferred<T>(this IList<T> list, Func<T, bool> predicate)
+        public static T ChooseRandomPreferred<T>(this IList<T> list, Func<T, bool> predicate, IRNG random = null)
         {
             //Cast to arrays to avoid multiple enumerations.
             var preferredElements = list.Where(predicate).ToArray();
 
             //Choose a preferred elements if there are any, otherwise any other possible element.
             return preferredElements.Any()
-                ? preferredElements.ChooseRandom()
-                : list.ChooseRandom();
+                ? preferredElements.ChooseRandom(random)
+                : list.ChooseRandom(random);
         }
 
         /// <summary>
@@ -214,12 +222,12 @@ namespace Chinchillada.Foundation
         /// <param name="predicate">The predicate that preferred elements satisfy.</param>
         /// <param name="amount">The amount of elements to choose.</param>
         /// <returns>Randomly chosen elements if any are present, plus additional completely random chosen element otherwise.</returns>
-        public static IEnumerable<T> ChooseRandomPreferred<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate, int amount)
+        public static IEnumerable<T> ChooseRandomPreferred<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate, int amount, IRNG random = null)
         {
-            return enumerable.RandomElementsPreferred(predicate).Take(amount);
+            return enumerable.RandomElementsPreferred(predicate, random).Take(amount);
         }
 
-        public static IEnumerable<T> RandomElementsPreferred<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
+        public static IEnumerable<T> RandomElementsPreferred<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate, IRNG random = null)
         {
             var preferred = new List<T>();
             var unpreferred = new List<T>();
@@ -232,10 +240,10 @@ namespace Chinchillada.Foundation
                     unpreferred.Add(item);
             }
 
-            foreach (var item in  preferred.RandomOrder())
+            foreach (var item in  preferred.RandomOrder(random))
                 yield return item;
 
-            foreach (var item in unpreferred.RandomOrder())
+            foreach (var item in unpreferred.RandomOrder(random))
                 yield return item;
         }
 
@@ -246,10 +254,10 @@ namespace Chinchillada.Foundation
 
         #region Grabbing
 
-        public static IEnumerable<T> GrabRandomElements<T>(this IList<T> list)
+        public static IEnumerable<T> GrabRandomElements<T>(this IList<T> list, IRNG random = null)
         {
             while (list.Any())
-                yield return list.GrabRandom();
+                yield return list.GrabRandom(random);
         }
         
         /// <summary>
@@ -258,9 +266,9 @@ namespace Chinchillada.Foundation
         /// <typeparam name="T">Type of elements in the list.</typeparam>
         /// <param name="list">The list to choose elements from.</param>
         /// <returns>The randomly grabbed element.</returns>
-        public static T GrabRandom<T>(this IList<T> list)
+        public static T GrabRandom<T>(this IList<T> list, IRNG random = null)
         {
-            var index = list.ChooseRandomIndex();
+            var index = list.ChooseRandomIndex(random);
             return list.Extract(index);
         }
 
@@ -271,9 +279,9 @@ namespace Chinchillada.Foundation
         /// <param name="list">The list to choose elements from.</param>
         /// <param name="amount">Amount of elements to grab.</param>
         /// <returns>The grabbed elements.</returns>
-        public static IEnumerable<T> GrabRandom<T>(this IList<T> list, int amount)
+        public static IEnumerable<T> GrabRandom<T>(this IList<T> list, int amount, IRNG random = null)
         {
-            return list.GrabRandomElements().Take(amount);
+            return list.GrabRandomElements(random).Take(amount);
         }
 
         #endregion
@@ -281,38 +289,43 @@ namespace Chinchillada.Foundation
         /// <summary>
         /// Shuffle the <paramref name="list"/> in place.
         /// </summary>
-        public static void Shuffle<T>(this IList<T> list)
+        public static void Shuffle<T>(this IList<T> list, IRNG random = null)
         {
+            random ??= uRandom;
+            
             var unshuffled = list.Count;
             while (unshuffled > 1)
             {
                 unshuffled--;
-                var random = Random.Range(unshuffled + 1);
-                var value = list[random];
+                var randomIndex = random.Range(unshuffled + 1);
+                var value       = list[randomIndex];
                 
-                list[random] = list[unshuffled];
+                list[randomIndex] = list[unshuffled];
                 list[unshuffled] = value;
             }
         }
 
-        public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> enumerable)
+        public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> enumerable, IRNG random = null)
         {
             var buffer = enumerable.ToList();
+            random ??= uRandom;
 
-            int count = buffer.Count;
-            for (int index = 0; index < count; index++)
+            var count = buffer.Count;
+            for (var index = 0; index < count; index++)
             {
-                int randomIndex = Random.Range(index, count);
+                var randomIndex = random.Range(index, count);
                 yield return buffer[randomIndex];
 
                 buffer[randomIndex] = buffer[index];
             }
         }
 
-        public static Vector2 RandomInRect(this Rect rect)
+        public static Vector2 RandomInRect(this Rect rect, IRNG random = null)
         {
-            var x = UnityEngine.Random.Range(rect.xMin, rect.xMax);
-            var y = UnityEngine.Random.Range(rect.yMin, rect.yMax);
+            random ??= uRandom;
+            
+            var x = random.Range(rect.xMin, rect.xMax);
+            var y = random.Range(rect.yMin, rect.yMax);
             
             return new Vector2(x, y);
         }
