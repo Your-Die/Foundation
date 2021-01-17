@@ -1,18 +1,20 @@
-﻿namespace Chinchillada.Foundation.RNG
+﻿namespace Chinchillada
 {
     using System;
-    using Random = Foundation.Random;
+    using Random = UnityEngine.Random;
 
     [Serializable]
     public class UnityRandom : IRNG
     {
-        public static UnityRandom Instance = new UnityRandom();
+        public void SetSeed(int seed) => Random.InitState(seed);
 
-        private UnityRandom()
+        public float Float() => Random.value;
+
+        public float Range(float min, float max)
         {
+            return Random.Range(min, max);
         }
-        
-        public bool Flip(float probability) => Random.value <= probability;
+
         public int Range(int min, int max, bool inclusive)
         {
             max = inclusive ? max + 1 : max;

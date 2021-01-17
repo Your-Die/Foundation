@@ -1,9 +1,11 @@
-﻿namespace Chinchillada.Foundation.RNG
+﻿namespace Chinchillada
 {
     public interface IRNG
     {
-        bool Flip(float probability = 0.5f);
-        int Range(int min, int max, bool inclusive = false);
+        void SetSeed(int seed);
+        float Float();
+        float Range(float min, float max);
+        int Range(int     min, int   max, bool inclusive = false);
     }
 
     public static class RNGExtensions
@@ -12,5 +14,13 @@
         {
             return rng.Range(0, max, inclusive);
         }
+
+        public static float Range(this IRNG rng, float max) => rng.Range(0, max);
+
+        public static bool Flip(this IRNG rng, float probability = 0.5f)
+        {
+            return rng.Float() < probability;
+        }
+
     }
 }
