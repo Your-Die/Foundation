@@ -1,11 +1,14 @@
 ﻿namespace Chinchillada
 {
     using System;
+    using Foundation;
     using Random = UnityEngine.Random;
 
     [Serializable]
     public class UnityRandom : IRNG
     {
+        public static readonly UnityRandom Shared = new UnityRandom();
+        
         public void Initialize() { }
 
         public void SetSeed(int seed) => Random.InitState(seed);
