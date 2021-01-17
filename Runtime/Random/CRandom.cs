@@ -7,22 +7,23 @@
     using Random = System.Random;
 
     [Serializable]
-    public class CRandom : IRNG ,IInitializable
+    public class CRandom : IRNG, ISerializationCallbackReceiver
     {
         [SerializeField] private bool useRandomSeed;
 
         [OdinSerialize]
         [ShowIf(nameof(useRandomSeed))]
         private IRandomSeedStrategy seedStrategy;
-        
+
         [SerializeField]
         [HideIf(nameof(useRandomSeed))]
         private int seed;
 
+        [SerializeField] [HideInInspector] private Random random;
+
         [ShowInInspector] [ReadOnly] private int runtimeSeed;
-        
-        private Random random;
-        
+
+        [Button]
         public void Initialize()
         {
             this.runtimeSeed = this.useRandomSeed
@@ -47,5 +48,9 @@
             if (inclusive) max++;
             return this.random.Next(min, max);
         }
+
+        public void OnBeforeSerialize() { }
+
+        public void OnAfterDeserialize() => this.Initialize();
     }
 }

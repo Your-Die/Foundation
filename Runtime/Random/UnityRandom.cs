@@ -6,6 +6,8 @@
     [Serializable]
     public class UnityRandom : IRNG
     {
+        public void Initialize() { }
+
         public void SetSeed(int seed) => Random.InitState(seed);
 
         public float Float() => Random.value;

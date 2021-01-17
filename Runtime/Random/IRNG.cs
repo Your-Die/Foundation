@@ -2,7 +2,7 @@
 {
     using Foundation;
 
-    public interface IRNG
+    public interface IRNG : IInitializable
     {
         void SetSeed(int seed);
         float Float();
