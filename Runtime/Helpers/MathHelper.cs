@@ -4,6 +4,8 @@ using System.Linq;
 
 namespace Chinchillada.Foundation
 {
+    using UnityEngine;
+
     /// <summary>
     /// Static class of math functions.
     /// </summary>
@@ -52,9 +54,9 @@ namespace Chinchillada.Foundation
         public static IEnumerable<int> GetRange(int min, int max, int stepSize = 1)
         {
             int rangeSize = max - min;
-            if(rangeSize < 0)
+            if (rangeSize < 0)
                 throw new ArgumentException();
-            
+
             for (int value = min; value < max; value += stepSize)
                 yield return value;
         }
@@ -120,6 +122,20 @@ namespace Chinchillada.Foundation
         {
             var division = value / multiple; // Floors implicitly.
             return division * multiple;
+        }
+
+
+        public static bool LineLineIntersection(Vector2 startA, Vector2 endA, Vector2 startB, Vector2 endB)
+        {
+            var deltaA = endA - startA;
+            var deltaB = endB - startB;
+
+            var s = (-deltaA.y * (startA.x - startB.x) + deltaA.x * (startA.y - startB.y)) /
+                    (-deltaB.x * deltaA.y + deltaA.x * deltaB.y);
+            var t = (deltaB.x * (startA.y - startB.y) - deltaB.y * (startA.x - startB.x)) /
+                    (-deltaB.x * deltaA.y + deltaA.x * deltaB.y);
+
+            return s >= 0 && s <= 1 && t >= 0 && t <= 1;
         }
     }
 }
