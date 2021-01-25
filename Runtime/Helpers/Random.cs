@@ -5,7 +5,6 @@ using URNG = UnityEngine.Random;
 
 namespace Chinchillada.Foundation
 {
-
     /// <summary>
     /// Wrapper class for <see cref="UnityEngine.Random"/> that also adds some common overloads.
     /// </summary>
@@ -53,6 +52,14 @@ namespace Chinchillada.Foundation
         public static float Range(float min, float max)
         {
             return URNG.Range(min, max);
+        }
+
+        public static Vector2 Range(Vector2 min, Vector2 max)
+        {
+            var x = Range(min.x, max.x);
+            var y = Range(min.y, max.y);
+
+            return new Vector2(x, y);
         }
 
         public static float Float() => Value;
