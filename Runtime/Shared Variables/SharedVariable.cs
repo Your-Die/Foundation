@@ -10,8 +10,9 @@ namespace Chinchillada.Foundation
     /// A variable of the given type that is wrapped in a <see cref="ScriptableObject"/> so it can be easily shared by different systems
     /// in a modular way.
     /// </summary> 
-    public abstract class SharedVariable<T> : ScriptableObject, IListenable<T>, ISource<T>,
-        ISerializationCallbackReceiver where T : IComparable, IEquatable<T>
+    public abstract class SharedVariable<T> : ScriptableObject, IListenable<T>,
+        ISerializationCallbackReceiver,
+        ISource<T> where T : IComparable, IEquatable<T>
     {
         [FormerlySerializedAs("_initialValue")] [SerializeField]
         private T initialValue;
@@ -42,7 +43,7 @@ namespace Chinchillada.Foundation
             }
         }
 
-        public T GetValue() => this.Value;
+        public T Get() => this.Value;
 
         /// <summary>
         /// Resets the variable to the initial value.

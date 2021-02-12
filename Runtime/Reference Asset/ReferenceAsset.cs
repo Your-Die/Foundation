@@ -7,7 +7,7 @@ namespace Chinchillada.Foundation
     {
         Type ReferenceType { get; }
 
-        void SetValue(object value);
+        void Set(object value);
     }
 
     public interface IReference<T> : IReference
@@ -22,9 +22,8 @@ namespace Chinchillada.Foundation
 
         public Type ReferenceType => typeof(T);
 
-        public T GetValue() => this.Reference;
+        public T Get() => this.Reference;
 
-
-        public void SetValue(object value) => this.Reference = (T) value;
+        public void Set(object value) => this.Reference = (T) value;
     }
 }

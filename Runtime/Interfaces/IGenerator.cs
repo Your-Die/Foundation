@@ -3,7 +3,9 @@ using System.Collections.Generic;
 
 namespace Chinchillada
 {
-    public interface IGenerator<T>
+    using Foundation;
+
+    public interface IGenerator<T> : ISource<T>
     {
         T Result { get; }
         event Action<T> Generated;

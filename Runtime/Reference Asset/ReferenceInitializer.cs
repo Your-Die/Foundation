@@ -18,7 +18,7 @@ namespace Chinchillada.Foundation
             var referenceType = this.referenceAsset.ReferenceType;
             this.referenceValue = this.referenceSearchStrategy.FindComponent(this.gameObject, referenceType);
             
-            this.referenceAsset.SetValue(this.referenceValue);
+            this.referenceAsset.Set(this.referenceValue);
         }
     }
 }

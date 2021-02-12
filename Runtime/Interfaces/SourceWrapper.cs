@@ -13,6 +13,6 @@
         
         public SourceWrapper(T item) => this.item = item;
 
-        public T GetValue() => this.item;
+        public T Get() => this.item;
     }
 }
