@@ -8,7 +8,7 @@ namespace Chinchillada.Foundation
     [CreateAssetMenu(menuName = "Scrobs/Collections/List")]
     public class ScriptableList<T> : SerializedScriptableObject, IList<T>
     {
-        [SerializeField] private IList<T> list;
+        [SerializeField] private IList<T> list = new List<T>();
         
         public int Count => this.list.Count;
 
