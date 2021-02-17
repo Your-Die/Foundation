@@ -33,8 +33,9 @@ namespace Chinchillada.Foundation
         {
             get => this.runtimeValue;
             set
-            {
-                if (this.runtimeValue.Equals(value))
+            { 
+                if (this.runtimeValue != null &&
+                    this.runtimeValue.Equals(value))
                     return;
 
                 this.runtimeValue = value;
