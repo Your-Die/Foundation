@@ -15,21 +15,20 @@ namespace Chinchillada.Foundation
         public static IEnumerable<(FieldInfo field, TAttribute)> GetAttributedFields<TAttribute>(object obj)
             where TAttribute : PropertyAttribute
         {
-            var type = obj.GetType();
+            if (obj==null)
+                yield break;
+
+            var type   = obj.GetType();
             var fields = GetAllFields(type);
 
             foreach (var field in fields)
             {
-                var value = field.GetValue(obj);
-                if (!Equality.UnityNull(value))
-                    continue;
-
                 var attributes = field.GetCustomAttributes(typeof(TAttribute)).ToList();
                 if (attributes.IsEmpty())
                     continue;
 
                 var attribute = (TAttribute) attributes.First();
-                yield return(field, attribute);
+                yield return (field, attribute);
             }
         }
 
@@ -52,7 +51,5 @@ namespace Chinchillada.Foundation
             for (var current = type.BaseType; current != null; current = current.BaseType)
                 yield return current;
         }
-
-
     }
 }
