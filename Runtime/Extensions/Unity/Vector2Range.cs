@@ -28,6 +28,11 @@ namespace Chinchillada.Foundation
             return Random.Range(range.x, range.y);
         }
 
+        public static int RandomInRange(this Vector2Int range)
+        {
+            return Random.Range(range.x, range.y);
+        }
+
         /// <summary>
         /// <see cref="Mathf.Lerp"/> the <paramref name="value"/> between the x and y of the <paramref name="range"/>.
         /// </summary>
