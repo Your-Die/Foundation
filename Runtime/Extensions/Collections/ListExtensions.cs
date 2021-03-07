@@ -85,6 +85,15 @@ namespace Chinchillada.Foundation
             }
         }
 
+        public static IEnumerable<int> IndicesExcept<T>(this IList<T> list, int ignoredIndex)
+        {
+            for (var i = 0; i < ignoredIndex; i++)
+                yield return i;
+
+            for ( var j = ignoredIndex + 1; j < list.Count; j++)
+                yield return j;
+        }
+        
         public static bool RemoveQuick<T>(this IList<T> list, T element)
         {
             var index = list.IndexOf(element);
