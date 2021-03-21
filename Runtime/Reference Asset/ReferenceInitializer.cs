@@ -11,7 +11,7 @@ namespace Chinchillada.Foundation
 
         [ShowInInspector, ReadOnly] private object referenceValue;
 
-        protected override void FindComponents()
+        public override void FindComponents()
         {
             base.FindComponents();
 

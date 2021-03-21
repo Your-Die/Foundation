@@ -18,7 +18,7 @@ namespace Chinchillada.Foundation
         /// Applies the <see cref="FindComponentAttribute"/> on this <see cref="UnityEngine.MonoBehaviour"/>
         /// </summary>
         [Button]
-        protected virtual void FindComponents()
+        public virtual void FindComponents()
         {
             ComponentFinderAttribute.ApplyAttribute<ComponentFinderAttribute>(this);
         }
