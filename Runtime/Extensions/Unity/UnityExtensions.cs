@@ -29,5 +29,11 @@ namespace Chinchillada.Foundation
             
             list.Clear();
         }
+
+        public static IEnumerable<Transform> GetChildren(this Transform transform)
+        {
+            for (var index = 0; index < transform.childCount; index++)
+                yield return transform.GetChild(index);
+        }
     }
 }
