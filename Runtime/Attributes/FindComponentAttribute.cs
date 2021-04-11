@@ -83,10 +83,12 @@ namespace Chinchillada.Foundation
             var list = (IList) fieldValue;
             
             var items = strategy.FindComponents(behaviour.gameObject, itemType);
-            var newItems = items.Except(list.Contains);
+            var newItems = items.Except(IsInvalid);
 
             foreach (var item in newItems.ToArray())
                 list.Add(item);
+
+            bool IsInvalid(Component component) => component == behaviour || list.Contains(component);
         }
     }
 }
