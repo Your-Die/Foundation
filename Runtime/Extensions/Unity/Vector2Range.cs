@@ -2,6 +2,8 @@
 
 namespace Chinchillada.Foundation
 {
+    using NUnit.Framework.Internal.Builders;
+
     public static class Vector2Range
     {
         /// <summary>
@@ -23,9 +25,10 @@ namespace Chinchillada.Foundation
         /// <summary>
         /// Generates a random value between the <paramref name="range"/>.x as the lower bound and the <paramref name="range"/>.y as the upper bound.
         /// </summary>
-        public static float RandomInRange(this Vector2 range)
+        public static float RandomInRange(this Vector2 range, IRNG random = null)
         {
-            return Random.Range(range.x, range.y);
+            random ??= UnityRandom.Shared;
+            return random.Range(range.x, range.y);
         }
 
         /// <summary>
