@@ -4,6 +4,8 @@ using System.Linq;
 
 namespace Chinchillada.Foundation
 {
+    using System.Collections;
+
     /// <summary>
     /// Class containing extension methods for <see cref="IEnumerable{T}"/>.
     /// </summary>
@@ -429,6 +431,16 @@ namespace Chinchillada.Foundation
         public static void Enumerate<T>(this IEnumerable<T> enumerable)
         {
             var _ = enumerable.ToList();
+        }
+
+        public static int EnumerateFully(this IEnumerator enumerator)
+        {
+            var enumerations = 0;
+            
+            while (enumerator.MoveNext()) 
+                enumerations++;
+
+            return enumerations;
         }
     }
 }
