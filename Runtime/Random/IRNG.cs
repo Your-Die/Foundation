@@ -1,6 +1,7 @@
 ﻿namespace Chinchillada
 {
     using System;
+    using System.Xml.Schema;
     using Foundation;
     using UnityEngine;
 
@@ -19,7 +20,11 @@
             return rng.Range(0, max, inclusive);
         }
 
-        public static float Range(this IRNG rng, float max) => rng.Range(0, max);
+        public static float Range(this IRNG rng, float max)
+        {
+            rng ??= UnityRandom.Shared;
+            return rng.Range(0, max);
+        }
 
         public static bool Flip(this IRNG rng, float probability = 0.5f)
         {
@@ -38,6 +43,15 @@
         public static T Choose<T>(this IRNG rng) where T : Enum
         {
             return EnumHelper.GetValues<T>().ChooseRandom(rng);
+        }
+
+        public static Vector2Int Vector2Int(this IRNG rng, int xMin, int xMax, int yMin, int yMax)
+        {
+            return new Vector2Int
+            {
+                x = rng.Range(xMin, xMax),
+                y = rng.Range(yMin, yMax)
+            };
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using Chinchillada.Foundation.Coroutines;
+using Chinchillada.Foundation;
 using UnityEngine;
 
 namespace Chinchillada.Foundation

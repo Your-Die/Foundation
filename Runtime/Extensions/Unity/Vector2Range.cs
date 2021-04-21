@@ -57,5 +57,16 @@ namespace Chinchillada.Foundation
 
             return value;
         }
+        
+        public static int RangeClamp(this Vector2Int range, int value)
+        {
+            if (value < range.x)
+                return range.x;
+
+            if (value > range.y)
+                return range.y;
+
+            return value;
+        }
     }
 }

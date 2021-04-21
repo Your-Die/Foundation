@@ -171,6 +171,7 @@ namespace Chinchillada.Foundation
         public static IEnumerable<T> ChooseRandomWeighted<T>(this IDictionary<T, float> weightedCollection, IRNG random = null)
         {
             var weightSum = weightedCollection.Values.Sum();
+            random ??= UnityRandom.Shared;
 
             while (true)
             {

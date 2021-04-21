@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Chinchillada.Foundation.Coroutines
+namespace Chinchillada.Foundation
 {
     public class PredicateSubscriber<T>
     {

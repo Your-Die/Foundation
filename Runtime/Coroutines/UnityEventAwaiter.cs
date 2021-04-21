@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace Chinchillada.Foundation.Coroutines
+namespace Chinchillada.Foundation
 {
     public class UnityEventAwaiter : CustomYieldInstruction
     {
