@@ -2,8 +2,6 @@
 
 namespace Chinchillada.Foundation
 {
-    using NUnit.Framework.Internal.Builders;
-
     public static class Vector2Range
     {
         /// <summary>
