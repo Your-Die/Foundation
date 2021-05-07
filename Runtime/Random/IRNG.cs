@@ -26,6 +26,17 @@
             return rng.Range(0, max);
         }
 
+        public static Vector2 Direction(this IRNG rng)
+        {
+            var vector = new Vector2
+            {
+                x = rng.Float(),
+                y = rng.Float()
+            };
+
+            return vector.normalized;
+        }
+        
         public static bool Flip(this IRNG rng, float probability = 0.5f)
         {
             return rng.Float() < probability;
