@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     /// <summary>
     /// Class containing extension methods used for generation.

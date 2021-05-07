@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     using System.Linq;
 
@@ -11,15 +11,6 @@ namespace Chinchillada.Foundation
         {
             var values = Enum.GetValues(typeof(T));
             return values.Cast<T>();
-        }
-        
-        public static T Choose<T>(this IRNG random) where T : Enum
-        {
-            var values = Enum.GetValues(typeof(T));
-            var index = random.Range(0, values.Length);
-
-            var value = values.GetValue(index);
-            return (T) value;
         }
     }
 }

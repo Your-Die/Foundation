@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Chinchillada.Foundation;
+using Chinchillada;
 
-namespace Foundation.Algorithms
+namespace Chinchillada
 {
     public static class Combinations
     {

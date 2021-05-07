@@ -1,4 +1,4 @@
-﻿namespace Chinchillada.Foundation
+﻿namespace Chinchillada
 {
     public static class Equality
     {

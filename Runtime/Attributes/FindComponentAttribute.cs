@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using System.Reflection;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     /// <summary>
     /// Attribute meant for removing the boilerplate code that is often found in Unity Monobehaviour classes.

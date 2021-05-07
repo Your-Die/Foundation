@@ -4,7 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace Chinchillada.Foundation.Tests
+namespace Chinchillada.Tests
 {
     public static class TimerTests
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     public class EventPredicator<T> : CustomYieldInstruction
     {

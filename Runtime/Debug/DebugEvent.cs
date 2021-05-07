@@ -1,9 +1,9 @@
-﻿using Chinchillada.Foundation;
+﻿using Chinchillada;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     public class DebugEvent : ChinchilladaBehaviour
     {

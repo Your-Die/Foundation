@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     public class BidirectionTweenComponent : ChinchilladaBehaviour, IBidirectionalTweener
     {

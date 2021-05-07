@@ -1,4 +1,4 @@
-namespace Chinchillada.Foundation.Common
+namespace Chinchillada.Common
 {
     public interface IBuilder<out T>
     {

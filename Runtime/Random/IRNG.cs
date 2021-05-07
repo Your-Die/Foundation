@@ -2,7 +2,7 @@
 {
     using System;
     using System.Xml.Schema;
-    using Foundation;
+    using Chinchillada;
     using UnityEngine;
 
     public interface IRNG : IInitializable

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     /// <summary>
     /// Class that propagates key presses as <see cref="UnityEvent"/>.

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     public interface IListenable<T> where T : IEquatable<T>
     {

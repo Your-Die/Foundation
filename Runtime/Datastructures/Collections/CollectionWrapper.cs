@@ -1,4 +1,4 @@
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     using System.Collections;
     using System.Collections.Generic;

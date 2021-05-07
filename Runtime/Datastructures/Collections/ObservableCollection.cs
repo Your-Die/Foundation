@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     using System;
     

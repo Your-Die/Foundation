@@ -1,5 +1,5 @@
 ﻿using System;
-using Chinchillada.Foundation;
+using Chinchillada;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;

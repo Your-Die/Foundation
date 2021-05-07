@@ -1,8 +1,8 @@
-using Chinchillada.Foundation;
+using Chinchillada;
 using UnityEditor;
 using UnityEngine;
 
-namespace Chinchillada.Foundation.Editor
+namespace Chinchillada.Editor
 {
     [CustomPropertyDrawer(typeof(ScenePickerAttribute))]
     public class ScenePickerDrawer : PropertyDrawer

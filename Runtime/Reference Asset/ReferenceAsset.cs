@@ -1,7 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using Type = System.Type;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     public interface IReference
     {

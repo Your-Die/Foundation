@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     [CreateAssetMenu(menuName = "Scrobs/Collections/List")]
     public class ScriptableList<T> : SerializedScriptableObject, IList<T>

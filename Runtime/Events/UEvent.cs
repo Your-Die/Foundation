@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     [Serializable]
     public class UEvent : IInvokableEvent

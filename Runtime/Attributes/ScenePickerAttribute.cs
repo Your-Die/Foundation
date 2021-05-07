@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     public class ScenePickerAttribute : PropertyAttribute
         {

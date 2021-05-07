@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     public class PoolList<T> : PoolListBase<T>
     {

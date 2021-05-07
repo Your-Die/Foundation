@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     [Serializable]
     public abstract class ComponentPoolListBase<TItem> : PoolListBase<TItem>

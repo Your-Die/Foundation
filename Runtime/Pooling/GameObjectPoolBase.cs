@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Chinchillada.Foundation;
+using Chinchillada;
 using UnityEngine;
 
 public abstract class GameObjectPoolBase : ChinchilladaBehaviour, IGameObjectPool

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {    /// <summary>
     /// Component that propagates trigger events to <see cref="UnityEvent"/>.
     /// </summary>

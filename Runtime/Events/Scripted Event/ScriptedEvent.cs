@@ -2,7 +2,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     /// <summary>
     /// Scriptable object that contains an event that can be raised.

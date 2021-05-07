@@ -1,7 +1,7 @@
 ﻿namespace Interfaces
 {
     using System;
-    using Chinchillada.Foundation;
+    using Chinchillada;
     using Sirenix.Serialization;
 
     [Serializable]

@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     /// <summary>
     /// This attribute is meant for serialized fields of Unity asset types, initially developed for <see cref="ScriptableObject"/>.

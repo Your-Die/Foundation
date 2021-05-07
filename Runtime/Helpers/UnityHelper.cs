@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     /// <summary>
     /// Static class containing helper functions for Unity objects.

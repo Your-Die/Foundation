@@ -1,8 +1,8 @@
 ﻿using System;
-using Chinchillada.Foundation;
+using Chinchillada;
 using UnityEngine;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     public interface IInvokableEvent : IEvent
     {

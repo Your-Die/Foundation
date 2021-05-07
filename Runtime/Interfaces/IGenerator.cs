@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Chinchillada
 {
-    using Foundation;
+    using Chinchillada;
 
     public interface IGenerator<T> : ISource<T>
     {

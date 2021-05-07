@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     /// <summary>
     /// Wrapper class for Queue which stays at a fixed capacity, and automatically dequeues values when the capacity is exceeded.

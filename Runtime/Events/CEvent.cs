@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     [Serializable]
     public class CEvent : IInvokableEvent

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     /// <summary>
     /// <see cref="IDictionary{TKey,TValue}"/> that initializes default values when a new key is introduced.

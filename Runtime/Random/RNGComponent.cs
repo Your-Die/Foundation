@@ -1,6 +1,6 @@
 ﻿namespace Chinchillada
 {
-    using Foundation;
+    using Chinchillada;
     using UnityEngine;
 
     public class RNGComponent : ChinchilladaBehaviour, IRNG

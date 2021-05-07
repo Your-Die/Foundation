@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     /// <summary>
     /// Base class for pool lists: an implementation of the Object Pool pattern, structured as a list.

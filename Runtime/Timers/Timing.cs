@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using Chinchillada.Foundation;
+using Chinchillada;
 using UnityEngine;
 
 namespace Chinchillada.Timers

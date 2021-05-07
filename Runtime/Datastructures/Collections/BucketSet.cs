@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     public class BucketSet<TKey, TValue>
     {

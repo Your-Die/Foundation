@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Chinchillada.Foundation.Events
+namespace Chinchillada.Events
 {
     public class MouseEvent : SimpleEvent
     {

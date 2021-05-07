@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     /// <summary>
     /// Taken from https://gist.github.com/paralleltree/31045ab26f69b956052c

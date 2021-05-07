@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     /// <summary>
     /// Component that propagates collision events to C# events.

@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     public static class MiscExtensions
     {

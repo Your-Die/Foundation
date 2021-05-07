@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     public static class TypeExtensions
     {

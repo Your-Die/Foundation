@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     /// <summary>
     /// Enum containing possible search strategies.

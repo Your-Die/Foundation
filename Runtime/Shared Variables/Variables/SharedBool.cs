@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     /// <summary>
     /// Implementation of <see cref="SharedVariable{T}"/> for <see cref="bool"/>.

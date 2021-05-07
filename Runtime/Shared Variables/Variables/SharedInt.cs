@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     [CreateAssetMenu(menuName = "Chinchillada/Variables/Integer")]
     public class SharedInt : SharedVariable<int>

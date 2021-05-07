@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     /// <summary>
     /// Generic version of <see cref="ScriptedEvent"/> that allows a parameter of {T} to be passed along.

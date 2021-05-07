@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     /// <summary>
     ///  Simple struct for a pair of values.

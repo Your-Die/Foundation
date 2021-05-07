@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     public class ApplicationQuitter : MonoBehaviour
     {

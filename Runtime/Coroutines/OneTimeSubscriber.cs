@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Chinchillada.Foundation.Common
+namespace Chinchillada.Common
 {
     public class OneTimeSubscriber
     {

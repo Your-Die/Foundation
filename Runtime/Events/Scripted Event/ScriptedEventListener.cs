@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     /// <summary>
     /// Component that propagates <see cref="ScriptedEvent"/> to <see cref="UnityEvent"/>.

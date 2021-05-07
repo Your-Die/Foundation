@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Foundation.Algorithms
+namespace Chinchillada
 {
     public static class Entropy
     {

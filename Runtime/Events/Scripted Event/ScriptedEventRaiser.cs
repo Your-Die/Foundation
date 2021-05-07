@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     public class ScriptedEventRaiser : MonoBehaviour
     {

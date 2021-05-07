@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     public class BucketCollection<TKey, TValue> : IDictionary<TKey, ICollection<TValue>>
     {

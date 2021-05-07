@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Chinchillada.Foundation.Events
+namespace Chinchillada.Events
 {
     public class SimpleEvent : MonoBehaviour
     {

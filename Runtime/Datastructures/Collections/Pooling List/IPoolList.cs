@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     public interface IPoolList<TItem> : IReadOnlyList<TItem>
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     using System.Collections;
 

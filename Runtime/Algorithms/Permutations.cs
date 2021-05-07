@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Foundation.Algorithms
+namespace Chinchillada
 {
     public static class Permutations
     {

@@ -1,11 +1,13 @@
 ﻿using System;
 using DG.Tweening;
-using Chinchillada.Foundation.Common;
+using Chinchillada.Common;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
+    using Common;
+
     [Serializable]
     public class BidirectionalMoveTweener : IBidirectionalTweener
     {

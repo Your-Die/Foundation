@@ -1,4 +1,4 @@
-﻿namespace Chinchillada.Foundation.Events
+﻿namespace Chinchillada.Events
 {
     public class EnableEvent : SimpleEvent
     {

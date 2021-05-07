@@ -1,9 +1,11 @@
 ﻿using System;
-using Chinchillada.Foundation.Common;
+using Chinchillada.Common;
 using UnityEngine;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
+    using Common;
+
     public class EventAwaiter : CustomYieldInstruction
     {
         private bool isEventTriggered;

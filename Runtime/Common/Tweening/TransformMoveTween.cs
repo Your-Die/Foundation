@@ -1,10 +1,10 @@
 ﻿using System;
-using Chinchillada.Foundation;
+using Chinchillada;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Chinchillada.Foundation.Common
+namespace Chinchillada.Common
 {
     public class TransformMoveTween : ChinchilladaBehaviour
     {

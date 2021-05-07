@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     public class ComponentScanner<T> : ChinchilladaBehaviour, IProvider<T>
     where T : Component

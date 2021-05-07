@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     public static class TextureExtensions
     {
@@ -16,7 +16,7 @@ namespace Chinchillada.Foundation
 
             return output;
         }
-        
+
         /// <remarks>
         /// Taken from http://wiki.unity3d.com/index.php/TextureDrawLine
         /// </remarks>

@@ -1,7 +1,7 @@
 ﻿namespace Chinchillada
 {
     using System;
-    using Foundation;
+    using Chinchillada;
     using Random = UnityEngine.Random;
 
     [Serializable]

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     public static class BoundsExtensions
     {
