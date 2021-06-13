@@ -14,6 +14,12 @@ namespace Chinchillada.Foundation
             return component != null;
         }
 
+        public static bool TryGetComponent<T>(this GameObject gameObject, SearchStrategy strategy, out T component)
+        {
+            component = strategy.FindComponent<T>(gameObject);
+            return component != null;
+        }
+
         public static IEnumerable<T> GetComponentsInDirectChildren<T>(this Component component)
         {
             Transform transform = component.transform;

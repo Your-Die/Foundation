@@ -20,6 +20,12 @@ namespace Chinchillada.Foundation
 
     public static class SearchStrategyExtensions
     {
+        public static bool TryFind<T>(this SearchStrategy strategy, GameObject gameObject, out T component)
+        {
+            component = strategy.FindComponent<T>(gameObject);
+            return component != null;
+        }
+        
         public static T FindComponent<T>(this SearchStrategy strategy, GameObject gameObject)
         {
             switch (strategy)

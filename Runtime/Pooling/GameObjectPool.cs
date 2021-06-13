@@ -10,11 +10,19 @@ public class GameObjectPool : GameObjectPoolBase
 
     [SerializeField] private GameObject prefab;
 
+    [SerializeField] private PoolReturnStrategy returnStrategy = PoolReturnStrategy.Disable;
+    
     private HashSet<GameObject> activeObjects = new HashSet<GameObject>();
     
     private readonly LinkedList<GameObject> inactiveObjects = new LinkedList<GameObject>();
 
     public override IReadOnlyCollection<GameObject> ActiveObjects => this.activeObjects;
+
+    public PoolReturnStrategy ReturnStrategy
+    {
+        get => this.returnStrategy;
+        set => this.returnStrategy = value;
+    }
 
     public GameObject Prefab
     {
@@ -46,14 +54,31 @@ public class GameObjectPool : GameObjectPoolBase
 
     public override void Return(GameObject obj)
     {
-        obj.SetActive(false);
-        obj.transform.parent = this.poolParent;
+        switch (returnStrategy)
+        {
+            case PoolReturnStrategy.Disable: 
+                Disable();
+                break;
+            case PoolReturnStrategy.Destroy:
+                Destroy(obj);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+        
+        void Disable()
+        {
+            obj.SetActive(false);
+            obj.transform.parent = this.poolParent;
 
-        this.activeObjects.Remove(obj);
-        this.inactiveObjects.AddFirst(obj);
+            this.activeObjects.Remove(obj);
+            this.inactiveObjects.AddFirst(obj);
 
-        this.ReturnedEvent?.Invoke(obj);
+            this.ReturnedEvent?.Invoke(obj);
+        }
     }
+
+  
     
     private GameObject GetInactiveObject(Vector3 position, Transform parent)
     {
@@ -64,4 +89,10 @@ public class GameObjectPool : GameObjectPoolBase
 
         return inactiveObject;
     }
+}
+
+public enum PoolReturnStrategy
+{
+    Disable,
+    Destroy
 }

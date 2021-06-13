@@ -8,6 +8,8 @@ namespace Utilities.Pooling
     public class ObjectPoolReference : ScriptableObject, IGameObjectPool
     {
         [SerializeField] private GameObject prefab;
+
+        [SerializeField] private PoolReturnStrategy returnStrategy = PoolReturnStrategy.Disable;
         
         private GameObjectPool pool;
 
@@ -50,8 +52,11 @@ namespace Utilities.Pooling
             var poolObject = new GameObject($"[Pool: {this.prefab.name}]");
             poolObject.transform.SetParent(PoolOfPools.Instance.transform);
 
-            this.pool = poolObject.AddComponent<GameObjectPool>();
-            this.pool.Prefab = this.prefab;
+            var gameObjectPool = poolObject.AddComponent<GameObjectPool>();
+            gameObjectPool.ReturnStrategy = this.returnStrategy;
+            gameObjectPool.Prefab         = this.prefab;
+            
+            this.pool = gameObjectPool;
         }
     }
 }
