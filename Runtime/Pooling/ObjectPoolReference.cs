@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Utilities.Pooling
+namespace Chinchillada
 {
     [CreateAssetMenu(menuName = "Chinchillada/Pool")]
     public class ObjectPoolReference : ScriptableObject, IGameObjectPool

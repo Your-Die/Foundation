@@ -1,7 +1,7 @@
-using Chinchillada.Foundation;
-
-namespace Utilities.Pooling
+namespace Chinchillada
 {
+    using Foundation;
+
     public class PoolOfPools : SingletonBehaviour<PoolOfPools>
     {
         protected override void Awake()
