@@ -34,11 +34,18 @@ namespace Chinchillada
         protected virtual void Awake()
         {
             if (instance == null)
+            {
+                this.OnAwake();
                 return;
+            }
 
             // Destroy duplicates of singleton.
             Debug.Log($"Duplicate singleton of type ({nameof(T)}) awoken. Destroying {this.name}");
             Destroy(this.gameObject);
+        }
+
+        protected virtual void OnAwake()
+        {
         }
     }
 }
