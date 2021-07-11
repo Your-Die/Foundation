@@ -1,6 +1,7 @@
 ﻿namespace Chinchillada
 {
     using System;
+    using System.Collections.Generic;
     using System.Xml.Schema;
     using Chinchillada;
     using UnityEngine;
@@ -15,6 +16,12 @@
 
     public static class RNGExtensions
     {
+        public static IEnumerable<T> Repeat<T>(this IRNG rng, Func<IRNG, T> generator)
+        {
+            while (true)
+                yield return generator.Invoke(rng);
+        }
+        
         public static int Range(this IRNG rng, int max, bool inclusive = false)
         {
             return rng.Range(0, max, inclusive);
@@ -63,6 +70,17 @@
                 x = rng.Range(xMin, xMax),
                 y = rng.Range(yMin, yMax)
             };
+        }
+
+        public static Vector2 InCircle(this IRNG random, Vector2 center, float radius)
+        {
+            var x = random.Range(-1f, 1f);
+            var y = random.Range(-1f, 1f);
+
+            var direction = new Vector2(x, y).normalized;
+            var delta     = direction * random.Range(radius);
+
+            return center + delta;
         }
     }
 }
