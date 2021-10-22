@@ -3,14 +3,16 @@
     using Sirenix.OdinInspector;
     using Sirenix.Serialization;
 
-    public class ActionComponent : ChinchilladaBehaviour, IAction
+    public class ActionComponent : ActionComponentBase
     {
         [OdinSerialize, Required] private IAction action;
 
-        [Button]
-        public void Trigger()
+        public IAction Action
         {
-            this.action.Trigger();
+            set => this.action = value;
         }
+
+        [Button]
+        public override void Trigger() => this.action.Trigger();
     }
 }
