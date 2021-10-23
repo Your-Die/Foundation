@@ -35,7 +35,7 @@ namespace Chinchillada
             get => this.runtimeValue;
             set
             {
-                if (this.runtimeValue.CompareTo(value) != 0)
+                if (this.runtimeValue.CompareTo(value) == 0)
                     return;
 
                 this.runtimeValue = value;
