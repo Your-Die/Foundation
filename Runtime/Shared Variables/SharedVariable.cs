@@ -10,9 +10,9 @@ namespace Chinchillada
     /// A variable of the given type that is wrapped in a <see cref="ScriptableObject"/> so it can be easily shared by different systems
     /// in a modular way.
     /// </summary> 
-    public abstract class SharedVariable<T> : ScriptableObject, IListenable<T>, IContainer<T>,
+    public abstract class SharedVariable<T> : ScriptableObject, IContainer<T>,
                                               ISerializationCallbackReceiver
-        where T : IComparable, IEquatable<T>
+        where T : IComparable
     {
         [FormerlySerializedAs("_initialValue")] [SerializeField]
         private T initialValue;
