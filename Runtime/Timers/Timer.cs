@@ -31,25 +31,25 @@ namespace Chinchillada.Timers
         /// <summary>
         /// The amount of time that this timer has spent running since the last <see cref="Stop"/>, <see cref="Finish"/> or <see cref="Restart"/>.
         /// </summary>
-        private float elapsedTime;
+        private float elapsedBeforePause;
+
+        private float ElapsedSinceStartOrContinue => Time.time - this.startTime;
 
         /// <summary>
         /// Duration of the timer.
         /// </summary>
         public float Duration => this.duration;
 
-        public float Remaining => this.duration - this.elapsedTime;
+        public float Remaining => this.duration - this.ElapsedTime;
 
-        public UnityEvent Finished => this.finished;
+        public float ElapsedTime => this.elapsedBeforePause + this.ElapsedSinceStartOrContinue;
 
         /// <summary>
         /// Whether the timer is currently running.
         /// </summary>
         public bool IsRunning { get; private set; }
-
-        public float ElapsedTime => Time.time - this.startTime;
-
-        public float FinishedPercentage => this.ElapsedTime / this.Duration;
+        
+        public UnityEvent Finished => this.finished;
 
         #region Constructors
 
@@ -110,7 +110,7 @@ namespace Chinchillada.Timers
             this.startTime = Time.time;
             this.IsRunning = true;
 
-            var remaining = this.Duration - this.elapsedTime;
+            var remaining = this.Duration - this.elapsedBeforePause;
 
             if (remaining > 0)
                 this.timerRoutine = Timing.InvokeDelayed(this.Finish, remaining);
@@ -132,7 +132,7 @@ namespace Chinchillada.Timers
             var time = Time.time;
             var elapsed = time - this.startTime;
 
-            this.elapsedTime += elapsed;
+            this.elapsedBeforePause += elapsed;
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace Chinchillada.Timers
         {
             Timing.CancelInvocation(this.timerRoutine);
             this.IsRunning = false;
-            this.elapsedTime = 0;
+            this.elapsedBeforePause = 0;
         }
     }
 }
