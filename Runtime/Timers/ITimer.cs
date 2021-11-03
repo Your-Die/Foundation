@@ -9,12 +9,15 @@ namespace Chinchillada.Timers
         /// </summary>
         float Duration { get; }
 
+        float Remaining { get; }
+        
         UnityEvent Finished { get; }
 
         /// <summary>
         /// Whether the timer is currently running.
         /// </summary>
         bool IsRunning { get; }
+
 
         /// <summary>
         /// Starts running the timer.

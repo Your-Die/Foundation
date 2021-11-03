@@ -38,6 +38,8 @@ namespace Chinchillada.Timers
         /// </summary>
         public float Duration => this.duration;
 
+        public float Remaining => this.duration - this.elapsedTime;
+
         public UnityEvent Finished => this.finished;
 
         /// <summary>
