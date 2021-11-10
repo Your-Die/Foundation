@@ -40,9 +40,20 @@ namespace Chinchillada.Timers
         /// </summary>
         public float Duration => this.duration;
 
-        public float Remaining => this.duration - this.ElapsedTime;
+        public float Remaining => Mathf.Max(0, this.duration - this.ElapsedTime);
 
-        public float ElapsedTime => this.elapsedBeforePause + this.ElapsedSinceStartOrContinue;
+        public float ElapsedTime
+        {
+            get
+            {
+                var elapsed = this.elapsedBeforePause;
+
+                if (this.IsRunning) 
+                    elapsed += this.ElapsedSinceStartOrContinue;
+
+                return elapsed;
+            }
+        }
 
         /// <summary>
         /// Whether the timer is currently running.
