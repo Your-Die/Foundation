@@ -2,22 +2,16 @@
 
 namespace Chinchillada.Timers
 {
-    public interface ITimer
-    {
-        /// <summary>
-        /// Duration of the timer.
-        /// </summary>
-        float Duration { get; }
+    using BombWatch;
 
-        float Remaining { get; }
-        
+    public interface ITimer : IHasDuration
+    {
         UnityEvent Finished { get; }
 
         /// <summary>
         /// Whether the timer is currently running.
         /// </summary>
         bool IsRunning { get; }
-
 
         /// <summary>
         /// Starts running the timer.
