@@ -6,17 +6,17 @@ namespace Chinchillada
     public class PrioritySystem<T>
     {
         private readonly IPriorityExecutor<T> priorityExecutor;
-        private readonly Dictionary<object, PriorityOption<T>> options = new Dictionary<object, PriorityOption<T>>();
+        private readonly Dictionary<object, IPriorityOption<T>> options = new Dictionary<object, IPriorityOption<T>>();
 
         public LogHandler Logger { get; set; }
 
-        private PriorityOption<T> CurrentOption { get; set; }
+        private IPriorityOption<T> CurrentOption { get; set; }
 
-        private IEnumerable<PriorityOption<T>> Options => this.options.Values;
+        private IEnumerable<IPriorityOption<T>> Options => this.options.Values;
 
         public PrioritySystem(IPriorityExecutor<T> priorityExecutor) => this.priorityExecutor = priorityExecutor;
 
-        public void AddOption(PriorityOption<T> option)
+        public void AddOption(IPriorityOption<T> option)
         {
             if (option == null)
                 return;
@@ -34,7 +34,7 @@ namespace Chinchillada
             this.AddOption(option);
         }
 
-        public void RemoveOption(PriorityOption<T> option)
+        public void RemoveOption(IPriorityOption<T> option)
         {
             if (this.options.Remove(option.ID))
                 this.OnOptionRemoved(option);
@@ -53,13 +53,13 @@ namespace Chinchillada
             this.priorityExecutor.Stop();
         }
 
-        private void OnOptionAdded(PriorityOption<T> option)
+        private void OnOptionAdded(IPriorityOption<T> option)
         {
-            if (this.CurrentOption == null || this.CurrentOption.Utility < option.Utility)
+            if (this.CurrentOption == null || this.CurrentOption.Priority < option.Priority)
                 this.ExecuteOption(option);
         }
 
-        private void OnOptionRemoved(PriorityOption<T> option)
+        private void OnOptionRemoved(IPriorityOption<T> option)
         {
             if (option != this.CurrentOption)
                 return;
@@ -71,12 +71,12 @@ namespace Chinchillada
             }
             else
             {
-                var highestUtility = this.Options.ArgMax(audienceMember => audienceMember.Utility);
+                var highestUtility = this.Options.ArgMax(audienceMember => audienceMember.Priority);
                 this.ExecuteOption(highestUtility);
             }
         }
 
-        private void ExecuteOption(PriorityOption<T> option)
+        private void ExecuteOption(IPriorityOption<T> option)
         {
             this.CurrentOption = option;
             this.TriggerExecution();
