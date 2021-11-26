@@ -1,5 +1,6 @@
 namespace Chinchillada
 {
+    using System;
     using Sirenix.OdinInspector;
     using Sirenix.Serialization;
 
@@ -12,5 +13,13 @@ namespace Chinchillada
             get => this.variable.Value;
             set => this.variable.Value = value;
         }
+
+        public event Action<T> ValueChanged;
+
+        private void OnEnable() => this.variable.ValueChanged += this.OnVariableChanged;
+
+        private void OnDisable() => this.variable.ValueChanged -= this.OnVariableChanged;
+
+        private void OnVariableChanged(T value) => this.ValueChanged?.Invoke(value);
     }
 }

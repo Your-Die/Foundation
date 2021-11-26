@@ -9,6 +9,11 @@ namespace Chinchillada
         /// The value.
         /// </summary>
         T Value { get; set; }
+
+        /// <summary>
+        /// Event invoked when the value is changed.
+        /// </summary>
+        event Action<T> ValueChanged;
     }
 
     [Serializable]
@@ -19,7 +24,16 @@ namespace Chinchillada
         public T Value
         {
             get => this.value;
-            set => this.value = value;
+            set
+            {
+                if (this.value.Equals(value))
+                    return;
+
+                this.value = value;
+                this.ValueChanged?.Invoke(this.value);
+            }
         }
+
+        public event Action<T> ValueChanged;
     }
 }
