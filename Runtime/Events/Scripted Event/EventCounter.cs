@@ -3,10 +3,14 @@ namespace Chinchillada
     using Sirenix.OdinInspector;
     using Sirenix.Serialization;
 
-    public class EventCounter : EventListenerBase
+    public class EventCounter : SharedInt
     {
-        [OdinSerialize, Required] private IVariable<int> count;
+        [OdinSerialize, Required] private ScriptedEvent @event;
 
-        protected override void OnEventHappened() => this.count.Value++;
+        private void OnEnable() => this.@event.Happened += this.OnEventHappened;
+
+        private void OnDisable() => this.@event.Happened -= this.OnEventHappened;
+
+        private void OnEventHappened() => this.Value++;
     }
 }
