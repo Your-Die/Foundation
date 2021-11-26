@@ -1,5 +1,4 @@
 ﻿using System;
-using Chinchillada;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -10,7 +9,7 @@ namespace Chinchillada
     /// A variable of the given type that is wrapped in a <see cref="ScriptableObject"/> so it can be easily shared by different systems
     /// in a modular way.
     /// </summary> 
-    public abstract class SharedVariable<T> : ScriptableObject, IContainer<T>,
+    public abstract class SharedVariable<T> : ScriptableObject, IVariable<T>, IContainer<T>,
                                               ISerializationCallbackReceiver
         where T : IComparable
     {
