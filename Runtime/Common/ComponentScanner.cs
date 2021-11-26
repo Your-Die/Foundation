@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Chinchillada
 {
-    public class ComponentScanner<T> : ChinchilladaBehaviour, IProvider<T>
+    public class ComponentScanner<T> : AutoRefBehaviour, IProvider<T>
     where T : Component
     {
         [SerializeField, FindComponent] private Transform center;

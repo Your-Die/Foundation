@@ -3,7 +3,7 @@ namespace Chinchillada.Behavior
     using Sirenix.OdinInspector;
     using Sirenix.Serialization;
 
-    public class EnableDisableActionCaller : ChinchilladaBehaviour
+    public class EnableDisableActionCaller : AutoRefBehaviour
     {
         [OdinSerialize, Required] private IRevertableAction action;
 

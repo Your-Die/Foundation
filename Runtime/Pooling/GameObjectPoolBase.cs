@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Chinchillada;
 using UnityEngine;
 
-public abstract class GameObjectPoolBase : ChinchilladaBehaviour, IGameObjectPool
+public abstract class GameObjectPoolBase : AutoRefBehaviour, IGameObjectPool
 {
     public abstract IReadOnlyCollection<GameObject> ActiveObjects { get; }
     public abstract event Action<GameObject> InstantiatedEvent;

@@ -4,7 +4,7 @@
     using System.Collections;
     using Sirenix.OdinInspector;
 
-    public class ExecutableComponent : ChinchilladaBehaviour, IExecutable
+    public class ExecutableComponent : AutoRefBehaviour, IExecutable
     {
         [OdinSerialize, Required] private IExecutable executable;
 

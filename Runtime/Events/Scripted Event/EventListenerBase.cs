@@ -4,7 +4,7 @@ namespace Chinchillada
     using UnityEngine;
     using UnityEngine.Serialization;
 
-    public abstract class EventListenerBase : ChinchilladaBehaviour
+    public abstract class EventListenerBase : AutoRefBehaviour
     {
         /// <summary>
         /// The <see cref="ScriptedEvent"/> we listen to.

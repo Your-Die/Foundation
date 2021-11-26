@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace Chinchillada
 {
-    public abstract class ScriptedEventListenerBase<T> : ChinchilladaBehaviour
+    public abstract class ScriptedEventListenerBase<T> : AutoRefBehaviour
     {
         /// <summary>
         /// The <see cref="ScriptedEvent"/> we listen to.

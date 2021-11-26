@@ -4,7 +4,7 @@ namespace Chinchillada
     using Sirenix.OdinInspector;
     using Sirenix.Serialization;
 
-    public class VariableComponent<T> : ChinchilladaBehaviour, IVariable<T>
+    public class VariableComponent<T> : AutoRefBehaviour, IVariable<T>
     {
         [OdinSerialize, Required] private IVariable<T> variable;
 

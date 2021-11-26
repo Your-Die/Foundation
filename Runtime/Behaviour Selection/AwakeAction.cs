@@ -3,7 +3,7 @@ namespace Chinchillada.Behavior
     using Sirenix.OdinInspector;
     using Sirenix.Serialization;
 
-    public class AwakeAction : ChinchilladaBehaviour
+    public class AwakeAction : AutoRefBehaviour
     {
         [OdinSerialize, Required] private IAction action;
 

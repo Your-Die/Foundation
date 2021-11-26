@@ -3,7 +3,7 @@
     using Sirenix.OdinInspector;
     using Sirenix.Serialization;
 
-    public class ConditionComponent : ChinchilladaBehaviour, ICondition
+    public class ConditionComponent : AutoRefBehaviour, ICondition
     {
         [OdinSerialize, Required] private ICondition condition;
 

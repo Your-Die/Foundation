@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Chinchillada
 {    
-    public class ReferenceInitializer : ChinchilladaBehaviour
+    public class ReferenceInitializer : AutoRefBehaviour
     {
         [SerializeField] private IReference referenceAsset;
 
