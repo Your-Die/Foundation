@@ -9,8 +9,7 @@ namespace Chinchillada
     /// A variable of the given type that is wrapped in a <see cref="ScriptableObject"/> so it can be easily shared by different systems
     /// in a modular way.
     /// </summary> 
-    public abstract class SharedVariable<T> : SerializedScriptableObject, IVariable<T>, IContainer<T>,
-                                              ISerializationCallbackReceiver
+    public abstract class SharedVariable<T> : SerializedScriptableObject, IVariable<T>, IContainer<T>
         where T : IComparable
     {
         [FormerlySerializedAs("_initialValue")] [SerializeField]
@@ -45,11 +44,7 @@ namespace Chinchillada
         /// <summary>
         /// Resets the variable to the initial value.
         /// </summary>
-        public void OnBeforeSerialize() => this.Value = this.initialValue;
-
-        public void OnAfterDeserialize()
-        {
-        }
+        protected override void OnBeforeSerialize() => this.Value = this.initialValue;
 
         /// <summary>
         /// Will cause the current value to be used as the new value outside of play-mode.
