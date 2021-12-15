@@ -2,8 +2,6 @@
 
 namespace Chinchillada.Timers
 {
-    using BombWatch;
-
     public interface ITimer : IHasDuration
     {
         UnityEvent Finished { get; }

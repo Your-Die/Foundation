@@ -1,4 +1,4 @@
-namespace BombWatch
+namespace Chinchillada
 {
     public interface IHasDuration
     {
