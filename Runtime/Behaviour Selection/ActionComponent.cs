@@ -5,7 +5,7 @@
 
     public class ActionComponent : ActionComponentBase
     {
-        [OdinSerialize, Required, FindNestedComponents] private IAction action;
+        [OdinSerialize, Required] private IAction action;
 
         public IAction Action
         {
