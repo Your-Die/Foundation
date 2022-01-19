@@ -13,7 +13,7 @@ namespace Chinchillada
         /// <summary>
         /// Event invoked when the value is changed.
         /// </summary>
-        event Action<T> ValueChanged;
+        event Action ValueChanged;
     }
 
     [Serializable]
@@ -30,10 +30,10 @@ namespace Chinchillada
                     return;
 
                 this.value = value;
-                this.ValueChanged?.Invoke(this.value);
+                this.ValueChanged?.Invoke();
             }
         }
 
-        public event Action<T> ValueChanged;
+        public event Action ValueChanged;
     }
 }

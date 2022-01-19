@@ -14,12 +14,12 @@ namespace Chinchillada
             set => this.variable.Value = value;
         }
 
-        public event Action<T> ValueChanged;
+        public event Action ValueChanged;
 
         private void OnEnable() => this.variable.ValueChanged += this.OnVariableChanged;
 
         private void OnDisable() => this.variable.ValueChanged -= this.OnVariableChanged;
 
-        private void OnVariableChanged(T value) => this.ValueChanged?.Invoke(value);
+        private void OnVariableChanged() => this.ValueChanged?.Invoke();
     }
 }

@@ -23,7 +23,7 @@ namespace Chinchillada
         /// <summary>
         /// Event invoked when the value is changed.
         /// </summary>
-        public event Action<T> ValueChanged;
+        public event Action ValueChanged;
 
         /// <summary>
         /// The value. 
@@ -37,7 +37,7 @@ namespace Chinchillada
                     return;
 
                 this.runtimeValue = value;
-                this.ValueChanged?.Invoke(value);
+                this.ValueChanged?.Invoke();
             }
         }
         
