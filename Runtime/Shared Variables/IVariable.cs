@@ -3,17 +3,20 @@ namespace Chinchillada
     using System;
     using UnityEngine;
 
-    public interface IVariable<T>
+    public interface IVariable
+    {
+        /// <summary>
+        /// Event invoked when the value is changed.
+        /// </summary>
+        event Action ValueChanged;
+    }
+
+    public interface IVariable<T> : IVariable
     {
         /// <summary>
         /// The value.
         /// </summary>
         T Value { get; set; }
-
-        /// <summary>
-        /// Event invoked when the value is changed.
-        /// </summary>
-        event Action ValueChanged;
     }
 
     [Serializable]
