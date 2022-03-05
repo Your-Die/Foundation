@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Xml.Schema;
     using Chinchillada;
     using UnityEngine;
@@ -10,8 +11,8 @@
     {
         void SetSeed(int seed);
         float Float();
-        float Range(float min,     float max);
-        int Range(int     min,     int   max, bool inclusive = false);
+        float Range(float min, float max);
+        int Range(int     min, int   max, bool inclusive = false);
     }
 
     public static class RNGExtensions
@@ -21,7 +22,7 @@
             while (true)
                 yield return generator.Invoke(rng);
         }
-        
+
         public static int Range(this IRNG rng, int max, bool inclusive = false)
         {
             return rng.Range(0, max, inclusive);
@@ -43,21 +44,21 @@
 
             return vector.normalized;
         }
-        
+
         public static bool Flip(this IRNG rng, float probability = 0.5f)
         {
             return rng.Float() < probability;
         }
-        
+
         public static T Choose<T>(this IRNG rng, T left, T right, float probability = 0.5f)
         {
             return rng.Flip(probability) ? left : right;
         }
-        
+
         public static T Choose<T>(this IRNG rng, params T[] items) => items.ChooseRandom(rng);
 
         public static float Range(this IRNG rng, Vector2 range) => rng.Range(range.x, range.y);
-        
+
         public static T Choose<T>(this IRNG rng) where T : Enum
         {
             return EnumHelper.GetValues<T>().ChooseRandom(rng);
@@ -82,5 +83,30 @@
 
             return center + delta;
         }
+
+        public static T ChooseAndExtract<T>(this IRNG random, IList<T> list)
+        {
+            var index = random.ChooseIndex(list);
+            var item  = list[index];
+
+            list.RemoveAt(index);
+
+            return item;
+        }
+
+        public static T Choose<T>(this IRNG random, IReadOnlyList<T> list)
+        {
+            var index = random.ChooseIndex(list);
+            return list[index];
+        }
+
+        public static T Choose<T>(this IRNG random, IReadOnlyCollection<T> items)
+        {
+            var index = random.ChooseIndex(items);
+            return items.ElementAt(index);
+        }
+
+        public static int ChooseIndex<T>(this IRNG random, IList<T>               list) => random.Range(0, list.Count);
+        public static int ChooseIndex<T>(this IRNG random, IReadOnlyCollection<T> list) => random.Range(0, list.Count);
     }
 }
