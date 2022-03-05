@@ -1,4 +1,4 @@
-namespace Chinchillada.PCGraph
+namespace Chinchillada
 {
     public class URandomFactory : IFactory<UnityRandom>
     {
