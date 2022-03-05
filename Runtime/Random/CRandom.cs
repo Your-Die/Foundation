@@ -23,6 +23,13 @@
 
         [ShowInInspector] [ReadOnly] private int runtimeSeed;
 
+        public CRandom(int seed)
+        {
+            this.seed          = seed;
+            this.useRandomSeed = false;
+        }
+
+
         [Button]
         public void Initialize()
         {
