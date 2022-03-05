@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Chinchillada
+﻿namespace Chinchillada
 {
-    using Chinchillada;
+    using System.Collections.Generic;
 
-    public interface IGenerator<T> : ISource<T>
+    public interface IGenerator<T>
     {
-        T Result { get; }
-        event Action<T> Generated;
         T Generate();
     }
+
     public static class GeneratorExtensions
     {
         public static IEnumerable<T> Generate<T>(this IGenerator<T> generator, int amount)
@@ -18,4 +14,5 @@ namespace Chinchillada
             for (var i = 0; i < amount; i++)
                 yield return generator.Generate();
         }
-    }}
+    }
+}

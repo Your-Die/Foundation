@@ -28,6 +28,16 @@ namespace Chinchillada
             foreach (var item in enumerable) 
                 action.Invoke(item);
         }
+
+        public static void ForEach<T>(this IEnumerable<T> items, Action<T, int> action)
+        {
+            var index = 0;
+            foreach (var item in items)
+            {
+                action.Invoke(item, index);
+                index++;
+            }
+        }
         
         /// <summary>
         /// Ensures the <paramref name="enumerable"/> is an array.
