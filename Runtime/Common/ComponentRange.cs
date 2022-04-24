@@ -3,7 +3,7 @@ using Chinchillada;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class ComponentRange<T> : ChinchilladaBehaviour, IProvider<T>
+public class ComponentRange<T> : AutoRefBehaviour, IProvider<T>
     where T : Component
 {
     private readonly LinkedList<T> components = new LinkedList<T>();

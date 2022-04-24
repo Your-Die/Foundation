@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 namespace Chinchillada
 {
-    public class EventComponent : ChinchilladaBehaviour, IInvokableEvent
+    public class EventComponent : AutoRefBehaviour, IInvokableEvent
     {
         [SerializeField] private IInvokableEvent @event;
         
@@ -15,7 +15,7 @@ namespace Chinchillada
         public void Invoke() => this.@event.Invoke();
     }
     
-    public class ObjectEvent<T> : ChinchilladaBehaviour, IInvokableEvent<T>
+    public class ObjectEvent<T> : AutoRefBehaviour, IInvokableEvent<T>
     {
         private readonly TypedEvent<T> @event = new TypedEvent<T>();
         public void Invoke(T context) => this.@event.Invoke(context);

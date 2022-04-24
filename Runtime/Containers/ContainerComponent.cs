@@ -2,7 +2,7 @@ namespace Chinchillada
 {
     using Sirenix.Serialization;
 
-    public class ContainerComponent<T> : ChinchilladaBehaviour, IDelegateContainer<T>
+    public class ContainerComponent<T> : AutoRefBehaviour, IDelegateContainer<T>
     {
         [OdinSerialize] private IDelegateContainer<T> container;
 

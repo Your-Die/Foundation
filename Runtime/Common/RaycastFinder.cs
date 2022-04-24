@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Utilities.Common
 {
-    public class RaycastFinder<T> : ChinchilladaBehaviour, IProvider<T>
+    public class RaycastFinder<T> : AutoRefBehaviour, IProvider<T>
         where T : Component
     {
         [SerializeField, FindComponent] private Transform origin;

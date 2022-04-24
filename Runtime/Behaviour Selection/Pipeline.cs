@@ -6,7 +6,7 @@ namespace Chinchillada.Behavior
     using Sirenix.OdinInspector;
     using UnityEngine;
 
-    public class Pipeline : ChinchilladaBehaviour, IExecutable
+    public class Pipeline : AutoRefBehaviour, IExecutable
     {
         [SerializeField] private List<IExecutable> executables;
 

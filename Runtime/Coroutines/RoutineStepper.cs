@@ -5,7 +5,7 @@ namespace Chinchillada
     using Sirenix.OdinInspector;
     using Sirenix.Serialization;
     
-    public class RoutineStepper : ChinchilladaBehaviour
+    public class RoutineStepper : AutoRefBehaviour
     {
         [OdinSerialize] private IRoutine routineSource;
 

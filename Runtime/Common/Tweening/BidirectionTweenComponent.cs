@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Chinchillada
 {
-    public class BidirectionTweenComponent : ChinchilladaBehaviour, IBidirectionalTweener
+    public class BidirectionTweenComponent : AutoRefBehaviour, IBidirectionalTweener
     {
         [SerializeField] private IBidirectionalTweener tweener;
         public void TweenForward() => this.tweener.TweenForward();

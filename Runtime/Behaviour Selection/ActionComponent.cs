@@ -3,7 +3,7 @@
     using Sirenix.OdinInspector;
     using Sirenix.Serialization;
 
-    public class ActionComponent : ChinchilladaBehaviour, IAction
+    public class ActionComponent : AutoRefBehaviour, IAction
     {
         [OdinSerialize, Required] private IAction action;
 

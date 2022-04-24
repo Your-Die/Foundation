@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace Chinchillada
 {
-    public class DebugEvent : ChinchilladaBehaviour
+    public class DebugEvent : AutoRefBehaviour
     {
         [SerializeField] private UnityEvent @event;
 

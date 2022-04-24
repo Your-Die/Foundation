@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Chinchillada.Common
 {
-    public class TransformMoveTween : ChinchilladaBehaviour
+    public class TransformMoveTween : AutoRefBehaviour
     {
         [SerializeField] private Transform target;
 

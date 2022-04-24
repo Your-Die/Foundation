@@ -3,7 +3,7 @@
     using Chinchillada;
     using UnityEngine;
 
-    public class RNGComponent : ChinchilladaBehaviour, IRNG
+    public class RNGComponent : AutoRefBehaviour, IRNG
     {
         [SerializeField] private IRNG random;
 

@@ -1,6 +1,6 @@
 ﻿namespace Chinchillada
 {
-    public abstract class SubscriberBehaviour : ChinchilladaBehaviour
+    public abstract class SubscriberBehaviour : AutoRefBehaviour
     {
         public bool IsSubscribed { get; private set; }
 

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Chinchillada
 {
-    public abstract class SingleInstanceBehaviour<T> : ChinchilladaBehaviour where T : SingleInstanceBehaviour<T>
+    public abstract class SingleInstanceBehaviour<T> : AutoRefBehaviour where T : SingleInstanceBehaviour<T>
     {
         public static T Instance { get; private set; }
 
