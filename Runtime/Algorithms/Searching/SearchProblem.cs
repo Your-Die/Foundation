@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Utilities.Algorithms
+namespace Chinchillada.Algorithms
 {
     /// <summary>
     /// Definition of a search problem.

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Chinchillada;
 
-namespace Utilities.Algorithms
+namespace Chinchillada.Algorithms
 {
     public static class Search
     {
