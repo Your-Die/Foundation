@@ -1,10 +1,119 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Chinchillada.Foundation
+﻿namespace Chinchillada.Foundation
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
+
+    public struct Circle
+    {
+        public Vector2 Position { get; set; }
+        
+        public float Radius { get; set; }
+
+        public bool IntersectsWith(Line line)
+        {
+            var delta    = line.GetDelta();
+            var distance = line.Start - this.Position;
+
+            var a = Vector2.Dot(delta, delta);
+            var b = 2 * Vector2.Dot(distance, delta);
+            var c = Vector2.Dot(distance, distance) - this.Radius * this.Radius;
+
+            var discriminant = b * b - 4 * a * c;
+            if (discriminant < 0)
+                return false;
+
+            // ray didn't totally miss sphere,
+            // so there is a solution to
+            // the equation.
+
+            discriminant = Mathf.Sqrt(discriminant);
+
+            // either solution may be on or off the ray so need to test both
+            // t1 is always the smaller value, because BOTH discriminant and
+            // a are nonnegative.
+            var t1 = (-b - discriminant) / (2 * a);
+            var t2 = (-b + discriminant) / (2 * a);
+
+            // 3x HIT cases:
+            //          -o->             --|-->  |            |  --|->
+            // Impale(t1 hit,t2 hit), Poke(t1 hit,t2>1), ExitWound(t1<0, t2 hit), 
+
+            // 3x MISS cases:
+            //       ->  o                     o ->              | -> |
+            // FallShort (t1>1,t2>1), Past (t1<0,t2<0), CompletelyInside(t1<0, t2>1)
+
+
+            // t1 is the intersection, and it's closer than t2
+            // (since t1 uses -b - discriminant)
+            // Impale, Poke
+            if (t1 >= 0 && t1 <= 1)
+                return true;
+
+            // here t1 didn't intersect so we are either started
+            // inside the sphere or completely past it
+            // ExitWound
+            if (t2 >= 0 && t2 <= 1)
+                return true;
+
+            // CompletelyInside
+            if (t1 < 0 && t2 > 1)
+                return true;
+
+            // no intn: FallShort, Past, CompletelyInside
+            return false;
+        }
+
+        public void DrawGizmo(float height)
+        {
+            var position3D = new Vector3(this.Position.x, height, this.Position.y);
+            
+            Gizmos.DrawWireSphere(position3D, this.Radius);
+        }
+    }
+    
+    public struct Line
+    {
+        public Vector2 Start { get; set; }
+        public Vector2 End   { get; set; }
+
+        public void Shrink(float extremitySize)
+        {
+            var delta     = (this.End - this.Start).normalized;
+            var extremity = delta * extremitySize;
+
+            this.Start += extremity;
+            this.End   -= extremity;
+        }
+
+        public Vector2 GetDelta() => this.End - this.Start;
+
+        public bool IntersectsWith(Line other)
+        {
+            var deltaA = this.End  - this.Start;
+            var deltaB = other.End - other.Start;
+
+            var s = (-deltaA.y * (this.Start.x - other.Start.x) +
+                     deltaA.x  * (this.Start.y - other.Start.y)) /
+                    (-deltaB.x * deltaA.y + deltaA.x * deltaB.y);
+            var t = (deltaB.x * (this.Start.y - other.Start.y) -
+                     deltaB.y * (this.Start.x - other.Start.x)) /
+                    (-deltaB.x * deltaA.y + deltaA.x * deltaB.y);
+
+            return s >= 0 && s <= 1 && t >= 0 && t <= 1;
+        }
+
+        public void DrawGizmo(float height)
+        {
+            var start3D = To3D(this.Start);
+            var end3D   = To3D(this.End);
+
+            Gizmos.DrawLine(start3D, end3D);
+            
+            Vector3 To3D(Vector2 point) => new Vector3(point.x, height, point.y);
+        }
+    }
 
     /// <summary>
     /// Static class of math functions.
@@ -34,14 +143,14 @@ namespace Chinchillada.Foundation
         {
             //Cast to float.
             float pointAsFloat = point;
-            float minAsFloat = min;
-            float maxAsFloat = max;
+            float minAsFloat   = min;
+            float maxAsFloat   = max;
 
             //Call float overload.
             float percentage = PercentageBetween(pointAsFloat, minAsFloat, maxAsFloat) * 100;
 
             //Cast back to int.
-            return (int) percentage;
+            return (int)percentage;
         }
 
         /// <summary>
@@ -104,7 +213,7 @@ namespace Chinchillada.Foundation
         /// </summary>
         public static int LCM(int x, int y)
         {
-            var gcd = GCD(x, y);
+            var gcd     = GCD(x, y);
             var product = x * y;
 
             return product / gcd;
@@ -112,7 +221,7 @@ namespace Chinchillada.Foundation
 
         public static IEnumerable<int> ShrinkValues(IEnumerable<int> values)
         {
-            var valueList = values.EnsureList();
+            var valueList             = values.EnsureList();
             int greatestCommonDivider = valueList.GCD();
 
             return valueList.Select(value => value / greatestCommonDivider);
@@ -124,29 +233,15 @@ namespace Chinchillada.Foundation
             return division * multiple;
         }
 
-
-        public static bool LineLineIntersection(Vector2 startA, Vector2 endA, Vector2 startB, Vector2 endB)
-        {
-            var deltaA = endA - startA;
-            var deltaB = endB - startB;
-
-            var s = (-deltaA.y * (startA.x - startB.x) + deltaA.x * (startA.y - startB.y)) /
-                    (-deltaB.x * deltaA.y + deltaA.x * deltaB.y);
-            var t = (deltaB.x * (startA.y - startB.y) - deltaB.y * (startA.x - startB.x)) /
-                    (-deltaB.x * deltaA.y + deltaA.x * deltaB.y);
-
-            return s >= 0 && s <= 1 && t >= 0 && t <= 1;
-        }
-
-        public static bool CircleLineIntersection(Vector2 circleCenter, float circleRadius,
+        public static bool CircleLineIntersection(Vector2 circleCenter, float   circleRadius,
                                                   Vector2 lineStart,    Vector2 lineEnd)
         {
             var delta    = lineEnd   - lineStart;
             var distance = lineStart - circleCenter;
 
-            var a = Vector2.Dot(delta, delta );
-            var b = 2 * Vector2.Dot(distance, delta );
-            var c = Vector2.Dot(distance,     distance) - circleRadius * circleRadius;
+            var a = Vector2.Dot(delta, delta);
+            var b = 2 * Vector2.Dot(distance, delta);
+            var c = Vector2.Dot(distance, distance) - circleRadius * circleRadius;
 
             var discriminant = b * b - 4 * a * c;
             if (discriminant < 0)
@@ -156,7 +251,7 @@ namespace Chinchillada.Foundation
             // so there is a solution to
             // the equation.
 
-            discriminant = Mathf.Sqrt( discriminant );
+            discriminant = Mathf.Sqrt(discriminant);
 
             // either solution may be on or off the ray so need to test both
             // t1 is always the smaller value, because BOTH discriminant and
@@ -172,18 +267,18 @@ namespace Chinchillada.Foundation
             //       ->  o                     o ->              | -> |
             // FallShort (t1>1,t2>1), Past (t1<0,t2<0), CompletelyInside(t1<0, t2>1)
 
-        
+
             // t1 is the intersection, and it's closer than t2
             // (since t1 uses -b - discriminant)
             // Impale, Poke
-            if ( t1 >= 0 && t1 <= 1 )
+            if (t1 >= 0 && t1 <= 1)
                 return true;
 
             // here t1 didn't intersect so we are either started
             // inside the sphere or completely past it
             // ExitWound
-            if ( t2 >= 0 && t2 <= 1 )
-                return true ;
+            if (t2 >= 0 && t2 <= 1)
+                return true;
 
             // CompletelyInside
             if (t1 < 0 && t2 > 1)
