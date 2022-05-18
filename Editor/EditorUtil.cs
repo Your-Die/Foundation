@@ -2,7 +2,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace Utilities
+namespace Chinchillada
 {
     public static class EditorUtil
     {

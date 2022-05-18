@@ -1,4 +1,4 @@
-namespace Utilities.Common
+namespace Chinchillada.Common
 {
     public interface IScorer<T>
     {

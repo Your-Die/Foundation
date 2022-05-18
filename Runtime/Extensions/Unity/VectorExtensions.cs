@@ -24,6 +24,8 @@ namespace Chinchillada
 
         public static Vector2 XY(this Vector3 vector) => new Vector2(vector.x, vector.y);
 
+        public static Vector2 XZ(this Vector3 vector3) => new Vector2(vector3.x, vector3.z);
+        
         public static Vector3 Average(this IEnumerable<Vector3> vectors)
         {
             var list = vectors.ToList();

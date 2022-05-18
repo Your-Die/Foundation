@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Utilities.Common
+namespace Chinchillada.Common
 {
     public interface IIndexable<T> : IEnumerable<T>
     {

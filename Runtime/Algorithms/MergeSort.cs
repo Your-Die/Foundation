@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Utilities.Algorithms
+namespace Chinchillada.Algorithms
 {
     public class MergeSort
     {
