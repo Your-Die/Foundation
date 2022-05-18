@@ -118,5 +118,13 @@ namespace Chinchillada
 
             return xDistance + yDistance;
         }
+
+        public static float DistanceToXZ(this Vector3 from, Vector3 to)
+        {
+            var fromXZ = from.XZ();
+            var toXZ   = to.XZ();
+
+            return Vector2.Distance(fromXZ, toXZ);
+        }
     }
 }
