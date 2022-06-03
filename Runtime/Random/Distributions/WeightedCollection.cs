@@ -7,8 +7,17 @@ namespace Chinchillada
 
     public class WeightedCollection<T> : IDistribution<T>
     {
-        [OdinSerialize, Required] private Dictionary<T, float> weightedItems = new Dictionary<T, float>(); 
-        
+        [OdinSerialize, Required] private IDictionary<T, float> weightedItems = new Dictionary<T, float>();
+
+        public WeightedCollection()
+        {
+        }
+
+        public WeightedCollection(IDictionary<T, float> items)
+        {
+            this.weightedItems = items;
+        }
+
         public T Sample(IRNG random)
         {
             var weightTotal = this.weightedItems.Values.Sum();
@@ -16,7 +25,7 @@ namespace Chinchillada
             var price = random.Range(0, weightTotal);
 
             var items = this.weightedItems.Keys.RandomOrder(random).ToArray();
-            
+
             foreach (var item in items)
             {
                 var weight = this.weightedItems[item];
@@ -29,6 +38,16 @@ namespace Chinchillada
             }
 
             return items.Last();
+        }
+
+       
+    }
+    
+    public class WeightedCollectionFactory : IDistributionFactory
+    {
+        public IDistribution<T> BuildDistribution<T>(IDictionary<T, float> items)
+        {
+            return new WeightedCollection<T>(items);
         }
     }
 }
