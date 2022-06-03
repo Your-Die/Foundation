@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Sirenix.Serialization;
 
 namespace Chinchillada
 {
+
     [CreateAssetMenu(menuName = "Scrobs/Collections/List")]
     public class ScriptableList<T> : SerializedScriptableObject, IList<T>
     {
-        [SerializeField] private IList<T> list = new List<T>();
+        [OdinSerialize] private IList<T> list = new List<T>();
         
         public int Count => this.list.Count;
 
