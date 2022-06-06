@@ -7,6 +7,15 @@ namespace Chinchillada.Foundation
 {
     public static class ListExtensions
     {
+        public static bool AddNew<T>(this ICollection<T> list, T item)
+        {
+            if (list.Contains(item))
+                return false;
+
+            list.Add(item);
+            return true;
+        }
+        
         public static void AddNew<T>(this IList<T> list, IEnumerable<T> other)
         {
             var newItems = other.Except(list).ToArray();
