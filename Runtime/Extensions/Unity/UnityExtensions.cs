@@ -35,5 +35,10 @@ namespace Chinchillada
             for (var index = 0; index < transform.childCount; index++)
                 yield return transform.GetChild(index);
         }
+        
+        public static bool Contains(this LayerMask layerMask, GameObject gameObject)
+        {
+            return ((layerMask.value & (1 << gameObject.layer)) > 0);
+        }
     }
 }
