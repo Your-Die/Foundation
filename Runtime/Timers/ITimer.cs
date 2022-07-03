@@ -2,13 +2,8 @@
 
 namespace Chinchillada.Timers
 {
-    public interface ITimer
+    public interface ITimer : IHasDuration
     {
-        /// <summary>
-        /// Duration of the timer.
-        /// </summary>
-        float Duration { get; }
-
         UnityEvent Finished { get; }
 
         /// <summary>
