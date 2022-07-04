@@ -12,6 +12,15 @@ namespace Chinchillada
             var newItems = other.Except(list).ToArray();
             list.AddRange(newItems);
         }
+
+        public static bool AddIfNew<T>(this ICollection<T> list, T item)
+        {
+            if (list.Contains(item))
+                return false;
+            
+            list.Add(item);
+            return true;
+        }
         
         public static int LastIndex<T>(this IList<T> list)
         {
