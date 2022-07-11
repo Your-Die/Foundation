@@ -23,4 +23,9 @@ namespace Chinchillada.Foundation.Coroutines
             this.isEventTriggered = true;
         }
     }
+
+    public static class UnityEventAwaitExtensions
+    {
+        public static UnityEventAwaiter Await(this UnityEvent @event) => new UnityEventAwaiter(@event);
+    }
 }
