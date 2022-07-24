@@ -7,8 +7,7 @@ namespace Chinchillada
     /// Can also contain a constant value instead.
     /// </summary>
     [Serializable]
-    public abstract class VariableReference<T>
-        where T : IComparable, IEquatable<T>
+    public abstract class VariableReference<T>  where T : IComparable, IEquatable<T>
     {
         /// <summary>
         /// The constant value if we use that instead of a <see cref="SharedVariable{T}"/>.

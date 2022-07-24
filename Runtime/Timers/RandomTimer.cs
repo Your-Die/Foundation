@@ -41,6 +41,8 @@ namespace Chinchillada.Timers
         /// <inheritdoc />
         public float Duration => this.timer?.Duration ?? 0;
 
+        public float Remaining => this.timer.Remaining;
+
         /// <inheritdoc />
         public UnityEvent Finished => this.finished;
 

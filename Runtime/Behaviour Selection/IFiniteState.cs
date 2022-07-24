@@ -1,8 +1,17 @@
 ﻿namespace Chinchillada.Behavior
 {
+    using System;
+
+    public interface IObservableState : IFiniteState
+    {
+        event Action Entered;
+        event Action Exited;
+    }
+
     public interface IFiniteState
     {
         bool IsActive { get; }
+
         void Enter();
         void Exit();
     }

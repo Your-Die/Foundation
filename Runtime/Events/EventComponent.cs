@@ -1,18 +1,16 @@
 ﻿using System;
-using UnityEngine;
-using UnityEngine.Events;
 
 namespace Chinchillada
 {
-    public class EventComponent : AutoRefBehaviour, IInvokableEvent
+    using Sirenix.Serialization;
+
+    public class EventComponent : AutoRefBehaviour, IEvent
     {
-        [SerializeField] private IInvokableEvent @event;
+        [OdinSerialize] private IEvent @event;
         
         public void Subscribe(Action action) => this.@event.Subscribe(action);
 
         public void Unsubscribe(Action action) => this.@event.Unsubscribe(action);
-
-        public void Invoke() => this.@event.Invoke();
     }
     
     public class ObjectEvent<T> : AutoRefBehaviour, IInvokableEvent<T>
