@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Chinchillada
 {
-    public class CameraMover : ChinchilladaBehaviour
+    public class CameraMover : AutoRefBehaviour
     {
         [SerializeField] private float moveSpeed = 10;
         [SerializeField] private float zoomSpeed = 1;

@@ -5,6 +5,7 @@ using System.Linq;
 namespace Chinchillada
 {
     using System.Collections;
+    using System.ComponentModel;
 
     /// <summary>
     /// Class containing extension methods for <see cref="IEnumerable{T}"/>.
@@ -85,9 +86,15 @@ namespace Chinchillada
         {
             return collection.Count == other.Count && collection.All(other.Contains);
         }
-        
+
+        public static IEnumerable<TResult> SelectNotNull<TSource, TResult>(this IEnumerable<TSource> items,
+                                                                           Func<TSource, TResult> selector)
+        {
+            return items.Select(selector).Where(Equality.NotNull);
+        }
+
         public static IEnumerable<TOutput> SelectWithIndex<TInput, TOutput>(this IEnumerable<TInput> enumerable,
-            Func<TInput, int, TOutput> selector)
+                                                                            Func<TInput, int, TOutput> selector)
         {
             var index = 0;
             foreach (var item in enumerable)

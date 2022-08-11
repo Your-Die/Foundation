@@ -3,7 +3,7 @@ namespace Chinchillada
     using Sirenix.OdinInspector;
     using UnityEngine;
 
-    public class BehaviourWithGizmos : ChinchilladaBehaviour
+    public class BehaviourWithGizmos : AutoRefBehaviour
     {
         protected const string GizmoGroup = "Gizmos";
         

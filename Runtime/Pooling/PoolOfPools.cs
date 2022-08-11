@@ -1,6 +1,6 @@
 using Chinchillada;
 
-namespace Utilities.Pooling
+namespace Chinchillada.Pooling
 {
     public class PoolOfPools : SingletonBehaviour<PoolOfPools>
     {

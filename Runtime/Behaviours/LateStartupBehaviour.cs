@@ -1,6 +1,6 @@
 ﻿namespace Chinchillada
 {
-    public abstract class LateStartupBehaviour  : ChinchilladaBehaviour
+    public abstract class LateStartupBehaviour  : AutoRefBehaviour
     {
         private bool hasStarted;
 

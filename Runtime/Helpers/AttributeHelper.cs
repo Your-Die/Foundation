@@ -15,7 +15,9 @@ namespace Chinchillada
         public static IEnumerable<(FieldInfo field, TAttribute)> GetAttributedFields<TAttribute>(object obj)
             where TAttribute : PropertyAttribute
         {
-            var fields = GetAllFields(obj);
+            var type   = obj.GetType();
+            var fields = GetAllFields(type);
+
             var attributeType = typeof(TAttribute);
 
             foreach (var field in fields)
@@ -24,18 +26,27 @@ namespace Chinchillada
                 if (attributes.IsEmpty())
                     continue;
 
-                var attribute = (TAttribute)attributes.First();
+                var attribute = (TAttribute) attributes.First();
                 yield return (field, attribute);
             }
         }
 
-        private static IEnumerable<FieldInfo> GetAllFields(object obj)
+
+        private static IEnumerable<FieldInfo> GetAllFields(Type type)
         {
-            const BindingFlags bindingFlags = BindingFlags.Instance |
-                                              BindingFlags.NonPublic |
+            const BindingFlags bindingFlags = BindingFlags.Instance     |
+                                              BindingFlags.DeclaredOnly |
+                                              BindingFlags.NonPublic    |
                                               BindingFlags.Public;
-            var type = obj.GetType();
-            return type.GetFields(bindingFlags);
+
+            var types = GetBaseClasses(type);
+            return types.SelectMany(baseType => baseType.GetFields(bindingFlags));
+        }
+
+        private static IEnumerable<Type> GetBaseClasses(Type type)
+        {
+            for (var current = type; current != null; current = current.BaseType)
+                yield return current;
         }
     }
 }

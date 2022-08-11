@@ -18,6 +18,8 @@ namespace Chinchillada.Timers
         ///<inheritdoc />
         public float Duration => this.timer.Duration;
 
+        public float Remaining => this.timer.Remaining;
+
         ///<inheritdoc />
         public UnityEvent Finished => this.timer.Finished;
 

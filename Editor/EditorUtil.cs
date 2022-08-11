@@ -1,9 +1,9 @@
-using System.IO;
-using UnityEditor;
-using UnityEngine;
-
-namespace Utilities
+namespace Chinchillada
 {
+    using System.IO;
+    using UnityEditor;
+    using UnityEngine;
+
     public static class EditorUtil
     {
         public static string GetAssetFolder(Object asset)
@@ -15,9 +15,9 @@ namespace Utilities
                 return "Assets";
 
             // Path is already a folder.
-            if (!Path.HasExtension(path)) 
+            if (!Path.HasExtension(path))
                 return path;
-            
+
             // Remove the file name from the path.
             var fileName = Path.GetFileName(path);
             return path.Replace(fileName, string.Empty);

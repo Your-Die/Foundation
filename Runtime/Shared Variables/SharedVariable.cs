@@ -1,5 +1,4 @@
 ﻿using System;
-using Chinchillada;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -10,9 +9,8 @@ namespace Chinchillada
     /// A variable of the given type that is wrapped in a <see cref="ScriptableObject"/> so it can be easily shared by different systems
     /// in a modular way.
     /// </summary> 
-    public abstract class SharedVariable<T> : ScriptableObject, IListenable<T>, IContainer<T>,
-                                              ISerializationCallbackReceiver
-        where T : IComparable, IEquatable<T>
+    public abstract class SharedVariable<T> : SerializedScriptableObject, IVariable<T>, IContainer<T>
+        where T : IComparable
     {
         [FormerlySerializedAs("_initialValue")] [SerializeField]
         private T initialValue;
@@ -25,7 +23,7 @@ namespace Chinchillada
         /// <summary>
         /// Event invoked when the value is changed.
         /// </summary>
-        public event Action<T> ValueChanged;
+        public event Action ValueChanged;
 
         /// <summary>
         /// The value. 
@@ -35,22 +33,18 @@ namespace Chinchillada
             get => this.runtimeValue;
             set
             {
-                if (this.runtimeValue.CompareTo(value) != 0)
+                if (this.runtimeValue.CompareTo(value) == 0)
                     return;
 
                 this.runtimeValue = value;
-                this.ValueChanged?.Invoke(value);
+                this.ValueChanged?.Invoke();
             }
         }
         
         /// <summary>
         /// Resets the variable to the initial value.
         /// </summary>
-        public void OnBeforeSerialize() => this.Value = this.initialValue;
-
-        public void OnAfterDeserialize()
-        {
-        }
+        protected override void OnBeforeSerialize() => this.Value = this.initialValue;
 
         /// <summary>
         /// Will cause the current value to be used as the new value outside of play-mode.

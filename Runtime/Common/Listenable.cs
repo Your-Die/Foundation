@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Chinchillada.Common
 {
     [Serializable]
-    public class Listenable<T> : IListenable<T> where T : IEquatable<T>
+    public class Listenable<T> where T : IEquatable<T>
     {
         [SerializeField] private T currentValue;
 

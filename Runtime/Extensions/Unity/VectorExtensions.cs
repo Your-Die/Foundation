@@ -24,6 +24,8 @@ namespace Chinchillada
 
         public static Vector2 XY(this Vector3 vector) => new Vector2(vector.x, vector.y);
 
+        public static Vector2 XZ(this Vector3 vector3) => new Vector2(vector3.x, vector3.z);
+        
         public static Vector3 Average(this IEnumerable<Vector3> vectors)
         {
             var list = vectors.ToList();
@@ -115,6 +117,14 @@ namespace Chinchillada
             var yDistance = Mathf.Abs(vector.y - other.y);
 
             return xDistance + yDistance;
+        }
+
+        public static float DistanceToXZ(this Vector3 from, Vector3 to)
+        {
+            var fromXZ = from.XZ();
+            var toXZ   = to.XZ();
+
+            return Vector2.Distance(fromXZ, toXZ);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Chinchillada.Generation.Turtle
     using Sirenix.Serialization;
     using UnityEngine;
 
-    public class CameraBackground : ChinchilladaBehaviour
+    public class CameraBackground : AutoRefBehaviour
     {
         [SerializeField, FindComponent(SearchStrategy.InScene), Required]
         private Camera cam;
