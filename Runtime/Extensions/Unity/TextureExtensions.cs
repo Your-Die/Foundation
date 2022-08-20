@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Chinchillada
 {
@@ -8,13 +7,43 @@ namespace Chinchillada
         public static Texture2D Copy(this Texture2D texture)
         {
             var output = new Texture2D(texture.width, texture.height);
-            
-            var pixels = texture.GetPixels();
 
-            output.SetPixels(pixels);
+            for (var x = 0; x < texture.width; x++)
+            for (var y = 0; y < texture.height; y++)
+            {
+                var pixel = texture.GetPixel(x, y);
+                output.SetPixel(x, y, pixel);
+            }
+
             output.Apply();
 
             return output;
+        }
+
+        public static Texture2D Upscale(this Texture2D input, int upscale)
+        {
+            var width  = input.width  * upscale;
+            var height = input.height * upscale;
+
+            var upscaledTexture = new Texture2D(width, height);
+
+            for (var xInput = 0; xInput < input.width; xInput++)
+            for (var yInput = 0; yInput < input.height; yInput++)
+            {
+                var pixel = input.GetPixel(xInput, yInput);
+                
+                for (var xOffset = 0; xOffset < upscale; xOffset++)
+                for (var yOffset = 0; yOffset < upscale; yOffset++)
+                {
+                    var x = xInput * upscale + xOffset;
+                    var y = yInput * upscale + yOffset;
+                    
+                    upscaledTexture.SetPixel(x, y, pixel);
+                }
+            }
+
+            upscaledTexture.Apply();
+            return upscaledTexture;
         }
 
         /// <remarks>
