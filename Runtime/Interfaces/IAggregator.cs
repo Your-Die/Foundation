@@ -8,13 +8,23 @@ namespace Chinchillada
         public T Aggregate(IEnumerable<T> values);
     }
     
-    public class SumAggregator : IAggregator<float>
+    public class Sum : IAggregator<float>
     {
         public float Aggregate(IEnumerable<float> values) => values.Sum();
     }
 
-    public class AverageAggregator : IAggregator<float>
+    public class Mean : IAggregator<float>
     {
         public float Aggregate(IEnumerable<float> values) => values.Average();
+    }
+    
+    public class Min : IAggregator<float>
+    {
+        public float Aggregate(IEnumerable<float> values) => values.Min();
+    }
+    
+    public class Max : IAggregator<float>
+    {
+        public float Aggregate(IEnumerable<float> values) => values.Max();
     }
 }
