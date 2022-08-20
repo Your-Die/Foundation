@@ -459,5 +459,20 @@ namespace Chinchillada
 
             return enumerations;
         }
+
+        public static Dictionary<T, int> ToCountDictionary<T>(this IEnumerable<T> items)
+        {
+            var dictionary = new Dictionary<T, int>();
+
+            foreach (var item in items)
+            {
+                if (dictionary.TryGetValue(item, out var count))
+                    dictionary[item] = count + 1;
+                else
+                    dictionary[item] = 1;
+            }
+
+            return dictionary;
+        }
     }
 }
