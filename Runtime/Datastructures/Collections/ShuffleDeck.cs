@@ -1,11 +1,19 @@
 namespace Chinchillada
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     public class ShuffleDeck<T>
     {
         private readonly List<T> drawPile    = new List<T>();
         private readonly List<T> discardPile = new List<T>();
+
+        public int DrawCount    => this.drawPile.Count;
+        public int DiscardCount => this.discardPile.Count;
+
+        public ShuffleDeck(params T[] items) : this(items.AsEnumerable())
+        {
+        }
 
         public ShuffleDeck(IEnumerable<T> items)
         {
