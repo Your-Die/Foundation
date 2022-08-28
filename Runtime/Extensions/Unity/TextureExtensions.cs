@@ -115,5 +115,17 @@ namespace Chinchillada
                 }
             }
         }
+
+        public static RectInt GetRect(this Texture2D texture)
+        {
+            return new RectInt(0, 0, texture.width, texture.height);
+        }
+
+        public static void DrawSquare(this Texture2D texture, RectInt rect, Color color)
+        {
+            for(var x = rect.xMin; x <= rect.xMax; x++)
+            for (var y = rect.yMin; y <= rect.yMax; y++)
+                texture.SetPixel(x, y, color);
+        }
     }
 }
