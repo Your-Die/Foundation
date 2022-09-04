@@ -94,6 +94,43 @@
             return item;
         }
 
+        /// <summary>
+        /// Shuffles the <paramref name="items"/>,
+        /// with a higher chance for items that score high through the <paramref name="weightFunction"/>.
+        /// </summary>
+        /// <remarks>
+        /// Adapted from https://utopia.duth.gr/~pefraimi/research/data/2007EncOfAlg.pdf
+        /// </remarks>
+        public static IEnumerable<T> ShuffleWeighted<T>(this IRNG      random,
+                                                        IEnumerable<T> items,
+                                                        Func<T, float> weightFunction)
+        {
+            return items.OrderByDescending(GenerateKey);
+
+            float GenerateKey(T item)
+            {
+                var value  = random.Float();
+                var weight = weightFunction.Invoke(item);
+
+                return Mathf.Pow(value, 1f / weight);
+            }
+        }
+
+        public static IEnumerable<T> ChooseWeighted<T>(this IRNG      random,
+                                                       IEnumerable<T> items,
+                                                       Func<T, float> weightFunction,
+                                                       int            amount)
+        {
+            return random.ShuffleWeighted(items, weightFunction).Take(amount);
+        }
+
+        public static T ChooseWeighted<T>(this IRNG      random,
+                                          IEnumerable<T> items,
+                                          Func<T, float> weightFunction)
+        {
+            return ShuffleWeighted(random, items, weightFunction).First();
+        }
+
         public static T Choose<T>(this IRNG random, IReadOnlyList<T> list)
         {
             var index = random.ChooseIndex(list);
