@@ -12,20 +12,28 @@ namespace Chinchillada
     /// </summary>
     public static class EnumerableExtensions
     {
+        public static IEnumerable<(TFirst, TSecond)> Pairwise<TFirst, TSecond>(this IEnumerable<TFirst> first,
+                                                                               IReadOnlyList<TSecond>     second)
+        {
+            foreach (var itemInFirst in first)
+            foreach (var itemInSecond in second)
+                yield return (itemInFirst, itemInSecond);
+        }
+
         public static T Mode<T>(this IEnumerable<T> enumerable)
         {
-            var groups = enumerable.GroupBy(x => x);
+            var groups       = enumerable.GroupBy(x => x);
             var biggestGroup = groups.ArgMax(group => group.Count());
 
             return biggestGroup.Key;
         }
-        
+
         /// <summary>
         /// Execute the <paramref name="action"/> for each item in the <paramref name="enumerable"/>.
         /// </summary>
         public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
         {
-            foreach (var item in enumerable) 
+            foreach (var item in enumerable)
                 action.Invoke(item);
         }
 
@@ -38,7 +46,7 @@ namespace Chinchillada
                 index++;
             }
         }
-        
+
         /// <summary>
         /// Ensures the <paramref name="enumerable"/> is an array.
         /// First attempts to cast it and if that fails calls <see cref="IEnumerable{T}.ToArray()"/>
@@ -73,7 +81,7 @@ namespace Chinchillada
         {
             return enumerable.Where(item => predicate.Invoke(item) == false);
         }
-        
+
         /// <summary>
         /// Checks if the <paramref name="enumerable"/> is empty.
         /// </summary>
@@ -88,12 +96,12 @@ namespace Chinchillada
         }
 
         public static IEnumerable<TResult> SelectNotNull<TSource, TResult>(this IEnumerable<TSource> items,
-                                                                           Func<TSource, TResult> selector)
+                                                                           Func<TSource, TResult>    selector)
         {
             return items.Select(selector).Where(Equality.NotNull);
         }
 
-        public static IEnumerable<TOutput> SelectWithIndex<TInput, TOutput>(this IEnumerable<TInput> enumerable,
+        public static IEnumerable<TOutput> SelectWithIndex<TInput, TOutput>(this IEnumerable<TInput>   enumerable,
                                                                             Func<TInput, int, TOutput> selector)
         {
             var index = 0;
@@ -110,7 +118,7 @@ namespace Chinchillada
             {
                 if (!predicate.Invoke(item))
                     continue;
-                
+
                 result = item;
                 return true;
             }
@@ -218,15 +226,15 @@ namespace Chinchillada
                 return -1;
 
             //Start with first element.
-            int bestIndex = 0;
+            int   bestIndex = 0;
             float bestScore = scoreFunction(array[bestIndex]);
 
             //Find best scoring element.
             for (int index = 1; index < array.Length; index++)
             {
                 //Get element and score.
-                T element = array[index];
-                float score = scoreFunction(element);
+                T     element = array[index];
+                float score   = scoreFunction(element);
 
                 //Compare and set.
                 if (score <= bestScore)
@@ -236,7 +244,9 @@ namespace Chinchillada
             }
 
             return bestIndex;
-        }      /// <summary>
+        }
+
+        /// <summary>
         /// Finds the index of the element in the <paramref name="enumerable"/> that scores the best with the <paramref name="scoreFunction"/>.
         /// </summary> 
         public static int IndexOfBest<T>(this IEnumerable<T> enumerable, Func<T, int> scoreFunction)
@@ -249,15 +259,15 @@ namespace Chinchillada
                 return -1;
 
             //Start with first element.
-            int bestIndex = 0;
+            int   bestIndex = 0;
             float bestScore = scoreFunction(array[bestIndex]);
 
             //Find best scoring element.
             for (int index = 1; index < array.Length; index++)
             {
                 //Get element and score.
-                T element = array[index];
-                float score = scoreFunction(element);
+                T     element = array[index];
+                float score   = scoreFunction(element);
 
                 //Compare and set.
                 if (score <= bestScore)
@@ -282,15 +292,15 @@ namespace Chinchillada
                 return -1;
 
             //Start with first element.
-            int worstIndex = 0;
+            int   worstIndex = 0;
             float worstScore = scoreFunction(array[worstIndex]);
 
             //Find best scoring element.
             for (int index = 1; index < array.Length; index++)
             {
                 //Get element and score.
-                T element = array[index];
-                float score = scoreFunction(element);
+                T     element = array[index];
+                float score   = scoreFunction(element);
 
                 //Compare and set.
                 if (score >= worstScore)
@@ -331,17 +341,17 @@ namespace Chinchillada
 
             return true;
         }
-        
+
         public static int GetIndexIfSingle<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
         {
-            var index = 0;
+            var index          = 0;
             var predicateIndex = -1;
 
             foreach (var item in enumerable)
             {
                 if (predicate.Invoke(item))
                 {
-                    if (predicateIndex == -1) 
+                    if (predicateIndex == -1)
                         predicateIndex = index;
                     else
                         return -1;
@@ -377,8 +387,6 @@ namespace Chinchillada
         public static bool ContainsIndex<T>(this IEnumerable<T> enumerable, int index) =>
             0 <= index && index < enumerable.Count();
 
-        
-
 
         /// <summary>
         /// Creates a <see cref="LinkedList{T}"/> from the <paramref name="enumerable"/>.
@@ -395,7 +403,7 @@ namespace Chinchillada
         }
 
         public static BucketSet<TKey, TValue> ToBuckets<TKey, TValue>(this IEnumerable<TValue> enumerable,
-            Func<TValue, TKey> bucketSelector)
+                                                                      Func<TValue, TKey>       bucketSelector)
         {
             return new BucketSet<TKey, TValue>(enumerable, bucketSelector);
         }
@@ -425,8 +433,8 @@ namespace Chinchillada
         public static IEnumerable<T> DropEndWhile<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate) =>
             enumerable.ApplyBackwards(sequence => sequence.SkipWhile(predicate));
 
-        public static IEnumerable<T> ApplyBackwards<T>(this IEnumerable<T> enumerable,
-            Func<IEnumerable<T>, IEnumerable<T>> projection)
+        public static IEnumerable<T> ApplyBackwards<T>(this IEnumerable<T>                  enumerable,
+                                                       Func<IEnumerable<T>, IEnumerable<T>> projection)
         {
             IEnumerable<T> reverse = enumerable.Reverse();
             IEnumerable<T> applied = projection(reverse);
@@ -453,8 +461,8 @@ namespace Chinchillada
         public static int EnumerateFully(this IEnumerator enumerator)
         {
             var enumerations = 0;
-            
-            while (enumerator.MoveNext()) 
+
+            while (enumerator.MoveNext())
                 enumerations++;
 
             return enumerations;
