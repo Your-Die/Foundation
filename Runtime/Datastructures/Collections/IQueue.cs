@@ -9,5 +9,6 @@ namespace Chinchillada
         T Dequeue();
 
         T Peek();
+        void Clear();
     }
 }

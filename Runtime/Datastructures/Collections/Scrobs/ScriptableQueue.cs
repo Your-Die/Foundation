@@ -16,7 +16,8 @@ namespace Chinchillada
         public T Dequeue() => this.queue.Dequeue();
 
         public T Peek() => this.queue.Peek();
-        
+        public void Clear() => this.queue.Clear();
+
         public IEnumerator<T> GetEnumerator() => this.queue.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable) this.queue).GetEnumerator();
