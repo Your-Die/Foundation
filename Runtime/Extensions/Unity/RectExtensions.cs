@@ -8,7 +8,7 @@ namespace Chinchillada
     {
         public static IEnumerable<Vector2Int> EnumerateCells(this RectInt rect)
         {
-            for(var x = rect.xMin; x <= rect.xMax; x++)
+            for (var x = rect.xMin; x <= rect.xMax; x++)
             for (var y = rect.yMin; y <= rect.yMax; y++)
                 yield return new Vector2Int(x, y);
         }
@@ -35,6 +35,19 @@ namespace Chinchillada
             return (leftRect, rightRect);
         }
 
+        public static Rect ProjectTo(this Rect from, Rect to)
+        {
+            var xMin = Mathf.Max(from.xMin, to.xMin);
+            var yMin = Mathf.Max(from.yMin, to.yMin);
+            var xMax = Mathf.Min(from.xMax, to.xMax);
+            var yMax = Mathf.Min(from.yMax, to.yMax);
+
+            var width  = xMax - xMin;
+            var height = yMax - yMin;
+
+            return new Rect(xMin, yMin, width, height);
+        }
+
         public static bool Contains(this Rect rect, Rect other)
         {
             return rect.xMin <= other.xMin
@@ -46,7 +59,7 @@ namespace Chinchillada
         public static bool Contains(this Rect rect, Vector2 vector)
         {
             return rect.xMin <= vector.x && vector.x  <= rect.xMax
-                && rect.yMin <= vector.y && vector.y <= rect.yMax;
+                                         && rect.yMin <= vector.y && vector.y <= rect.yMax;
         }
     }
 }
