@@ -367,6 +367,18 @@ namespace Chinchillada.Foundation
             enumerator.Dispose();
         }
 
+        public static bool TryGetFromIndex<T>(this IReadOnlyList<T> list, int index, out T result)
+        {
+            if (list.ContainsIndex(index))
+            {
+                result = list[index];
+                return true;
+            }
+
+            result = default;
+            return false;
+        }
+
         /// <summary>
         /// Checks if the <paramref name="enumerable"/> range contains the <paramref name="index"/>.
         /// </summary>
