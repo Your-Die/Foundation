@@ -97,5 +97,30 @@ namespace Chinchillada
             return rect.xMin <= vector.x && vector.x  <= rect.xMax
                                          && rect.yMin <= vector.y && vector.y <= rect.yMax;
         }
+
+        public static Rect GetBoundingRect(this IEnumerable<Vector2> points)
+        {
+            var xMin = float.MaxValue;
+            var yMin = float.MaxValue;
+            var xMax = float.MinValue;
+            var yMax = float.MinValue; 
+
+            foreach (var point in points)
+            {
+                if (point.x < xMin) xMin = point.x;
+                if (point.y < yMin) yMin = point.y;
+
+                if (point.x > xMax) xMax = point.x;
+                if (point.y > yMax) yMax = point.y;
+            }
+
+            return new Rect
+            {
+                xMin = xMin,
+                xMax = xMax,
+                yMin = yMin,
+                yMax = yMax
+            };
+        }
     }
 }
