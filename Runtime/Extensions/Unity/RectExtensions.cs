@@ -7,13 +7,6 @@ namespace Chinchillada
 
     public static class RectExtensions
     {
-        public static IEnumerable<Vector2Int> EnumerateCells(this RectInt rect)
-        {
-            for (var x = rect.xMin; x <= rect.xMax; x++)
-            for (var y = rect.yMin; y <= rect.yMax; y++)
-                yield return new Vector2Int(x, y);
-        }
-
         public static (Rect bottomRect, Rect topRect) SplitHorizontal(this Rect rect, float splitPoint)
         {
             if (splitPoint < rect.yMin || splitPoint > rect.yMax)

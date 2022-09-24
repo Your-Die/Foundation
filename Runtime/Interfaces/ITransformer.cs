@@ -1,4 +1,4 @@
-namespace Chinchillada.Generation
+namespace Chinchillada
 {
     public interface ITransformer<in TIn, out TOut>
     {

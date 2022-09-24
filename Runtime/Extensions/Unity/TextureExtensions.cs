@@ -123,9 +123,7 @@ namespace Chinchillada
 
         public static void DrawSquare(this Texture2D texture, RectInt rect, Color color)
         {
-            var cells = rect.EnumerateCells();
-
-            foreach (Vector2Int cell in cells) 
+            foreach (Vector2Int cell in rect.allPositionsWithin) 
                 texture.SetPixel(cell.x, cell.y, color);
         }
     }
