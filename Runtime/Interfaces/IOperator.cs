@@ -1,7 +1,11 @@
 namespace Chinchillada
 {
-    public interface IOperator<T>
+    public interface IOperator<TIn, TOut>
     {
-        T Execute(T left, T right);
+        TOut Execute(TIn left, TIn right);
+    }
+
+    public interface IBooleanOperator<TIn> : IOperator<TIn, bool>
+    {
     }
 }

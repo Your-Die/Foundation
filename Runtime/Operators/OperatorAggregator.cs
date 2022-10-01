@@ -6,7 +6,7 @@ namespace Chinchillada
 
     public class OperatorAggregator<T> : IAggregator<T>
     {
-        [OdinSerialize] private IOperator<T> @operator; 
+        [OdinSerialize] private IOperator<T, T> @operator; 
         
         public T Aggregate(IEnumerable<T> values)
         {
