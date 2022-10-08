@@ -18,6 +18,19 @@ namespace Chinchillada
             return (bottomRect, topRect);
         }
 
+        public static Rect GrowPercentage(this Rect rect, float percentage)
+        {
+            var xExtra = (rect.width  * percentage) / 2f;
+            var yExtra = (rect.height * percentage) / 2f;
+
+            rect.xMin -= xExtra;
+            rect.yMin -= yExtra;
+            rect.xMax += xExtra;
+            rect.yMax += yExtra;
+
+            return rect;
+        }
+
         public static (Rect leftRect, Rect rightRect) SplitVertical(this Rect rect, float splitPoint)
         {
             if (splitPoint < rect.xMin || splitPoint > rect.xMax)
@@ -76,6 +89,7 @@ namespace Chinchillada
 
             return new Rect(xMin, yMin, width, height);
         }
+        
 
         public static bool Contains(this Rect rect, Rect other)
         {
