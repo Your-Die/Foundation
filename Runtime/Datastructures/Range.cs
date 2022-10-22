@@ -1,11 +1,11 @@
-namespace Datastructures
+namespace Chinchillada
 {
     using System;
-    using Chinchillada;
     using UnityEngine;
 
+
     [Serializable]
-    public class Range
+    public class Range : IRange<float>
     {
         [SerializeField] private float minimum;
         [SerializeField] private float maximum;
@@ -13,7 +13,7 @@ namespace Datastructures
         public Range()
         {
         }
-        
+
         public Range(float minimum, float maximum)
         {
             this.minimum = minimum;
@@ -34,7 +34,7 @@ namespace Datastructures
 
         public float Size => this.maximum - this.minimum;
 
-        public float Clamp(float        value) => Mathf.Clamp(value, this.minimum, this.maximum);
+        public float Clamp(float value) => Mathf.Clamp(value, this.minimum, this.maximum);
 
         public float InverseLerp(float value) => Mathf.InverseLerp(this.minimum, this.maximum, value);
 
@@ -46,7 +46,7 @@ namespace Datastructures
             this.minimum -= halfIncrease;
             this.maximum += halfIncrease;
         }
-        
+
         public override string ToString() => $"[{this.minimum}, {this.maximum}]";
     }
 }

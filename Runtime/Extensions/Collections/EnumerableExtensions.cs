@@ -468,6 +468,13 @@ namespace Chinchillada
             return enumerations;
         }
 
+        public static Dictionary<TBucket, int> ToHistogram<TItem, TBucket>(this IEnumerable<TItem> items, 
+                                                                           Func<TItem, TBucket> bucketer)
+        {
+            var lookup = items.ToLookup(bucketer);
+            return lookup.ToDictionary(group => group.Key, group => group.Count());
+        }
+
         public static Dictionary<T, int> ToCountDictionary<T>(this IEnumerable<T> items)
         {
             var dictionary = new Dictionary<T, int>();
@@ -481,6 +488,11 @@ namespace Chinchillada
             }
 
             return dictionary;
+        }
+
+        public static HashSet<T> ToHashSet<T>(this IEnumerable<T> items)
+        {
+            return new HashSet<T>(items);
         }
     }
 }

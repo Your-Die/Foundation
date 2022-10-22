@@ -5,7 +5,6 @@
     using System.Linq;
     using System.Xml.Schema;
     using Chinchillada;
-    using Datastructures;
     using UnityEngine;
 
     public interface IRNG : IInitializable
@@ -24,6 +23,11 @@
                 yield return generator.Invoke(rng);
         }
 
+        public static int RandomInRange(this RangeInt range, IRNG rng)
+        {
+            return rng.Range(range.Minimum, range.Maximum);
+        }
+        
         public static float RandomInRange(this Range range, IRNG rng)
         {
             return rng.Range(range.Minimum, range.Maximum);

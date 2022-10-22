@@ -1,7 +1,6 @@
 namespace Chinchillada
 {
     using System;
-    using Datastructures;
     using UnityEngine;
 
     [Serializable]
@@ -19,7 +18,7 @@ namespace Chinchillada
         public int Map(float value)
         {
             var percentage = this.inputRange.InverseLerp(value);
-            return (int)Mathf.Lerp(this.outputRange.start, this.outputRange.end, percentage);
+            return (int)Mathf.Lerp(this.outputRange.Minimum, this.outputRange.Maximum, percentage);
         }
     }
 }
