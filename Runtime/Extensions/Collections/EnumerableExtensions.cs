@@ -58,11 +58,6 @@ namespace Chinchillada.Foundation
         public static LinkedList<T> EnsureLinked<T>(this IEnumerable<T> enumerable) =>
             enumerable as LinkedList<T> ?? enumerable.ToLinked();
 
-        public static HashSet<T> ToHashSet<T>(this IEnumerable<T> items)
-        {
-            return new HashSet<T>(items);
-        }
-        
         public static IEnumerable<T> Except<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
         {
             return enumerable.Where(item => predicate.Invoke(item) == false);
