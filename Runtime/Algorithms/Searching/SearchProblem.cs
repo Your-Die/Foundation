@@ -11,7 +11,7 @@ namespace Chinchillada.Algorithms
         /// <summary>
         /// Initial state of the problem.
         /// </summary>
-        T InitialState { get; }
+        IReadOnlyList<T> InitialStates { get; }
         
         /// <summary>
         /// Calculates the heuristic of the <paramref name="state"/>.

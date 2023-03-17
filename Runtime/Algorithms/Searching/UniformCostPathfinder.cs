@@ -12,18 +12,23 @@ namespace Chinchillada.Algorithms
             var cameFrom  = new Dictionary<T, T>();
             var costSoFar = new Dictionary<T, float>();
 
-            var firstNode = new SearchNode<T>(problem.InitialState, 0);
+            foreach (var initialState in problem.InitialStates)
+            {
+                var node = new SearchNode<T>(initialState, 0);
 
-            frontier.Enqueue(firstNode);
-            cameFrom[problem.InitialState]  = default;
-            costSoFar[problem.InitialState] = 0;
+                frontier.Enqueue(node);
+                cameFrom[initialState]  = default;
+                costSoFar[initialState] = 0;
+            }
+            
+  
 
             while (frontier.Any())
             {
                 var node = frontier.Dequeue();
 
                 if (problem.IsGoalState(node.State))
-                    return Path.Build(problem.InitialState, node.State, cameFrom);
+                    return Path.Build(problem.InitialStates, node.State, cameFrom);
 
                 var successors = problem.GetSuccessors(node.State);
                 foreach (var successor in successors)

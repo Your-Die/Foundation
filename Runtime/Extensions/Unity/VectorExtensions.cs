@@ -111,6 +111,18 @@ namespace Chinchillada
             return new Bounds(center, size);
         }
 
+        /// <returns>
+        /// the orthogonal neighbors of the <paramref name="vector"/>,
+        /// in clockwise order starting at up.
+        /// </returns>
+        public static IEnumerable<Vector2Int> GetNeighbors(this Vector2Int vector)
+        {
+            yield return vector + Vector2Int.up;
+            yield return vector + Vector2Int.right;
+            yield return vector + Vector2Int.down;
+            yield return vector + Vector2Int.left;
+        }
+
         public static int ManhattanDistance(this Vector2Int vector, Vector2Int other)
         {
             var xDistance = Mathf.Abs(vector.x - other.x);
