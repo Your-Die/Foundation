@@ -4,11 +4,10 @@ using UnityEngine;
 namespace Chinchillada.Behavior
 {
     using Sirenix.OdinInspector;
-    using Sirenix.Serialization;
 
     public class ReversableActionComponent : MonoBehaviour, IRevertableAction
     {
-        [OdinSerialize, Required] private IRevertableAction action;
+        [SerializeReference, Required] private IRevertableAction action;
         
         public void Trigger() => this.action.Trigger();
 

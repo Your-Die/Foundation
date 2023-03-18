@@ -7,7 +7,7 @@ namespace Chinchillada
     /// Wrapper class for <see cref="MonoBehaviour"/> that creates a singleton of the wrapped type.
     /// </summary>
     /// <typeparam name="T">The type deriving from <see cref="MonoBehaviour"/> that this class wraps as singleton.</typeparam>
-    public class SingletonBehaviour<T> : SerializedMonoBehaviour where T : SerializedMonoBehaviour
+    public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<T>
     {
         /// <summary>
         /// The singleton instance.

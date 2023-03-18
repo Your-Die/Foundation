@@ -8,7 +8,7 @@ namespace Chinchillada
 
         public static bool HasInstance => Instance != null;
 
-        protected override void Awake()
+        protected sealed override void Awake()
         {
             if (HasInstance)
             {
