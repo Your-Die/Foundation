@@ -7,7 +7,7 @@ namespace Chinchillada.Behavior
     [Serializable]
     public class EventAction : IAction
     {
-        [SerializeField] private UnityEvent @event = new();
+        [SerializeField] private UnityEvent @event = new UnityEvent();
 
         public void Trigger() => this.@event.Invoke();
     }
