@@ -2,15 +2,13 @@ namespace Chinchillada
 {
     using Sirenix.OdinInspector;
     using UnityEngine;
-    using UnityEngine.Serialization;
 
     public abstract class EventListenerBase : AutoRefBehaviour
     {
         /// <summary>
         /// The <see cref="ScriptedEvent"/> we listen to.
         /// </summary>
-        [FormerlySerializedAs("_event")] [SerializeField] 
-        private ScriptedEvent @event = null;
+        [SerializeField] private ScriptedEvent @event = null;
 
         /// <summary>
         /// The <see cref="ScriptedEvent"/> we listen to.

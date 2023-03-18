@@ -19,9 +19,9 @@ namespace Chinchillada
         /// <summary>
         /// The name of the asset we want to use as a default.
         /// </summary>
-        private readonly string assetName;
+        public string AssetName { get; }
 
-        private readonly string typeFilter;
+        public          string TypeFilter { get; }
 
         /// <summary>
         /// Constructs a new <see cref="DefaultAssetAttribute"/>.
@@ -30,37 +30,8 @@ namespace Chinchillada
         /// <param name="typeFilter">Filter for types to match for.</param>
         public DefaultAssetAttribute(string defaultAssetName, string typeFilter = null)
         {
-            this.assetName = defaultAssetName;
-            this.typeFilter = typeFilter;
-        }
-
-        /// <summary>
-        /// Gets the default asset of the given <paramref name="type"/>.
-        /// </summary>
-        /// <param name="type">The type of asset.</param>
-        /// <returns>The default asset.</returns>
-        public object GetDefaultAsset(Type type)
-        {
-#if UNITY_EDITOR
-            var typeName = string.IsNullOrEmpty(this.typeFilter)
-                ? type.Name
-                : this.typeFilter;
-            
-            // Try to find matching assets in the asset database.
-            var searchFilter = $"{this.assetName} t:{typeName}";
-            var guids = AssetDatabase.FindAssets(searchFilter);
-            if (guids.IsEmpty())
-                return null;
-
-            // Load the matched asset.
-            var guid = guids.First();
-            var path = AssetDatabase.GUIDToAssetPath(guid);
-            return AssetDatabase.LoadAssetAtPath(path, type);
-#endif
-#pragma warning disable 162
-            Debug.LogError("Default Asset is requested outside of editor.");
-            return null;
-#pragma warning restore 162
+            this.AssetName = defaultAssetName;
+            this.TypeFilter = typeFilter;
         }
     }
 }

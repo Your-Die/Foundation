@@ -1,13 +1,12 @@
+using UnityEngine;
+using System.Collections;
+using Sirenix.OdinInspector;
+
 namespace Chinchillada
 {
-    using System.Collections;
-    using Chinchillada;
-    using Sirenix.OdinInspector;
-    using Sirenix.Serialization;
-    
-    public class RoutineStepper : AutoRefBehaviour
+    public class RoutineStepper : MonoBehaviour
     {
-        [OdinSerialize] private IRoutine routineSource;
+        [SerializeReference] private IRoutine routineSource;
 
         private IEnumerator routine;
         private bool        canStep;

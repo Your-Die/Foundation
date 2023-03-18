@@ -462,7 +462,7 @@ namespace Chinchillada
 
         public static void Enumerate<T>(this IEnumerable<T> enumerable)
         {
-            var _ = enumerable.ToList();
+            var _ = enumerable.Last();
         }
 
         public static int EnumerateFully(this IEnumerator enumerator)

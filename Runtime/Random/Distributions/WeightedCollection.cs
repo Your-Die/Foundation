@@ -7,11 +7,7 @@ namespace Chinchillada
 
     public class WeightedCollection<T> : IDistribution<T>
     {
-        [OdinSerialize, Required] private IDictionary<T, float> weightedItems = new Dictionary<T, float>();
-
-        public WeightedCollection()
-        {
-        }
+        private readonly IDictionary<T, float> weightedItems;
 
         public WeightedCollection(IDictionary<T, float> items)
         {

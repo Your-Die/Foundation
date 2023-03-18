@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Chinchillada.Behavior
 {
     using Sirenix.OdinInspector;
@@ -5,7 +7,7 @@ namespace Chinchillada.Behavior
 
     public class StartAction : AutoRefBehaviour
     {
-        [OdinSerialize, Required] private IAction action;
+        [SerializeReference, Required] private IAction action;
 
         private void Start()
         {

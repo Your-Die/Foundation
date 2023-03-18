@@ -42,5 +42,15 @@ namespace Chinchillada
         }
 
         public override string ToString() => this.name;
+
+        [Serializable]
+        public class Reference : IInvokableEvent
+        {
+            [SerializeField]private ScriptedEvent @event;
+          
+            public void Subscribe(Action   action) => this.@event.Subscribe(action);
+            public void Unsubscribe(Action action) => this.@event.Unsubscribe(action);
+            public void Invoke() => this.@event.Invoke();
+        }
     }
 }

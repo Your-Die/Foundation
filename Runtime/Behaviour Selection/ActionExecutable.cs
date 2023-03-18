@@ -1,13 +1,13 @@
     using System;
     using System.Collections;
-    using Sirenix.Serialization;
+    using UnityEngine;
 
     namespace Chinchillada.Behavior
     {
         [Serializable]
         public class ActionExecutable : IExecutable
         {
-            [OdinSerialize] private IAction action;
+            [SerializeReference] private IAction action;
         
             public IEnumerator Execute()
             {

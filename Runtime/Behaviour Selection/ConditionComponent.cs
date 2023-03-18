@@ -1,12 +1,21 @@
-﻿namespace Chinchillada.Behavior
-{
-    using Sirenix.OdinInspector;
-    using Sirenix.Serialization;
+﻿using System;
+using UnityEngine;
+using Sirenix.OdinInspector;
 
-    public class ConditionComponent : AutoRefBehaviour, ICondition
+namespace Chinchillada.Behavior
+{
+    public class ConditionComponent : MonoBehaviour, ICondition
     {
-        [OdinSerialize, Required] private ICondition condition;
+        [SerializeReference, Required] private ICondition condition;
 
         public bool Validate() => this.condition.Validate();
+
+        [Serializable]
+        public class Reference : ICondition
+        {
+            [SerializeField] private ConditionComponent component;
+            
+            public bool Validate() => this.component.Validate();
+        }
     }
 }

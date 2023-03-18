@@ -8,17 +8,12 @@ namespace Chinchillada
 
     public class EventListener : AutoRefBehaviour
     {
-        [OdinSerialize, Required, FindComponent(SearchStrategy.InChildren)]
+        [SerializeReference, Required, FindComponent(SearchStrategy.InChildren)]
         private IEvent @event;
 
         [SerializeField] private UnityEvent response = new UnityEvent();
 
         public UnityEvent Response => this.response;
-
-        public IEvent Event
-        {
-            set => this.@event = value;
-        }
 
         private void OnEnable() => this.@event.Subscribe(this.OnEvent);
 

@@ -1,10 +1,7 @@
 namespace Chinchillada.Distributions
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Generation;
-    using UnityEditor;
 
     public class Projected<TUnderlying, TResult> : IDiscreteDistribution<TResult>
     {
