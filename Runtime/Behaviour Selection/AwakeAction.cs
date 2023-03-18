@@ -1,16 +1,12 @@
+using UnityEngine;
+using Sirenix.OdinInspector;
+
 namespace Chinchillada.Behavior
 {
-    using Sirenix.OdinInspector;
-    using Sirenix.Serialization;
-
-    public class AwakeAction : AutoRefBehaviour
+    public class AwakeAction : MonoBehaviour
     {
-        [OdinSerialize, Required] private IAction action;
+        [SerializeReference, Required] private IAction action;
 
-        protected override void Awake()
-        {
-            base.Awake();
-            this.action.Trigger();
-        }
+        private void Awake() => this.action.Trigger();
     }
 }

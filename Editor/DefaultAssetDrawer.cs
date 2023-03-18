@@ -1,6 +1,9 @@
-﻿using Chinchillada;
+﻿using System;
+using System.Linq;
+using Chinchillada;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 /// <summary>
 /// <see cref="PropertyDrawer"/> for <see cref="DefaultAssetAttribute"/>.
@@ -19,10 +22,31 @@ public class DefaultAssetDrawer : PropertyDrawer
             return;
 
         // Get the default asset.
-        DefaultAssetAttribute defaultAssetAttribute = (DefaultAssetAttribute) attribute;
-        Object defaultAsset = (Object)defaultAssetAttribute.GetDefaultAsset(fieldInfo.FieldType);
+        property.objectReferenceValue = this.GetDefaultAsset(this.fieldInfo.FieldType);;
+    }
+    
+    /// <summary>
+    /// Gets the default asset of the given <paramref name="type"/>.
+    /// </summary>
+    /// <param name="type">The type of asset.</param>
+    /// <returns>The default asset.</returns>
+    private Object GetDefaultAsset(Type type)
+    {
+        var defaultAssetAttribute = (DefaultAssetAttribute)this.attribute;
+        
+        var typeName = string.IsNullOrEmpty(defaultAssetAttribute.TypeFilter)
+            ? type.Name
+            : defaultAssetAttribute.TypeFilter;
+            
+        // Try to find matching assets in the asset database.
+        var searchFilter = $"{defaultAssetAttribute.AssetName} t:{typeName}";
+        var guids = AssetDatabase.FindAssets(searchFilter);
+        if (guids.IsEmpty())
+            return null;
 
-        // Assign.
-        property.objectReferenceValue = defaultAsset;
+        // Load the matched asset.
+        var guid = guids.First();
+        var path = AssetDatabase.GUIDToAssetPath(guid);
+        return AssetDatabase.LoadAssetAtPath(path, type);
     }
 }

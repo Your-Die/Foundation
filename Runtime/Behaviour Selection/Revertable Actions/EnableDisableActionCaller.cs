@@ -1,11 +1,11 @@
+using UnityEngine;
+using Sirenix.OdinInspector;
+
 namespace Chinchillada.Behavior
 {
-    using Sirenix.OdinInspector;
-    using Sirenix.Serialization;
-
-    public class EnableDisableActionCaller : AutoRefBehaviour
+    public class EnableDisableActionCaller : MonoBehaviour
     {
-        [OdinSerialize, Required] private IRevertableAction action;
+        [SerializeReference, Required] private IRevertableAction action;
 
         private void OnEnable() => this.action.Trigger();
 

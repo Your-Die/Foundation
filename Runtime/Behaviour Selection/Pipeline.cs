@@ -6,11 +6,13 @@ namespace Chinchillada.Behavior
     using Sirenix.OdinInspector;
     using UnityEngine;
 
-    public class Pipeline : AutoRefBehaviour, IExecutable
+    public class Pipeline : MonoBehaviour, IExecutable
     {
-        [SerializeField] private List<IExecutable> executables;
+        [SerializeReference] private List<IExecutable> executables;
 
         private RoutineHandler routineHandler;
+
+        private void Awake() => this.routineHandler = new RoutineHandler(this);
 
         [Button]
         public void StartExecuting()
@@ -23,13 +25,5 @@ namespace Chinchillada.Behavior
             foreach (var executable in this.executables)
                 yield return executable.Execute();
         }
-        
-        protected override void Awake()
-        {
-            base.Awake();
-            this.routineHandler = new RoutineHandler(this);
-        }
-
-  
     }
 }

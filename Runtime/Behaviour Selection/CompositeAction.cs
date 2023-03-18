@@ -1,12 +1,20 @@
+using System;
+using UnityEngine;
+using System.Collections.Generic;
+
 namespace Chinchillada.Behavior
 {
-    using System.Collections.Generic;
-    using Sirenix.Serialization;
 
+    [Serializable]
     public class CompositeAction : IAction
     {
-        [OdinSerialize, FindNestedComponents] private List<IAction> actions;
-        
+        [SerializeReference, FindNestedComponents] private List<IAction> actions;
+
+        public CompositeAction(List<IAction> actions)
+        {
+            this.actions = actions;
+        }
+
         public void Trigger()
         {
             foreach (var action in this.actions) 

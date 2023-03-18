@@ -1,16 +1,22 @@
-﻿namespace Chinchillada.Behavior
+﻿using System;
+using UnityEngine;
+using System.Collections;
+using Sirenix.OdinInspector;
+
+namespace Chinchillada.Behavior
 {
-    using Sirenix.Serialization;
-    using System.Collections;
-    using Sirenix.OdinInspector;
-
-    public class ExecutableComponent : AutoRefBehaviour, IExecutable
+    public class ExecutableComponent : MonoBehaviour, IExecutable
     {
-        [OdinSerialize, Required] private IExecutable executable;
+        [SerializeReference, Required] private IExecutable executable;
 
-        public IEnumerator Execute()
+        public IEnumerator Execute() => this.executable.Execute();
+
+        [Serializable]
+        public class Reference : IExecutable
         {
-            return this.executable.Execute();
+            [SerializeField] private ExecutableComponent component;
+            
+            public IEnumerator Execute() => this.component.Execute();
         }
     }
 }

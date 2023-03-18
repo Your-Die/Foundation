@@ -1,6 +1,5 @@
 namespace Chinchillada.Algorithms
 {
-    using System;
     using System.Collections.Generic;
 
     public interface IPathFinder
