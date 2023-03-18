@@ -14,16 +14,19 @@ namespace Chinchillada.Algorithms
             var cameFrom = new Dictionary<T, T>();
 
             // Add initial state.
-            frontier.Enqueue(problem.InitialState);
-            cameFrom[problem.InitialState] = default;
-
+            foreach (var initialState in problem.InitialStates)
+            {
+                frontier.Enqueue(initialState);
+                cameFrom[initialState] = default;
+            }
+       
             while (frontier.Any())
             {
                 var state = frontier.Dequeue();
 
                 // Goal test.
                 if (problem.IsGoalState(state))
-                    return Path.Build(problem.InitialState, state, cameFrom).Reverse();
+                    return Path.Build(problem.InitialStates, state, cameFrom).Reverse();
 
                 // Add new successors.
                 var successors = problem.GetSuccessors(state);

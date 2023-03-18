@@ -12,6 +12,13 @@ namespace Chinchillada
     /// </summary>
     public static class EnumerableExtensions
     {
+        public static IEnumerable<(T, T)> Pairwise<T>(this IReadOnlyList<T> items)
+        {
+            foreach (var item1 in items)
+            foreach (var item2 in items)
+                yield return (item1, item2);
+        }
+
         public static IEnumerable<(TFirst, TSecond)> Pairwise<TFirst, TSecond>(this IEnumerable<TFirst> first,
                                                                                IReadOnlyList<TSecond>     second)
         {

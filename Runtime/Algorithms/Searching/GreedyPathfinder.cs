@@ -11,17 +11,20 @@ namespace Chinchillada.Algorithms
             var frontier = new CustomPriorityQueue<SearchNode<T>>();
             var cameFrom = new Dictionary<T, T>();
 
-            var initialNode = new SearchNode<T>(problem.InitialState, 0);
+            foreach (var initialState in problem.InitialStates)
+            {
+                var initialNode = new SearchNode<T>(initialState, 0);
 
-            frontier.Enqueue(initialNode);
-            cameFrom[problem.InitialState] = default;
+                frontier.Enqueue(initialNode);
+                cameFrom[initialState] = default;
+            }
 
             while (frontier.Any())
             {
                 var node = frontier.Dequeue();
 
                 if (problem.IsGoalState(node.State))
-                    return Path.Build(problem.InitialState, node.State, cameFrom);
+                    return Path.Build(problem.InitialStates, node.State, cameFrom);
 
                 var successors = problem.GetSuccessors(node.State);
                 foreach (var successor in successors)

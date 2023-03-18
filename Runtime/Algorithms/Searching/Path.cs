@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Chinchillada.Algorithms
 {
@@ -6,17 +7,17 @@ namespace Chinchillada.Algorithms
 
     public static class Path
     {
-        public static IEnumerable<T> Build<T>(T start, T end, IReadOnlyDictionary<T, T> actions)
+        public static IEnumerable<T> Build<T>(IReadOnlyList<T> startStates, T end, IReadOnlyDictionary<T, T> actions)
         {
             var current  = end;
 
-            while (!Equals(current, start))
+            while (!startStates.Contains(current))
             {
                 yield return current;
                 current = actions[current];
             }
 
-            yield return start;
+            yield return current;
         }
     }
 }

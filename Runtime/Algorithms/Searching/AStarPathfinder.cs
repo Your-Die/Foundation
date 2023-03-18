@@ -2,26 +2,29 @@ using System.Collections.Generic;
 
 namespace Chinchillada.Algorithms
 {
-    public class AStarPathfinder : IPathFinder
+    public static class AStar
     {
-        public IEnumerable<T> FindPath<T>(ISearchProblem<T> problem)
+        public static IEnumerable<T> FindPath<T>(ISearchProblem<T> problem)
         {
             var frontier     = new CustomPriorityQueue<SearchNode<T>>();
             var predecessors = new Dictionary<T, T>();
             var costs        = new Dictionary<T, float>();
 
-            var initialNode = new SearchNode<T>(problem.InitialState, 0);
-            frontier.Enqueue(initialNode);
-
-            predecessors[problem.InitialState] = default;
-            costs[problem.InitialState]        = 0;
+            foreach (var initialState in problem.InitialStates)
+            {
+                var node = new SearchNode<T>(initialState, 0);
+                frontier.Enqueue(node);
+                
+                predecessors[initialState] = default;
+                costs[initialState]        = 0;
+            }
 
             while (frontier.Any())
             {
                 var node = frontier.Dequeue();
 
                 if (problem.IsGoalState(node.State))
-                    return Path.Build(problem.InitialState, node.State, predecessors);
+                    return Path.Build(problem.InitialStates, node.State, predecessors);
 
                 var successors = problem.GetSuccessors(node.State);
                 foreach (var successor in successors)
@@ -43,5 +46,11 @@ namespace Chinchillada.Algorithms
 
             return null;
         }
+
+    }
+    
+    public class AStarPathfinder : IPathFinder
+    {
+        public IEnumerable<T> FindPath<T>(ISearchProblem<T> problem) => AStar.FindPath(problem);
     }
 }
