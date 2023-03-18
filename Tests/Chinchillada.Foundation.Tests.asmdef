@@ -1,9 +1,11 @@
 {
     "name": "Chinchillada.Foundation.Tests",
+    "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "Chinchillada.Foundation.Runtime",
+        "Chinchillada.AutoRef.Runtime",
         "UnityEditor.UI",
         "UnityEngine.UI"
     ],

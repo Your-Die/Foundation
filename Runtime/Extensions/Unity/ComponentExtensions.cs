@@ -154,7 +154,7 @@ namespace Chinchillada
 
         public static T GetComponentInScene<T>(this GameObject gameObject)
         {
-            return gameObject.GetComponentsInScene<T>().First();
+            return GameObjectExtensions.GetComponentsInScene<T>(gameObject).First();
         }
 
         public static IEnumerable<T> GetComponentsInScene<T>(this GameObject gameObject, bool includeInactive = false)
