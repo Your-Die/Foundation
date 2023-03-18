@@ -20,19 +20,19 @@ namespace Chinchillada
             /// <summary>
             /// The constant value.
             /// </summary>
-            [FormerlySerializedAs("_constantValue")] [SerializeField, ShowIf(nameof(useConstant))]
+            [SerializeField, ShowIf(nameof(useConstant))]
             private float constantValue;
 
             /// <summary>
             /// The <see cref="SharedVariable{T}"/>.
             /// </summary>
-            [FormerlySerializedAs("_variable")] [SerializeField, HideIf(nameof(useConstant))]
+            [SerializeField, HideIf(nameof(useConstant))]
             private SharedFloat variable = null;
 
             /// <summary>
             /// Whether to use constant instead of variable.
             /// </summary>
-            [FormerlySerializedAs("_useConstant")] [SerializeField] private bool useConstant = false;
+            [SerializeField] private bool useConstant = false;
 
             /// <summary>
             /// Construct a new <see cref="SharedFloat.Reference"/>.

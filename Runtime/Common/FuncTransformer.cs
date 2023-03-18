@@ -1,7 +1,6 @@
 namespace Chinchillada
 {
     using System;
-    using Generation;
 
     public class FuncTransformer<TIn, TOut> : ITransformer<TIn, TOut>
     {

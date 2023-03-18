@@ -1,4 +1,6 @@
-﻿namespace Interfaces
+﻿using UnityEngine;
+
+namespace Interfaces
 {
     using System;
     using Chinchillada;
@@ -7,7 +9,7 @@
     [Serializable]
     public class Constant<T> : ISource<T>
     {
-        [OdinSerialize] private T item;
+        [SerializeReference] private T item;
 
         public Constant() => this.item = default;
         

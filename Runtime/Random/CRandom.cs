@@ -11,15 +11,15 @@
     {
         [SerializeField] private bool useRandomSeed;
 
-        [OdinSerialize]
+        [SerializeReference]
         [ShowIf(nameof(useRandomSeed))]
-        private IRandomSeedStrategy seedStrategy;
+        private IRandomSeedStrategy seedStrategy = new FrameCountSeed();
 
         [SerializeField]
         [HideIf(nameof(useRandomSeed))]
         private int seed;
 
-        [SerializeField] [HideInInspector] private Random random;
+        private Random random;
 
         [ShowInInspector] [ReadOnly] private int runtimeSeed;
 

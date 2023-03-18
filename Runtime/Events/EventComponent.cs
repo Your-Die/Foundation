@@ -1,12 +1,11 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Chinchillada
 {
-    using Sirenix.Serialization;
-
     public class EventComponent : AutoRefBehaviour, IEvent
     {
-        [OdinSerialize] private IEvent @event;
+        [SerializeReference] private IEvent @event;
         
         public void Subscribe(Action action) => this.@event.Subscribe(action);
 
