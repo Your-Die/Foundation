@@ -1,4 +1,7 @@
-﻿namespace Chinchillada
+﻿using System;
+using System.Collections.Generic;
+
+namespace Chinchillada
 {
     public static class StringExtensions
     {
@@ -13,6 +16,11 @@
 
             var lower = char.ToLower(firstLetter);
             return lower + text.Substring(1);
+        }
+
+        public static string JoinWithNewLine(this IEnumerable<object> items)
+        {
+            return string.Join(Environment.NewLine, items);
         }
     }
 }
