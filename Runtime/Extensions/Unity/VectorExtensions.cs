@@ -115,12 +115,15 @@ namespace Chinchillada
         /// the orthogonal neighbors of the <paramref name="vector"/>,
         /// in clockwise order starting at up.
         /// </returns>
-        public static IEnumerable<Vector2Int> GetNeighbors(this Vector2Int vector)
+        public static IEnumerable<Vector2Int> GetNeighborsOrthogonal(this Vector2Int vector, int radius = 1)
         {
-            yield return vector + Vector2Int.up;
-            yield return vector + Vector2Int.right;
-            yield return vector + Vector2Int.down;
-            yield return vector + Vector2Int.left;
+            for (int i = 1; i <= radius; i++)
+            {
+                yield return vector + Vector2Int.up    * i;
+                yield return vector + Vector2Int.right * i;
+                yield return vector + Vector2Int.down  * i;
+                yield return vector + Vector2Int.left  * i;
+            }
         }
 
         public static int ManhattanDistance(this Vector2Int vector, Vector2Int other)
