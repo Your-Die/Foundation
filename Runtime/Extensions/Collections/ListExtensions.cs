@@ -63,6 +63,11 @@ namespace Chinchillada
             return dictionary;
         }
 
+        public static bool ContainsIndex<T>(this IList<T> list, int index)
+        {
+            return index >= 0 && index < list.Count;
+        }
+
         public static bool ContainsAll<T>(this IList<T> collection, IEnumerable<T> requiredItems)
         {
             return requiredItems.All(collection.Contains);

@@ -31,6 +31,11 @@ namespace Chinchillada
             }
         }
 
+        public static bool HasAttribute<TAttribute>(this Type type) where TAttribute : Attribute
+        {
+            var attribute = type.GetCustomAttribute<TAttribute>();
+            return attribute != null;
+        }
 
         private static IEnumerable<FieldInfo> GetAllFields(Type type)
         {
