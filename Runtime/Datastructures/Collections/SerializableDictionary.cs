@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Chinchillada
@@ -10,7 +11,7 @@ namespace Chinchillada
     public class SerializableDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, TValue>, 
                                                         ISerializationCallbackReceiver
     {
-        [SerializeField] private Entry[] entries;
+        [SerializeField, TableList] private Entry[] entries;
 
         private Dictionary<TKey, TValue> dictionary;
 
