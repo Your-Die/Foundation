@@ -13,16 +13,16 @@
         public FlexVariableType type;
 
         [HideLabel]
-        [OdinSerialize]
+        [SerializeField]
         [ShowIf(nameof(type), FlexVariableType.Constant)]
         private T value;
 
-        [OdinSerialize]
+        [SerializeReference]
         [HideLabel]
         [ShowIf(nameof(type), FlexVariableType.Source)]
         private ISource<T> source;
 
-        [OdinSerialize]
+        [SerializeReference]
         [HideLabel]
         [ShowIf(nameof(type), FlexVariableType.Generator)]
         private IGenerator<T> generator;
