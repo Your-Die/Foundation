@@ -24,5 +24,13 @@ namespace Chinchillada.Foundation
             var gameObject = new GameObject(typeof(T).Name);
             return gameObject.AddComponent<T>();
         }
+        
+        
+        public static bool IsNull(object target)
+        {
+            return target is Object unityObject 
+                ? unityObject == null 
+                : target == null;
+        }
     }
 }
