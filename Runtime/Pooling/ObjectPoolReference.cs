@@ -40,8 +40,10 @@ namespace Chinchillada
 
         public void Return(GameObject obj)
         {
-            this.EnsurePool();
-            this.pool.Return(obj);
+            if (this.pool)
+            {
+                this.pool.Return(obj);
+            }
         }
         
         private void EnsurePool()
