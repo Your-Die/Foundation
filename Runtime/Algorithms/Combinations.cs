@@ -28,9 +28,6 @@ namespace Foundation.Algorithms
         /// <returns>All the combinations of lengths in the interval of [0, <paramref name="maxLength"/>].</returns>
         public static IEnumerable<T[]> Generate<T>(IList<T> items, int maxLength)
         {
-            // The combination of length 0 (Empty).
-            yield return new T[0];
-            
             // Generate the length-1 combinations (The individual elements).
             var layer = new List<int[]>();
             for (var index = 0; index < items.Count; index++)
