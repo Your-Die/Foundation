@@ -2,8 +2,6 @@ namespace Chinchillada
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Sirenix.OdinInspector;
-    using Sirenix.Serialization;
 
     public class WeightedCollection<T> : IDistribution<T>
     {
@@ -35,10 +33,8 @@ namespace Chinchillada
 
             return items.Last();
         }
-
-       
     }
-    
+
     public class WeightedCollectionFactory : IDistributionFactory
     {
         public IDistribution<T> BuildDistribution<T>(IDictionary<T, float> items)
