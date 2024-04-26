@@ -5,7 +5,7 @@
     using Random = UnityEngine.Random;
 
     [Serializable]
-    public class UnityRandom : IRNG
+    public class UnityRandom : Strategy, IRNG
     {
         public static readonly UnityRandom Shared = new UnityRandom();
         
