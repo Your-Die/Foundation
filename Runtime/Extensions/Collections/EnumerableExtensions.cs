@@ -27,7 +27,15 @@ namespace Chinchillada
                 yield return (itemInFirst, itemInSecond);
         }
 
-        public static (T item, int amount) Mode<T>(this IEnumerable<T> enumerable)
+        public static T Mode<T>(this IEnumerable<T> enumerable)
+        {
+            var groups = enumerable.GroupBy(item => item);
+            var biggestGroup = groups.ArgMax(group => group.Count());
+
+            return biggestGroup.Key;
+        }
+        
+        public static (T item, int amount) ModeWithAmount<T>(this IEnumerable<T> enumerable)
         {
             var groups       = enumerable.GroupBy(x => x);
             var biggestGroup = groups.ArgMax(group => group.Count());
