@@ -126,6 +126,18 @@ namespace Chinchillada
             }
         }
 
+        public static IEnumerable<Vector2Int> GetNeighborsDiagonal(this Vector2Int center)
+        {
+            for (int y = -1; y <= 1; y++)
+            for (int x = -1; x <= 1; x++)
+            {
+                if (x == center.x && y == center.y)
+                    continue;
+
+                yield return  center + new Vector2Int(x, y);
+            }
+        }
+
         public static int ManhattanDistance(this Vector2Int vector, Vector2Int other)
         {
             var xDistance = Mathf.Abs(vector.x - other.x);
