@@ -1,23 +1,25 @@
-﻿namespace Chinchillada
+﻿using System;
+
+namespace Chinchillada
 {
     using System.Collections.Generic;
 
-    public interface IGenerator<T>
+    public interface IObservableGenerator<T> : IGenerator<T>
     {
-        T Generate();
+        event Action<T> Generated;
     }
-
-    public interface IRandomGenerator<out T>
+    
+    public interface IGenerator<out T>
     {
         T Generate(IRNG random);
     }
 
     public static class GeneratorExtensions
     {
-        public static IEnumerable<T> Generate<T>(this IGenerator<T> generator, int amount)
+        public static IEnumerable<T> Generate<T>(this IGenerator<T> generator, int amount, IRNG random)
         {
             for (var i = 0; i < amount; i++)
-                yield return generator.Generate();
+                yield return generator.Generate(random);
         }
     }
 }
