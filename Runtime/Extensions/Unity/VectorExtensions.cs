@@ -4,8 +4,6 @@ using UnityEngine;
 
 namespace Chinchillada
 {
-    using System;
-
     public static class VectorExtensions
     {
         public static (int x, int y, int z) ToTuple(this Vector3Int vector) => (vector.x, vector.y, vector.z);
