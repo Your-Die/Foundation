@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace _Projects.State_Machine.Utility
+namespace Chinchillada
 {
     public class PriorityQueue<TContent, TPriority> : IPriorityQueue<TContent, TPriority> 
         where TPriority : IComparable<TPriority>
