@@ -17,6 +17,8 @@
 
     public static class RNGExtensions
     {
+        public static int Int(this IRNG rng) => rng.Range(int.MinValue, int.MaxValue);
+
         public static IEnumerable<T> Repeat<T>(this IRNG rng, Func<IRNG, T> generator)
         {
             while (true)
