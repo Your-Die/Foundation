@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace _Projects.State_Machine.Utility
+namespace Chinchillada
 {
     public interface IPriorityQueue<TItem, in TPriority> : IReadOnlyCollection<TItem>
         where TPriority : IComparable<TPriority>
