@@ -28,5 +28,7 @@ namespace Chinchillada
             item = this.item;
             weight = this.weight;
         }
+
+        public override string ToString() => $"{this.item}, w:{this.weight}";
     }
 }
