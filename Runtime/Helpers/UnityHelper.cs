@@ -12,7 +12,7 @@ namespace Chinchillada
         /// </summary>
         public static T FindOrCreate<T>() where T : Component
         {
-            T instance = Object.FindObjectOfType<T>();
+            var instance = Object.FindFirstObjectByType<T>();
             return instance != null ? instance : CreateObject<T>();
         }
 
