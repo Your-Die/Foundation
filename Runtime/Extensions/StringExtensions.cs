@@ -18,9 +18,16 @@ namespace Chinchillada
             return lower + text.Substring(1);
         }
 
-        public static string JoinWithNewLine(this IEnumerable<object> items)
+        public static string JoinWithNewLine<T>(this IEnumerable<T> items)
         {
-            return string.Join(Environment.NewLine, items);
+            return items.JoinWith(Environment.NewLine);
         }
+
+        public static string JoinWithComma<T>(this IEnumerable<T> items)
+        {
+            return items.JoinWith(", ");
+        }
+
+        public static string JoinWith<T>(this IEnumerable<T> items, string separator) => string.Join(separator, items);
     }
 }
