@@ -11,5 +11,6 @@ namespace Chinchillada
         TItem Pop();
 
         TItem Peek();
+        void Clear();
     }
 }

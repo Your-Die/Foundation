@@ -3,6 +3,9 @@ namespace Chinchillada
     using System.Collections;
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Last in, first out.
+    /// </summary>
     public class LifoQueue<T> : IQueue<T>
     {
         private readonly Stack<T> stack = new Stack<T>();

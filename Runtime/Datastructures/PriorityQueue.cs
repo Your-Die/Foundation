@@ -45,6 +45,8 @@ namespace Chinchillada
             return highestPriority.Content;
         }
 
+        public void Clear() => this.set.Clear();
+
         private struct Item
         {
             public TContent Content { get; set; }

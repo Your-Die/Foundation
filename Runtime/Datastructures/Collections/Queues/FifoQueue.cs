@@ -3,6 +3,9 @@ namespace Chinchillada
     using System.Collections;
     using System.Collections.Generic;
 
+    /// <summary>
+    /// First in, first out.
+    /// </summary>
     public class FifoQueue<T> : IQueue<T>
     {
         private readonly Queue<T> queue = new Queue<T>();

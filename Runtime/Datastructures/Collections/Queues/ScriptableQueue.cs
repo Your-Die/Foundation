@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Chinchillada
 {
-    public class ScriptableQueue<T> : SerializedScriptableObject, IQueue<T>
+    public class ScriptableQueue<T> : ScriptableObject, IQueue<T>
     {
-        [SerializeField] private IQueue<T> queue;
+        [SerializeReference] private IQueue<T> queue;
 
         public int Count => this.queue.Count;
 
