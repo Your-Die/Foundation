@@ -15,14 +15,10 @@ namespace Chinchillada
 
         public int Range(int min, int max, bool inclusive = false) => this.random.Range(min, max, inclusive);
 
-        public void Initialize() => this.random.Initialize();
-
         [Serializable]
         public class Reference : IRNG
         {
             [SerializeField] private RNGComponent component;
-
-            public void Initialize() => this.component.Initialize();
 
             public void SetSeed(int seed) => this.component.SetSeed(seed);
 

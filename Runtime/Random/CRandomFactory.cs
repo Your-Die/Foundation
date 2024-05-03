@@ -4,10 +4,10 @@ namespace Chinchillada
     using UnityEngine;
 
     [Serializable]
-    public class CRandomFactory : IFactory<CRandom>
+    public class CRandomFactory : IFactory<SerializableRandom>
     {
         [SerializeField] private int seed;
 
-        public CRandom Create() => new CRandom(this.seed);
+        public SerializableRandom Create() => new SerializableRandom(this.seed);
     }
 }

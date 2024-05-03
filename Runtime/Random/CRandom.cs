@@ -1,48 +1,26 @@
-﻿namespace Chinchillada
+﻿using System;
+
+namespace Chinchillada
 {
-    using System;
-    using Sirenix.OdinInspector;
-    using Sirenix.Serialization;
-    using UnityEngine;
-    using Random = System.Random;
-
-    [Serializable]
-    public class CRandom : IRNG, ISerializationCallbackReceiver
+    public class CRandom : IRNG
     {
-        [SerializeField] private bool useRandomSeed;
-
-        [SerializeReference]
-        [ShowIf(nameof(useRandomSeed))]
-        private IRandomSeedStrategy seedStrategy = new FrameCountSeed();
-
-        [SerializeField]
-        [HideIf(nameof(useRandomSeed))]
-        private int seed;
-
         private Random random;
-
-        [ShowInInspector] [ReadOnly] private int runtimeSeed;
-
+        
         public CRandom(int seed)
         {
-            this.seed          = seed;
-            this.useRandomSeed = false;
+            SetSeed(seed);
         }
 
-
-        [Button]
         public void Initialize()
         {
-            this.runtimeSeed = this.useRandomSeed
-                ? this.seedStrategy.GenerateSeed()
-                : this.seed;
-
-            this.random = new Random(this.runtimeSeed);
         }
 
-        public void SetSeed(int newSeed) => this.random = new Random(newSeed);
+        public void SetSeed(int seed) => this.random = new Random(seed);
 
-        public float Float() => (float) this.random.NextDouble();
+        public float Float()
+        {
+            return (float)this.random.NextDouble();
+        }
 
         public float Range(float min, float max)
         {
@@ -55,9 +33,5 @@
             if (inclusive) max++;
             return this.random.Next(min, max);
         }
-
-        public void OnBeforeSerialize() { }
-
-        public void OnAfterDeserialize() => this.Initialize();
     }
 }

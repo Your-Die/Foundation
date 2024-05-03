@@ -7,7 +7,7 @@
     using Chinchillada;
     using UnityEngine;
 
-    public interface IRNG : IInitializable
+    public interface IRNG
     {
         void SetSeed(int seed);
         float Float();
