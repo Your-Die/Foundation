@@ -12,7 +12,7 @@ namespace Chinchillada.Foundation
     /// </summary> 
     public abstract class SharedVariable<T> : ScriptableObject, IListenable<T>,
         ISource<T>,
-        ISerializationCallbackReceiver where T : IEquatable<T>
+        ISerializationCallbackReceiver 
     {
         [FormerlySerializedAs("_initialValue")]
         [SerializeField]
