@@ -11,7 +11,11 @@ namespace Chinchillada.Foundation
     {
         public abstract void Apply(MonoBehaviour behaviour, object obj, FieldInfo field);
 
-        public abstract void Apply(MonoBehaviour behaviour, object obj, FieldInfo field, SearchStrategy searchStrategy);
+        public abstract void Apply(MonoBehaviour behaviour,
+                                   object obj,
+                                   FieldInfo field,
+                                   SearchStrategy searchStrategy,
+                                   string tag);
         
         public static void ApplyAttribute<TAttribute>(MonoBehaviour behaviour, object obj = null) 
             where TAttribute : ComponentFinderAttribute
@@ -29,7 +33,7 @@ namespace Chinchillada.Foundation
             var attributedFields = AttributeHelper.GetAttributedFields<TAttribute>(obj);
 
             foreach (var (field, attribute) in attributedFields)
-                attribute.Apply(behaviour, obj, field, strategy);
+                attribute.Apply(behaviour, obj, field, strategy, TODO);
         }
     }
 }

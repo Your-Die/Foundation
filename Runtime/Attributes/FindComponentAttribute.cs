@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using System.Reflection;
@@ -18,44 +17,56 @@ namespace Chinchillada.Foundation
         /// </summary>
         private readonly SearchStrategy strategy;
 
+        private readonly string tag;
+
         /// <summary>
         /// Constructs a new <see cref="FindComponentAttribute"/>.
         /// </summary>
         /// <param name="strategy">The search <see cref="SearchStrategy"/> that we want to use when looking for matching components.</param>
-        public FindComponentAttribute(SearchStrategy strategy = SearchStrategy.FindComponent)
+        public FindComponentAttribute(SearchStrategy strategy = SearchStrategy.FindComponent, string tag = null)
         {
             this.strategy = strategy;
+            this.tag = tag;
         }
 
         /// <inheritdoc />
         public override void Apply(MonoBehaviour behaviour, object obj, FieldInfo field)
         {
-            this.Apply(behaviour, obj, field, this.strategy);
+            this.Apply(behaviour, obj, field, this.strategy, this.tag);
         }
 
-        public override void Apply(MonoBehaviour behaviour, object obj, FieldInfo field, SearchStrategy searchStrategy)
+        public override void Apply(MonoBehaviour behaviour,
+                                   object obj,
+                                   FieldInfo field,
+                                   SearchStrategy searchStrategy,
+                                   string searchTag)
         {
             var value = field.GetValue(obj);
 
             if (value is IList)
-                ResolveCollection(behaviour, obj, field, this.strategy);
+                ResolveCollection(behaviour, obj, field, searchStrategy, searchTag);
             else
-                ResolveField(behaviour, obj, field, searchStrategy);
+                ResolveField(behaviour, obj, field, searchStrategy, searchTag);
         }
 
-
-
-        private static void ResolveField(Component behaviour, object obj, FieldInfo field, SearchStrategy strategy)
+        private static void ResolveField(Component behaviour, object obj, FieldInfo field, SearchStrategy strategy, string tag)
         {
             var fieldValue = field.GetValue(obj);
             if (!Equality.UnityNull(fieldValue))
                 return;
 
-            var result = strategy.FindComponent(behaviour.gameObject, field.FieldType);
+            var result = tag != null
+                ? strategy.FindComponent(behaviour.gameObject, field.FieldType, tag)
+                : strategy.FindComponent(behaviour.gameObject, field.FieldType);
+                
             field.SetValue(obj, result);
         }
 
-        private static void ResolveCollection(Component behaviour, object obj, FieldInfo field, SearchStrategy strategy)
+        private static void ResolveCollection(Component behaviour,
+                                              object obj,
+                                              FieldInfo field,
+                                              SearchStrategy strategy,
+                                              string searchTag)
         {
             if (field.FieldType.IsGenericType == false)
             {
@@ -81,8 +92,11 @@ namespace Chinchillada.Foundation
                 return;
 
             var list = (IList) fieldValue;
-            
-            var items = strategy.FindComponents(behaviour.gameObject, itemType);
+
+            var items = searchTag != null
+                ? strategy.FindComponents(behaviour.gameObject, itemType, searchTag)
+                : strategy.FindComponents(behaviour.gameObject, itemType);
+                
             var newItems = items.Except(IsInvalid);
 
             foreach (var item in newItems.ToArray())

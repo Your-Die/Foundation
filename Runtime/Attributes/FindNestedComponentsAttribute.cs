@@ -12,7 +12,11 @@ namespace Chinchillada.Foundation
             ApplyInternal(behaviour, obj, field, null);
         }
 
-        public override void Apply(MonoBehaviour behaviour, object obj, FieldInfo field, SearchStrategy searchStrategy)
+        public override void Apply(MonoBehaviour behaviour,
+                                   object obj,
+                                   FieldInfo field,
+                                   SearchStrategy searchStrategy,
+                                   string tag)
         {
             ApplyInternal(behaviour, obj, field, searchStrategy);
         }
@@ -42,7 +46,7 @@ namespace Chinchillada.Foundation
             else
             {
                 foreach (var (nestedField, attribute) in nestedFields)
-                    attribute.Apply(behaviour, nestedObject, nestedField, strategy.Value);
+                    attribute.Apply(behaviour, nestedObject, nestedField, strategy.Value, TODO);
             }
         }
 

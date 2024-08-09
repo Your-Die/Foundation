@@ -39,7 +39,7 @@ namespace Chinchillada.Foundation
                     throw new ArgumentOutOfRangeException(nameof(strategy), strategy, null);
             }
         }
-
+        
         public static IEnumerable<T> FindComponents<T>(this SearchStrategy strategy, GameObject gameObject)
         {
             switch (strategy)
@@ -86,5 +86,36 @@ namespace Chinchillada.Foundation
                     throw new ArgumentOutOfRangeException();
             }
         }
+
+        #region Tags
+
+        public static T FindComponent<T>(this SearchStrategy strategy, GameObject gameObject, string tag) 
+            where T : Component
+        {
+            return strategy.FindComponents<T>(gameObject, tag).FirstOrDefault();
+        }
+
+        public static IEnumerable<T> FindComponents<T>(this SearchStrategy strategy, GameObject gameObject, string tag) 
+            where T : Component
+        {
+            return strategy.FindComponents<T>(gameObject).WithTag(tag);
+        }
+
+        public static Component FindComponent(this SearchStrategy strategy,
+                                              GameObject gameObject,
+                                              Type type,
+                                              string tag)
+        {
+            return strategy.FindComponents(gameObject, type, tag).FirstOrDefault();
+        }
+
+        public static IEnumerable<Component> FindComponents(this SearchStrategy strategy,
+                                                            GameObject gameObject,
+                                                            Type type, string tag)
+        {
+            return strategy.FindComponents(gameObject, type).WithTag(tag);
+        }
+        
+        #endregion
     }
 }

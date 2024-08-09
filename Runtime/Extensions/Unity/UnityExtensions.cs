@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Chinchillada.Foundation
@@ -28,6 +29,17 @@ namespace Chinchillada.Foundation
                 Object.Destroy(item.gameObject);
             
             list.Clear();
+        }
+        
+        
+        public static IEnumerable<T> WithTag<T>(this IEnumerable<T> items, string tag) where T : Component
+        {
+            return items.Where(item => item.gameObject.CompareTag(tag));
+        }
+
+        public static IEnumerable<GameObject> WithTag<T>(this IEnumerable<GameObject> gameObjects, string tag)
+        {
+            return gameObjects.Where(gameObject => gameObject.CompareTag(tag));
         }
     }
 }
