@@ -22,31 +22,33 @@ namespace Chinchillada.Foundation
         /// <summary>
         /// Constructs a new <see cref="FindComponentAttribute"/>.
         /// </summary>
-        /// <param name="strategy">The search <see cref="SearchStrategy"/> that we want to use when looking for matching components.</param>
+        /// <param name="strategy">
+        /// The search <see cref="SearchStrategy"/> that we want to use when looking for matching components.
+        /// </param>
+        /// <param name="tag">
+        /// If provided, the search will only accept components on gameObjects with the matching tag.
+        /// </param>
         public FindComponentAttribute(SearchStrategy strategy = SearchStrategy.FindComponent, string tag = null)
         {
             this.strategy = strategy;
             this.tag = tag;
         }
 
-        /// <inheritdoc />
-        public override void Apply(MonoBehaviour behaviour, object obj, FieldInfo field)
-        {
-            this.Apply(behaviour, obj, field, this.strategy, this.tag);
-        }
-
         public override void Apply(MonoBehaviour behaviour,
                                    object obj,
                                    FieldInfo field,
-                                   SearchStrategy searchStrategy,
-                                   string searchTag)
+                                   SearchStrategy? searchStrategy = null,
+                                   string searchTag = null)
         {
+            searchStrategy ??= this.strategy;
+            searchTag ??= this.tag;
+            
             var value = field.GetValue(obj);
 
             if (value is IList)
-                ResolveCollection(behaviour, obj, field, searchStrategy, searchTag);
+                ResolveCollection(behaviour, obj, field, searchStrategy.Value, searchTag);
             else
-                ResolveField(behaviour, obj, field, searchStrategy, searchTag);
+                ResolveField(behaviour, obj, field, searchStrategy.Value, searchTag);
         }
 
         private static void ResolveField(Component behaviour, object obj, FieldInfo field, SearchStrategy strategy, string tag)

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Reflection;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Chinchillada.Foundation
@@ -9,13 +10,11 @@ namespace Chinchillada.Foundation
     /// </summary>
     public abstract class ComponentFinderAttribute : PropertyAttribute
     {
-        public abstract void Apply(MonoBehaviour behaviour, object obj, FieldInfo field);
-
         public abstract void Apply(MonoBehaviour behaviour,
                                    object obj,
                                    FieldInfo field,
-                                   SearchStrategy searchStrategy,
-                                   string tag);
+                                   SearchStrategy? strategyOverride = null,
+                                   [CanBeNull] string tagOverride = null);
 
         public static void ApplyAttribute<TAttribute>(MonoBehaviour behaviour, object obj = null)
             where TAttribute : ComponentFinderAttribute
