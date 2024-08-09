@@ -16,24 +16,27 @@ namespace Chinchillada.Foundation
                                    FieldInfo field,
                                    SearchStrategy searchStrategy,
                                    string tag);
-        
-        public static void ApplyAttribute<TAttribute>(MonoBehaviour behaviour, object obj = null) 
+
+        public static void ApplyAttribute<TAttribute>(MonoBehaviour behaviour, object obj = null)
             where TAttribute : ComponentFinderAttribute
         {
-            obj = obj ?? behaviour;
+            obj ??= behaviour;
             var attributedFields = AttributeHelper.GetAttributedFields<TAttribute>(obj);
 
             foreach (var (field, attribute) in attributedFields)
                 attribute.Apply(behaviour, obj, field);
-        }       
-        public static void ApplyAttribute<TAttribute>(MonoBehaviour behaviour, SearchStrategy strategy, object obj = null) 
-            where TAttribute : ComponentFinderAttribute
+        }
+
+        public static void ApplyAttribute<TAttribute>(MonoBehaviour behaviour,
+                                                      SearchStrategy strategy,
+                                                      object obj = null,
+                                                      string tag = null) where TAttribute : ComponentFinderAttribute
         {
-            obj = obj ?? behaviour;
+            obj ??= behaviour;
             var attributedFields = AttributeHelper.GetAttributedFields<TAttribute>(obj);
 
             foreach (var (field, attribute) in attributedFields)
-                attribute.Apply(behaviour, obj, field, strategy, TODO);
+                attribute.Apply(behaviour, obj, field, strategy, tag);
         }
     }
 }
