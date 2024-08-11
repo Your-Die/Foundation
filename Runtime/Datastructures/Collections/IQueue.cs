@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Chinchillada.Foundation
+namespace Chinchillada
 {
     public interface IQueue<T> : IReadOnlyCollection<T>
     {
@@ -9,5 +9,9 @@ namespace Chinchillada.Foundation
         T Dequeue();
 
         T Peek();
+    }
+
+    public interface IQueueCollection<T> : IQueue<T>, ICollection<T>
+    {
     }
 }
