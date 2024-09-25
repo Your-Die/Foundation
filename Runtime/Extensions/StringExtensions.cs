@@ -44,5 +44,15 @@ namespace Chinchillada.Foundation
         {
             return $"{prefix}{text}{postfix}";
         }
+
+        public static string JoinWithCommas<T>(this IEnumerable<T> items)
+        {
+            return items.JoinWith(", ");
+        }
+
+        public static string JoinWith<T>(this IEnumerable<T> items, string separator)
+        {
+            return string.Join(separator, items);
+        }
     }
 }
