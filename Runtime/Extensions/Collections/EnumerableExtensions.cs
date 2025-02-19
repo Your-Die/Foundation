@@ -4,8 +4,6 @@ using System.Linq;
 
 namespace Chinchillada.Foundation
 {
-    using UnityEditor.UIElements;
-
     /// <summary>
     /// Class containing extension methods for <see cref="IEnumerable{T}"/>.
     /// </summary>
