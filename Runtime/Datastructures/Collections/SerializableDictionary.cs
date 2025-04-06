@@ -23,6 +23,7 @@ namespace Chinchillada
 
         public void OnBeforeSerialize()
         {
+            this.entries = this.dictionary.Select(pair => new Entry(pair.Key,  pair.Value )).ToArray();
         }
 
         public void OnAfterDeserialize()
@@ -34,7 +35,11 @@ namespace Chinchillada
         
         #region IDictionary (Delegates to dictionary)
 
-        public TValue this[TKey key] => this.dictionary[key];
+        public TValue this[TKey key]
+        {
+            get => this.dictionary[key];
+            set => this.dictionary[key] = value;
+        }
 
         public IEnumerable<TKey> Keys => this.dictionary.Keys;
 
@@ -47,7 +52,7 @@ namespace Chinchillada
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return ((IEnumerable)this.dictionary).GetEnumerator();
+            return ((IEnumerable)this.dictionary)?.GetEnumerator();
         }
 
         public int Count => this.dictionary.Count;
