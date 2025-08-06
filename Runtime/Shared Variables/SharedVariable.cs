@@ -47,6 +47,8 @@ namespace Chinchillada.Foundation
         }
 
         public T GetValue() => this.Value;
+        
+        public T GetInitialValue() => this.initialValue;
 
         /// <summary>
         /// Resets the variable to the initial value.
