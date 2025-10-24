@@ -20,10 +20,10 @@ namespace Chinchillada.Foundation
             where TAttribute : ComponentFinderAttribute
         {
             obj ??= behaviour;
-            var attributedFields = AttributeHelper.GetAttributedFields<TAttribute>(obj);
-
-            foreach (var (field, attribute) in attributedFields)
+            AttributeHelper.ForEachAttributedField<TAttribute>(obj, (field, attribute) =>
+            {
                 attribute.Apply(behaviour, obj, field);
+            });
         }
 
         public static void ApplyAttribute<TAttribute>(MonoBehaviour behaviour,
@@ -32,10 +32,11 @@ namespace Chinchillada.Foundation
                                                       string tag = null) where TAttribute : ComponentFinderAttribute
         {
             obj ??= behaviour;
-            var attributedFields = AttributeHelper.GetAttributedFields<TAttribute>(obj);
-
-            foreach (var (field, attribute) in attributedFields)
+      
+            AttributeHelper.ForEachAttributedField<TAttribute>(obj, (field, attribute) =>
+            {
                 attribute.Apply(behaviour, obj, field, strategy, tag);
+            });
         }
     }
 }

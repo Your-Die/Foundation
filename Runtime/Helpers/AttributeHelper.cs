@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Sirenix.Utilities;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -12,44 +12,45 @@ namespace Chinchillada.Foundation
     /// </summary>
     public static class AttributeHelper
     {
-        public static IEnumerable<(FieldInfo field, TAttribute)> GetAttributedFields<TAttribute>(object obj)
+        public static void ForEachAttributedField<TAttribute>(object obj, Action<FieldInfo, TAttribute> action)
             where TAttribute : PropertyAttribute
         {
-            if (obj==null)
-                yield break;
+            if (obj == null)
+                return;
 
-            var type   = obj.GetType();
-            var fields = GetAllFields(type);
-
-            foreach (var field in fields)
+            Type type = obj.GetType();
+            
+            ForEachField(type, field =>
             {
-                var attributes = field.GetCustomAttributes(typeof(TAttribute)).ToList();
-                if (attributes.IsEmpty())
-                    continue;
+                Attribute attribute = field.GetCustomAttributes(typeof(TAttribute)).FirstOrDefault();
 
-                var attribute = (TAttribute) attributes.First();
-                yield return (field, attribute);
-            }
+                var typedAttribute = (TAttribute)attribute;
+                action(field, typedAttribute);
+            });
         }
 
-        public static IEnumerable<FieldInfo> GetAllFields(Type type)
+        public static void ForEachField(Type type, Action<FieldInfo> action)
         {
-            const BindingFlags bindingFlags = BindingFlags.Instance     |
+            const BindingFlags bindingFlags = BindingFlags.Instance |
                                               BindingFlags.DeclaredOnly |
-                                              BindingFlags.NonPublic    |
+                                              BindingFlags.NonPublic |
                                               BindingFlags.Public;
 
-            var types = GetBaseClasses(type, true);
-            return types.SelectMany(baseType => baseType.GetFields(bindingFlags));
+            ForEachBaseClass(type, baseClass =>
+            {
+                var fields = baseClass.GetFields(bindingFlags);
+                foreach (FieldInfo field in fields)
+                    action(field);
+            });
         }
 
-        public static IEnumerable<Type> GetBaseClasses(Type type, bool includeSelf = false)
+        public static void ForEachBaseClass(Type type, Action<Type> action, bool includeSelf = false)
         {
             if (includeSelf)
-                yield return type;
+                action(type);
 
-            for (var current = type.BaseType; current != null; current = current.BaseType)
-                yield return current;
+            for (Type current = type.BaseType; current != null; current = current.BaseType)
+                action(current);
         }
     }
 }

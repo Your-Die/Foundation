@@ -29,10 +29,10 @@ namespace Chinchillada.Foundation
                                                 SearchStrategy? strategy,
                                                 string tag)
         {
-            var nestedFields = AttributeHelper.GetAttributedFields<ComponentFinderAttribute>(nestedObject);
-            
-            foreach (var (nestedField, attribute) in nestedFields)
+            AttributeHelper.ForEachAttributedField<ComponentFinderAttribute>(nestedObject, (nestedField, attribute) =>
+            {
                 attribute.Apply(behaviour, nestedObject, nestedField, strategy, tag);
+            });
         }
 
         private static void ResolveNestedCollection(MonoBehaviour behaviour,
