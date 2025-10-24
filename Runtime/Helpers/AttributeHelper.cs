@@ -23,7 +23,9 @@ namespace Chinchillada.Foundation
             ForEachField(type, field =>
             {
                 Attribute attribute = field.GetCustomAttributes(typeof(TAttribute)).FirstOrDefault();
-
+                if (attribute == null)
+                    return;
+                
                 var typedAttribute = (TAttribute)attribute;
                 action(field, typedAttribute);
             });
