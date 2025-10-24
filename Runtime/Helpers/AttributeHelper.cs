@@ -7,52 +7,44 @@ using Object = UnityEngine.Object;
 
 namespace Chinchillada.Foundation
 {
+    public interface IPerformantAction<in TFirst, in TSecond>
+    {
+        void Invoke(TFirst first, TSecond second);
+    }
+
     /// <summary>
     /// Static class containing helper functions for use with attributes.
     /// </summary>
     public static class AttributeHelper
     {
-        public static void ForEachAttributedField<TAttribute>(object obj, Action<FieldInfo, TAttribute> action)
+        public static void ForEachAttributedField<TAction, TAttribute>(object obj, ref TAction action)
+            where TAction : struct, IPerformantAction<FieldInfo, TAttribute>
             where TAttribute : PropertyAttribute
         {
             if (obj == null)
                 return;
 
             Type type = obj.GetType();
-            
-            ForEachField(type, field =>
-            {
-                Attribute attribute = field.GetCustomAttributes(typeof(TAttribute)).FirstOrDefault();
-                if (attribute == null)
-                    return;
-                
-                var typedAttribute = (TAttribute)attribute;
-                action(field, typedAttribute);
-            });
-        }
 
-        public static void ForEachField(Type type, Action<FieldInfo> action)
-        {
             const BindingFlags bindingFlags = BindingFlags.Instance |
                                               BindingFlags.DeclaredOnly |
                                               BindingFlags.NonPublic |
                                               BindingFlags.Public;
 
-            ForEachBaseClass(type, baseClass =>
+
+            for (Type current = type; current != null; current = current.BaseType)
             {
-                var fields = baseClass.GetFields(bindingFlags);
+                var fields = current.GetFields(bindingFlags);
                 foreach (FieldInfo field in fields)
-                    action(field);
-            }, true);
-        }
+                {
+                    Attribute attribute = field.GetCustomAttributes(typeof(TAttribute)).FirstOrDefault();
+                    if (attribute == null)
+                        continue;
 
-        public static void ForEachBaseClass(Type type, Action<Type> action, bool includeSelf = false)
-        {
-            if (includeSelf)
-                action(type);
-
-            for (Type current = type.BaseType; current != null; current = current.BaseType)
-                action(current);
+                    var typedAttribute = (TAttribute)attribute;
+                    action.Invoke(field, typedAttribute);
+                }
+            }
         }
     }
 }

@@ -24,15 +24,14 @@ namespace Chinchillada.Foundation
                 ResolveNestedObject(behaviour, nestedObject, strategyOverride, tagOverride);
         }
 
+
         private static void ResolveNestedObject(MonoBehaviour behaviour,
                                                 object nestedObject,
                                                 SearchStrategy? strategy,
                                                 string tag)
         {
-            AttributeHelper.ForEachAttributedField<ComponentFinderAttribute>(nestedObject, (nestedField, attribute) =>
-            {
-                attribute.Apply(behaviour, nestedObject, nestedField, strategy, tag);
-            });
+            var action = new NestedAttributeAction<ComponentFinderAttribute>(behaviour, nestedObject, strategy, tag);
+            AttributeHelper.ForEachAttributedField<NestedAttributeAction<ComponentFinderAttribute>, ComponentFinderAttribute>(nestedObject, ref action);
         }
 
         private static void ResolveNestedCollection(MonoBehaviour behaviour,
@@ -40,8 +39,33 @@ namespace Chinchillada.Foundation
                                                     SearchStrategy? strategy,
                                                     string tag)
         {
-            foreach (var nestedObject in collection)
+            foreach (var nestedObject in collection) 
                 ResolveNestedObject(behaviour, nestedObject, strategy, tag);
+        }
+
+        private readonly struct NestedAttributeAction<TAttribute> : IPerformantAction<FieldInfo, TAttribute>
+            where TAttribute : ComponentFinderAttribute
+        {
+            private readonly MonoBehaviour  behaviour;
+            private readonly object         nestedObject;
+            private readonly SearchStrategy? strategy;
+            private readonly string         tag;
+
+            public NestedAttributeAction(MonoBehaviour behaviour,
+                                         object nestedObject,
+                                         SearchStrategy? strategy,
+                                         string tag)
+            {
+                this.behaviour = behaviour;
+                this.nestedObject = nestedObject;
+                this.strategy = strategy;
+                this.tag = tag;
+            }
+
+            public void Invoke(FieldInfo field, TAttribute attribute)
+            {
+                attribute.Apply(this.behaviour, this.nestedObject, field, this.strategy, this.tag);
+            }
         }
     }
 }
