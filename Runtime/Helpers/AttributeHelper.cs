@@ -43,7 +43,7 @@ namespace Chinchillada.Foundation
                 var fields = baseClass.GetFields(bindingFlags);
                 foreach (FieldInfo field in fields)
                     action(field);
-            });
+            }, true);
         }
 
         public static void ForEachBaseClass(Type type, Action<Type> action, bool includeSelf = false)
