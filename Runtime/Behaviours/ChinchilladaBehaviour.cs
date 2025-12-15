@@ -9,9 +9,12 @@ namespace Chinchillada.Foundation
     /// </summary>
     public abstract class ChinchilladaBehaviour : SerializedMonoBehaviour, IComponent
     {
+        [SerializeField] private bool findComponentsOnAwake = false;
+        
         protected virtual void Awake()
         {
-            this.FindComponents();
+            if(findComponentsOnAwake)
+                this.FindComponents();
         }
 
         /// <summary>
